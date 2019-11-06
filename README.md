@@ -29,8 +29,9 @@ We use Expo to run the application.
 
 To Launch the front-end:  
 
-1. Run ``` sudo expo start ``` --- a QR Code should appear in the terminal (and browser)
-2. Scan the QR Code from within the Expo app on your phone
+1. Run ``` sudo npm install ``` in `draftt/App/draftt/`
+2. Run ``` sudo npm start ``` --- a QR Code should appear in the terminal (and browser)
+3. Scan the QR Code from within the Expo app on your phone
 
 
 <br></br>
