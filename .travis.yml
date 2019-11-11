@@ -5,7 +5,9 @@ python:
 services:
   - docker
 
-before_script: pip install docker-compose
+before_script: 
+  - cd Server
+  - pip install docker-compose
 
 script:
   - docker-compose run app sh -c "python manage.py test && flake8"
