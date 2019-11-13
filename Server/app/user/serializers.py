@@ -5,6 +5,7 @@ from django.core.validators import validate_email, ValidationError
 import logging
 User = get_user_model()
 
+
 def val_email(email):
     try:
         validate_email(email)
@@ -19,12 +20,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('name','username','email', 'password')
+        fields = ('name', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
         """Create a new user with encrypted password and return it"""
         return get_user_model().objects.create_user(**validated_data)
+
 
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
@@ -43,23 +45,23 @@ class AuthTokenSerializer(serializers.Serializer):
             username = user.username
         else:
             username = username_or_email
-        logging.error("Error",username)
+        logging.error("Error", username)
         if username is not None:
-                user = authenticate(
-                    request = self.context.get('request'),
-                    username = username,
-                    password = attrs.get("password")
-                )
-                if user:
-                    if not user.is_active:
-                        msg = _('User account is disabled.')
-                        raise serializers.ValidationError(msg)
+            user = authenticate(
+                request=self.context.get('request'),
+                username=username,
+                password=attrs.get("password")
+            )
+            if user:
+                if not user.is_active:
+                    msg = _('User account is disabled.')
+                    raise serializers.ValidationError(msg)
 
-                    attrs['user'] = user
-                    return attrs
-                else:
-                    msg = _('Unable to log in with provided credentials.')
-                    raise serializers.ValidationError(msg, code='authorization')
+                attrs['user'] = user
+                return attrs
+            else:
+                msg = _('Unable to log in with provided credentials.')
+                raise serializers.ValidationError(msg, code='authorization')
         else:
             msg = _('Account with this email/username does not exists')
             raise serializers.ValidationError(msg, code='authorization')
