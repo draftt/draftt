@@ -47,7 +47,7 @@ Server
 │ │ ├── admin.py  			# Django Admin Configs
 │ │ ├── apps.py  
 │ │ └── models.py  			# Models for database
-│ ├── user
+│ ├── user				# User handling api endpoint
 │ │ ├── tests
 │ │ │   └── test_user_api.py    	#Tests for users API endpoint
 │ │ ├── apps.py
