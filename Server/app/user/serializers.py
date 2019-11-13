@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email, ValidationError
 User = get_user_model()
 
-
+# Validates email
 def val_email(email):
     try:
         validate_email(email)
