@@ -20,7 +20,7 @@ This folder contains the backend for the application. It is built using Django, 
  Once the development environment is set up, you will need to create admin user to accessing Django Admin. To do so:
  - `docker-compose run app sh -c "python manage.py createsuperuser`
  - Enter email and password to set it up.
- - Open `localhost:8000` in browser.
+ - Open `localhost:8000/admin` in browser.
 
 
 ## Application Structure
