@@ -10,6 +10,7 @@ CREATE_USER_URL = reverse('user:create')
 LOGIN_URL = reverse('user:login')
 ACCOUNT_URL = reverse('user:account')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
@@ -109,6 +110,7 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
+
 class PrivateUserApiTests(TestCase):
     """Test API that requires authentication"""
 
@@ -124,30 +126,30 @@ class PrivateUserApiTests(TestCase):
 
     def test_retrieve_profile_success(self):
         """Test retrieving account data for logged in user"""
-        res= self.client.get(ACCOUNT_URL)
+        res = self.client.get(ACCOUNT_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data,{
+        self.assertEqual(res.data, {
             'name': self.user.name,
             'username': self.user.username,
             'email': self.user.email,
         })
-    
+
     def test_post_account_unallows(self):
         """Test that POST request is unallowed on the account page"""
-        res = self.client.post(ACCOUNT_URL,{})
+        res = self.client.post(ACCOUNT_URL, {})
 
-        self.assertEqual(res.status_code,status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_update_user_account(self):
         """Tests updating the account infor for authenticated users"""
-        payload={
+        payload = {
             'name': 'newusername',
             'password': 'newpassword123',
             'email': 'newtestemail@gmail.com',
             'username': 'newusername'
         }
-        res = self.client.patch(ACCOUNT_URL,payload)
+        res = self.client.patch(ACCOUNT_URL, payload)
 
         self.user.refresh_from_db()
         self.assertEqual(self.user.name, payload['name'])
@@ -155,4 +157,3 @@ class PrivateUserApiTests(TestCase):
         self.assertEqual(self.user.email, payload['email'])
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-
