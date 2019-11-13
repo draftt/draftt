@@ -9,14 +9,16 @@ class AdminSiteTests(TestCase):
 
         self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
-            email="admin@draftt.com",
+            username="admin",
+            email="testadmin@draftt.com",
             password="password"
         )
         self.client.force_login(self.admin_user)
         self.user = get_user_model().objects.create_user(
-            email='test@draftt.com',
+            username="testsubject",
             password="password",
-            name="Test user FullName"
+            name="Test Subject",
+            email="testsubject@draftt.com"
         )
 
     def test_users_listed(self):
@@ -25,7 +27,7 @@ class AdminSiteTests(TestCase):
         res = self.client.get(url)
 
         self.assertContains(res, self.user.name)
-        self.assertContains(res, self.user.email)
+        self.assertContains(res, self.user.username)
 
     def test_user_change_page(self):
         """Test if user editing page works"""
@@ -35,7 +37,7 @@ class AdminSiteTests(TestCase):
         """Check if HTTP response is ok (200)"""
         self.assertEqual(res.status_code, 200)
 
-    def test_create_user_age(self):
+    def test_create_user_page(self):
         """Test that the create user page works"""
         url = reverse('admin:core_user_add')
         res = self.client.get(url)

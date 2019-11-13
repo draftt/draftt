@@ -2,7 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email, ValidationError
-import logging
 User = get_user_model()
 
 
@@ -45,7 +44,6 @@ class AuthTokenSerializer(serializers.Serializer):
             username = user.username
         else:
             username = username_or_email
-        logging.error("Error", username)
         if username is not None:
             user = authenticate(
                 request=self.context.get('request'),
