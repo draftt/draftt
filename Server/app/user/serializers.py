@@ -1,14 +1,25 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import validate_email, ValidationError
+import logging
+User = get_user_model()
+
+def val_email(email):
+    try:
+        validate_email(email)
+        valid_email = True
+    except ValidationError:
+        valid_email = False
+    return valid_email
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for users object"""
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'name')
+        fields = ('name','username','email', 'password')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
@@ -17,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
-    email = serializers.CharField()
+    username_or_email = serializers.CharField()
     password = serializers.CharField(
         style={'input_type': 'password'},
         trim_whitespace=False
@@ -25,17 +36,30 @@ class AuthTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         """Validate and authenticate the user"""
-        email = attrs.get('email')
-        password = attrs.get('password')
 
-        user = authenticate(
-            request=self.context.get('request'),
-            username=email,
-            password=password
-        )
-        if not user:
-            msg = _('Authentication failed due to invalid credentials.')
+        username_or_email = attrs.get("username_or_email")
+        if (val_email(username_or_email)):
+            user = User.objects.get(email=username_or_email)
+            username = user.username
+        else:
+            username = username_or_email
+        logging.error("Error",username)
+        if username is not None:
+                user = authenticate(
+                    request = self.context.get('request'),
+                    username = username,
+                    password = attrs.get("password")
+                )
+                if user:
+                    if not user.is_active:
+                        msg = _('User account is disabled.')
+                        raise serializers.ValidationError(msg)
+
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    msg = _('Unable to log in with provided credentials.')
+                    raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = _('Account with this email/username does not exists')
             raise serializers.ValidationError(msg, code='authorization')
-
-        attrs['user'] = user
-        return attrs
