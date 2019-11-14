@@ -1,30 +1,35 @@
 
-## **Front-end FAQS**
+# draftt mobile app
 
-## _Running the app_
+This folder contains the react-native code for the front-end. The project has been setup using `expo-cli` and will be ejected once the front-end is complete.
 
-This section highlights the steps to get a local instance of the front-end app running from the master branch
+---
 
-### Prereqs
+This section highlights the steps to get a local instance of the front-end app running from the master branch.
 
-- Npm
-  - See https://www.npmjs.com/get-npm for more info
+## Getting Started
+- Clone repository and navigate to `draftt/App`
+
+## Requirements
+
+- Npm (and Node)
+  - See https://www.npmjs.com/get-npm for installation instructions
 
 - Expo command line tools
-  - run  `sudo npm install expo-cli --global` to install Expo command line tools across your system
+  - run `npm install` in the `App/` directory to install `expo-cli` and all other dependencies needed by the project
 
-- Install the Expo app on you phone
+- Install the Expo app on your phone
 
-### Running the app
+## Running the app
 
-We use Expo to run the application.
+We use the `expo-cli` to run the application.
 
-To Launch the front-end:  
+To launch the App on your phone:  
 
-1. Run ``` sudo npm install ``` in `draftt/App/draftt/`
-2. Run ``` sudo npm start ``` --- a QR Code should appear in the terminal (and browser)
-3. Scan the QR Code from within the Expo app on your phone
-
+1. Run ``` npm start ``` in the `App/` directory
+    - This will use the `expo-cli` to startup a server on your machine -- a browser tab will open displaying the console for the running App and a QR code. NOTE: if a new browser tab does not open, the QR code and console log should still show up in the terminal.
+2. Scan the QR Code from within the Expo app on your phone
 
 <br></br>
-<br></br>
+
+TODO: Folder structure -- coming when the skeletons are up
