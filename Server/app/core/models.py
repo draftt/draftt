@@ -12,6 +12,8 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have a username')
         if not email:
             raise ValueError('Users must have an email-address')
+        if not password:
+            raise ValueError('Users must have a password')
         validate_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)

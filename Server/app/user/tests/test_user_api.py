@@ -3,13 +3,12 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from rest_framework.test import APIClient
-
 from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 LOGIN_URL = reverse('user:login')
 ACCOUNT_URL = reverse('user:account')
-
+LOGOUT_URL = reverse('user:logout')
 
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
@@ -157,3 +156,13 @@ class PrivateUserApiTests(TestCase):
         self.assertEqual(self.user.email, payload['email'])
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+
+    def test_user_logout(self):
+        """Tests if a user can logout"""
+
+        res = self.client.post(LOGOUT_URL, {})
+        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+        
