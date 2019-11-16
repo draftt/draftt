@@ -10,6 +10,7 @@ LOGIN_URL = reverse('user:login')
 ACCOUNT_URL = reverse('user:account')
 LOGOUT_URL = reverse('user:logout')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
@@ -157,12 +158,9 @@ class PrivateUserApiTests(TestCase):
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
-
     def test_user_logout(self):
         """Tests if a user can logout"""
 
         res = self.client.post(LOGOUT_URL, {})
-        
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
 
-        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
