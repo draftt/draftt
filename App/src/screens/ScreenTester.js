@@ -20,13 +20,6 @@ const ScreenTester = ({navigation}) => {
                 <Text style={{fontSize : 15, color : 'white'}}> Go to Home Screen </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
-                style={styles.buttonStyle}
-                onPress = {() => {navigation.navigate('Home')}}
-            >
-                <Text style={{fontSize : 15, color : 'white'}}> Go to Home Screen </Text>
-            </TouchableOpacity>
-
         </View>
     );
 
