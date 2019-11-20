@@ -1,3 +1,4 @@
+![alt test](Mockups/Logo.png)
 # draftt
 
 ![Lifecycle][lifecycle]
