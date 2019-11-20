@@ -6,7 +6,8 @@ const HomeScreen = () => {
 
     return (
     <View style={styles.container}>
-        <Text style={styles.titleTextStyle}>Home Screen</Text>
+        <Text style={styles.titleTextStyle}>draftt</Text>
+        <Text style={styles.subTitleTextStyle}>Home Screen</Text>
     </View>
     );
 
@@ -17,12 +18,18 @@ const styles = StyleSheet.create({
     
     container : {
         flex : 1,
-        justifyContent : 'center'
+        alignItems : 'center'
     },
     
     titleTextStyle : {
+        flex : 1,
         fontSize : 50,
-        textAlign: 'center'
+        textAlignVertical : 'center'
+    },
+
+    subTitleTextStyle : {
+        flex : 3,
+        fontSize : 30
     }
 
 });
