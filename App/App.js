@@ -1,22 +1,14 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>draftt</Text>
-    </View>
-  );
-}
+const navigator = createStackNavigator(
+	{
+		// Routes
+	},
+	{
+    // Stack navigator options
+	}
+);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title : {
-    fontSize : 100
-  }
-});
+export default createAppContainer(navigator);
+
