@@ -1,17 +1,19 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './src/screens/HomeScreen'
+import HomeScreen from './src/screens/HomeScreen';
 import ScreenTester from './src/screens/ScreenTester';
+import LoginScreen from './src/screens/LoginScreen';
 
 const navigator = createStackNavigator(
 	{
     // Routes
     Home : HomeScreen,
-    Tester : ScreenTester
+    Tester : ScreenTester,
+    Login : LoginScreen
 	},
 	{
     // Stack navigator options
-    initialRouteName: "Tester",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       title : "draftt", // displayed on the top
       header : null
