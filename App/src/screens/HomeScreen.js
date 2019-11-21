@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 const HomeScreen = () => {
 
     return (
-    <View style={styles.container}>
+    <View style={styles.containerStyle}>
         <View style={styles.logoContainerStyle}>
             <Image source={require("../../assets/logo/Logo_NoBG.png")} style={styles.logoStyle} />
         </View>
@@ -18,7 +18,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     
-    container : {
+    containerStyle : {
         flex : 1,
         alignItems : 'center'
     },
