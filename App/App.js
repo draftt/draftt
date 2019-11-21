@@ -13,7 +13,8 @@ const navigator = createStackNavigator(
     // Stack navigator options
     initialRouteName: "Tester",
     defaultNavigationOptions: {
-      title: "draftt" // displayed on the top 
+      title : "draftt", // displayed on the top
+      header : null
     }
 	}
 );
