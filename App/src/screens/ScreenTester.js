@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 
 /*
@@ -11,6 +11,9 @@ const ScreenTester = ({navigation}) => {
 
     return (
         <View style={styles.container}>
+            
+            <Image source={require("../../assets/logo/Logo_NoBG.png")} style={styles.logoStyle} />
+
             <Text style={styles.titleStyle}>Tester Screen</Text>
 
             <TouchableOpacity 
@@ -42,6 +45,12 @@ const styles = StyleSheet.create({
         borderRadius : 10,
         padding : 20,
         margin : 20
+    },
+
+    logoStyle : {
+        marginTop : 100,
+        width : 150,
+        height : 150
     }
 
 });
