@@ -79,13 +79,17 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : "center",
         alignItems : 'center',
-        marginTop : 40
+        marginTop : 40,
+        width : 150,
+        height : 150
         // borderWidth : 1
     },
     
     logoStyle : {
-        width : 150,
-        height : 150
+        flex : 1,
+        width : '100%' ,
+        height : '100%',
+        resizeMode : 'contain'
     },
 
 
