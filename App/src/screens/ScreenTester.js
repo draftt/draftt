@@ -23,6 +23,13 @@ const ScreenTester = ({navigation}) => {
                 <Text style={{fontSize : 15, color : 'white'}}> Go to Home Screen </Text>
             </TouchableOpacity>
 
+            <TouchableOpacity 
+                style={styles.buttonStyle}
+                onPress = {() => {navigation.navigate('Login')}}
+            >
+                <Text style={{fontSize : 15, color : 'white'}}> Go to Login Screen </Text>
+            </TouchableOpacity>
+
         </View>
     );
 
@@ -32,7 +39,8 @@ const ScreenTester = ({navigation}) => {
 const styles = StyleSheet.create({
 
     container : {
-        alignItems : 'center'
+        alignItems : 'center',
+        backgroundColor : '#fefffa'
     },
 
     titleStyle : {
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
     },
 
     buttonStyle : {
-        backgroundColor : 'red',
+        backgroundColor : '#fd7719',
         borderRadius : 10,
         padding : 20,
         margin : 20

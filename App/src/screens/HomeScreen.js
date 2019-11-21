@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     
     containerStyle : {
         flex : 1,
-        alignItems : 'center'
+        alignItems : 'center',
+        backgroundColor : '#fefffa'
     },
     
     titleTextStyle : {
