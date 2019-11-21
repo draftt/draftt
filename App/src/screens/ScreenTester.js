@@ -12,7 +12,10 @@ const ScreenTester = ({navigation}) => {
     return (
         <View style={styles.container}>
             
-            <Image source={require("../../assets/logo/Logo_NoBG.png")} style={styles.logoStyle} />
+            <View style={styles.logoContainerStyle}>
+                <Image source={require("../../assets/logo/Logo_NoBG.png")} style={styles.logoStyle} />
+            </View>
+            
 
             <Text style={styles.titleStyle}>Tester Screen</Text>
 
@@ -56,6 +59,13 @@ const styles = StyleSheet.create({
     },
 
     logoStyle : {
+        flex : 1,
+        width : '100%' ,
+        height : '100%',
+        resizeMode : 'contain'
+    },
+    
+    logoContainerStyle : {
         marginTop : 100,
         width : 150,
         height : 150
