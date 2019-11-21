@@ -53,6 +53,10 @@ const LoginScreen = () => {
                     <Text style={{textAlign : 'center'}}>Sign in with Facebook placeholder</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.signUpStyle}>
+                    <Text style={{textAlign : 'center'}}>No Account? Sign up!</Text>
+                </TouchableOpacity>
+
             </View>
         </View>
     );
@@ -125,6 +129,12 @@ const styles = StyleSheet.create({
         borderRadius : 5,
         padding : 15,
         margin : 10
+    },
+
+    signUpStyle : {
+        borderRadius : 5,
+        padding : 15,
+        marginTop : 60
     }
 
 });
