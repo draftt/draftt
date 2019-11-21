@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
     container : {
         alignItems : 'center',
-        backgroundColor : '#fefffa'
+        backgroundColor : '#fefffe'
     },
 
     titleStyle : {
