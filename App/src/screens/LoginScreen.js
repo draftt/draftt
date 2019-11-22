@@ -19,7 +19,10 @@ const options = {
             label : null,
         },
         password : {
-            label : null
+            label : null,
+            password : true,
+            secureTextEntry: true
+            
         }
     }
 };
