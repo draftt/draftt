@@ -4,10 +4,14 @@ import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { AntDesign } from '@expo/vector-icons'
 
-
+var _ = require('lodash');
 
 // tcomb form library vars
 const Form = tcomb.form.Form;
+const stylesheet = _.cloneDeep(Form.stylesheet);
+
+stylesheet.formGroup.normal.padding = wp(1);
+stylesheet.textbox.normal.height = hp(6);
 
 const signup = tcomb.struct({
     name : tcomb.String,
@@ -35,7 +39,8 @@ const options = {
             password : true,
             secureTextEntry: true
         }
-    }
+    },
+    stylesheet : stylesheet
 };
 
 
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
 
     outerFormContainerStyle : {
         flex : 5,
-        width : wp(80),
+        width : wp(85),
         // borderWidth : 1
     },
 
