@@ -114,8 +114,9 @@ const styles = StyleSheet.create({
     },
 
     outerFormContainerStyle : {
-        flex : 4,
-        width : wp(80)
+        flex : 5,
+        width : wp(80),
+        // borderWidth : 1
     },
 
     formHeaderStyle : {
@@ -127,7 +128,6 @@ const styles = StyleSheet.create({
     confirmSignupStyle : {
         flex : 1,
         alignItems : 'flex-end',
-        paddingVertical : hp(5),
         paddingHorizontal : wp(3),
         alignSelf : 'flex-end'
     }
