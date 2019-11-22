@@ -34,6 +34,13 @@ const ScreenTester = ({navigation}) => {
                 <Text style={{fontSize : 15, color : 'white'}}> Go to Login Screen </Text>
             </TouchableOpacity>
 
+            <TouchableOpacity 
+                style={styles.buttonStyle}
+                onPress = {() => {navigation.navigate('Signup')}}
+            >
+                <Text style={{fontSize : 15, color : 'white'}}> Go to Signup Screen </Text>
+            </TouchableOpacity>
+
         </View>
     );
 
