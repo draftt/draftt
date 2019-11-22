@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { AntDesign } from '@expo/vector-icons'
@@ -46,7 +46,7 @@ const options = {
 
 const SignupScreen = () => {
     return (
-        <View style={styles.containerStyle}>
+        <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled keyboardVerticalOffset={hp(20)}>
 
             <View style={styles.backArrowStyle}>
                 <TouchableOpacity style={styles.arrowButtonStyle}>
@@ -70,7 +70,7 @@ const SignupScreen = () => {
                     <AntDesign name="arrowright" size={40} color="#fefffe" />
                 </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 

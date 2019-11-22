@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
@@ -39,7 +39,7 @@ const options = {
 const LoginScreen = () => {
 
     return (
-        <View style={styles.containerStyle}>
+        <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled>
 
             <View style={styles.logoContainerStyle}>
                 <Image source={require('../../assets/logo/Logo_NoBG.png')} style={styles.logoStyle} />
@@ -70,7 +70,7 @@ const LoginScreen = () => {
                 </TouchableOpacity>
 
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 
 };
