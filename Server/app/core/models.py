@@ -1,3 +1,4 @@
+from .signals import * # noqa
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, \
     BaseUserManager, PermissionsMixin
@@ -24,11 +25,8 @@ class UserManager(BaseUserManager):
     def create_superuser(self, username, email, password):
         """Creates and saves a new super user"""
 
-        user = self.create_user(username, email, password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-
+        user = self.create_user(username, email, password,
+                                is_superuser=True, is_staff=True)
         return user
 
 
