@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import tcomb from 'tcomb-form-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 // tcomb form library vars
@@ -79,9 +80,9 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : "center",
         alignItems : 'center',
-        marginTop : 40,
-        width : 150,
-        height : 150
+        marginTop : hp(5),
+        width : wp('50%'),
+        height : hp('50%'),
         // borderWidth : 1
     },
     
@@ -97,23 +98,23 @@ const styles = StyleSheet.create({
 
     formStyle : {
         flex : 3,
-        width : 350,
+        width : wp('80%'),
     },
 
     formHeaderStyle : {
-        fontSize : 40,
+        fontSize : hp('4%'),
         alignSelf : 'center',
-        paddingBottom : 50
+        paddingBottom : hp('5%')
     },
 
     submitButtonStyle : {
         backgroundColor : '#fd7719',
         borderRadius : 5,
-        padding : 10
+        padding : hp('1%')
     },
 
     submitButtonTextStyle : {
-        fontSize : 20, 
+        fontSize : hp('2%'), 
         textAlign : 'center', 
         color:'white'
     },
@@ -122,8 +123,8 @@ const styles = StyleSheet.create({
 
     orTextStyle : {
         alignSelf : 'center', 
-        fontSize : 20, 
-        padding : 35,
+        fontSize : hp('2%'), 
+        padding : hp('3.5%'),
     },
 
     // Other sign in option styling
@@ -131,14 +132,14 @@ const styles = StyleSheet.create({
     placeholderStyle : {
         borderWidth : 1,
         borderRadius : 5,
-        padding : 15,
-        margin : 10
+        padding : hp('1.5%'),
+        margin : hp('1%')
     },
 
     signUpStyle : {
         borderRadius : 5,
-        padding : 15,
-        marginTop : 60
+        padding : hp('1.5%'),
+        marginTop : hp('6%')
     }
 
 });
