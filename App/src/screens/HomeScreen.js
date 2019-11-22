@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 const HomeScreen = () => {
@@ -26,15 +27,15 @@ const styles = StyleSheet.create({
     
     titleTextStyle : {
         flex : 1,
-        fontSize : 30
+        fontSize : hp(3)
     },
 
 
     logoContainerStyle : {
         flex : 1,
         justifyContent : "center",
-        width : 150,
-        height : 150
+        width : wp('50%'),
+        height : hp('50%'),
         // borderWidth : 1
     },
     
