@@ -3,9 +3,14 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
+var _ = require('lodash');
 
 // tcomb form library vars
 const Form = tcomb.form.Form;
+const stylesheet = _.cloneDeep(Form.stylesheet);
+
+stylesheet.formGroup.normal.padding = wp(1);
+stylesheet.textbox.normal.height = hp(6);
 
 const login = tcomb.struct({
     email : tcomb.String,
@@ -26,7 +31,8 @@ const options = {
             secureTextEntry: true
             
         }
-    }
+    },
+    stylesheet : stylesheet
 };
 
 
