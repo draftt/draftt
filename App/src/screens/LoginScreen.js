@@ -16,9 +16,11 @@ const options = {
     auto : 'placeholders',
     fields : {
         email : {
-            label : null,
+            placeholder : 'Email / Username',
+            label : null
         },
         password : {
+            placeholder : 'Password',
             label : null,
             password : true,
             secureTextEntry: true
