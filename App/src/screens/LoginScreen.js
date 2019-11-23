@@ -9,8 +9,8 @@ var _ = require('lodash');
 const Form = tcomb.form.Form;
 const stylesheet = _.cloneDeep(Form.stylesheet);
 
-stylesheet.formGroup.normal.padding = wp(1);
-stylesheet.textbox.normal.height = hp(6);
+stylesheet.formGroup.normal.padding = wp(0.5);
+stylesheet.textbox.normal.height = hp(5);
 
 const login = tcomb.struct({
     email : tcomb.String,

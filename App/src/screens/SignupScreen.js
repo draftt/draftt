@@ -10,11 +10,12 @@ var _ = require('lodash');
 const Form = tcomb.form.Form;
 const stylesheet = _.cloneDeep(Form.stylesheet);
 
-stylesheet.formGroup.normal.padding = wp(1);
-stylesheet.textbox.normal.height = hp(6);
+stylesheet.formGroup.normal.padding = wp(0.5);
+stylesheet.textbox.normal.height = hp(5);
 
 const signup = tcomb.struct({
     name : tcomb.String,
+    username : tcomb.String,
     email : tcomb.String,
     password : tcomb.String,
     confirmpassword : tcomb.String
@@ -26,6 +27,9 @@ const options = {
         email : {
             placeholder : 'Email Address',
             label : null
+        },
+        username : {
+            placeholder : 'Username'
         },
         password : {
             placeholder : 'Password',
