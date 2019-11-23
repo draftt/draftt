@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email, ValidationError
+from core.utils import decode_uid
+from django.contrib.auth.tokens import default_token_generator
 User = get_user_model()
 
 
@@ -74,3 +76,48 @@ class AuthTokenSerializer(serializers.Serializer):
         else:
             msg = _('Account with this email/username does not exists')
             raise serializers.ValidationError(msg, code='authorization')
+
+class UidAndTokenSerializer(serializers.Serializer):
+    uid = serializers.CharField()
+    token = serializers.CharField()
+    default_error_messages = {
+        "invalid_token": "The Token is invalid.",
+        "invalid_uid": "No such user exists.",
+    }
+
+    def validate(self, attrs):
+        validated_data = super().validate(attrs)
+        token_generator=default_token_generator
+        # uid validation have to be here, because validate_<field_name>
+        # doesn't work with modelserializer
+        try:
+            uid = decode_uid(self.initial_data.get("uid", ""))
+            self.user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, ValueError, TypeError, OverflowError):
+            key_error = "invalid_uid"
+            raise ValidationError(
+                {"uid": [self.error_messages[key_error]]}, code=key_error
+            )
+
+        is_token_valid = token_generator.check_token(
+            self.user, self.initial_data.get("token", "")
+        )
+        if is_token_valid:
+            return validated_data
+        else:
+            key_error = "invalid_token"
+            raise ValidationError(
+                {"token": [self.error_messages[key_error]]}, code=key_error
+            )
+
+
+class ActivationSerializer(UidAndTokenSerializer):
+    default_error_messages = {
+        "stale_token": "User already verified",
+    }
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        if not self.user.is_verified:
+            return attrs
+        raise serializers.ValidationError("User already verified", code='authorization')
