@@ -77,6 +77,7 @@ class AuthTokenSerializer(serializers.Serializer):
             msg = _('Account with this email/username does not exists')
             raise serializers.ValidationError(msg, code='authorization')
 
+
 class UidAndTokenSerializer(serializers.Serializer):
     uid = serializers.CharField()
     token = serializers.CharField()
@@ -87,7 +88,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         validated_data = super().validate(attrs)
-        token_generator=default_token_generator
+        token_generator = default_token_generator
         # uid validation have to be here, because validate_<field_name>
         # doesn't work with modelserializer
         try:
@@ -120,4 +121,5 @@ class ActivationSerializer(UidAndTokenSerializer):
         attrs = super().validate(attrs)
         if not self.user.is_verified:
             return attrs
-        raise serializers.ValidationError("User already verified", code='authorization')
+        raise serializers.ValidationError(
+            "User already verified", code='authorization')

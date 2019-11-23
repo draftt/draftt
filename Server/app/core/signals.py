@@ -11,4 +11,5 @@ def send_activation_email(sender, instance, created, **kwargs):
         context = {"user": user}
         ActivationEmail(context=context).send([user.email])
 
+
 post_save.connect(send_activation_email, sender=User)

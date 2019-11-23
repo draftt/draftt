@@ -2,8 +2,10 @@ from rest_framework import generics, authentication, permissions, status
 from rest_framework.authtoken.views import ObtainAuthToken, APIView
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
-from user.serializers import UserSerializer, AuthTokenSerializer, ActivationSerializer
+from user.serializers import UserSerializer, AuthTokenSerializer,  \
+                            ActivationSerializer
 from rest_framework.authtoken.models import Token
+
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
@@ -42,15 +44,17 @@ class LogoutUser(APIView):
 class ActivationView(APIView):
     """Manages the activation link"""
 
-
     def post(self, request, *args, **kwargs):
         data = {
-            'uid':kwargs['uid'],
-            'token':kwargs['token']
+            'uid': kwargs['uid'],
+            'token': kwargs['token']
         }
         serializer_class = ActivationSerializer(data=data)
         serializer_class.is_valid(raise_exception=True)
         user = serializer_class.user
         user.is_verified = True
         user.save()
-        return Response(data="User verified",status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            data="User verified",
+            status=status.HTTP_204_NO_CONTENT
+            )

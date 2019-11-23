@@ -25,7 +25,8 @@ class UserManager(BaseUserManager):
         """Creates and saves a new super user"""
 
         user = self.create_user(username, email, password,
-                                is_superuser=True, is_staff=True, is_verified=True)
+                                is_superuser=True, is_staff=True,
+                                is_verified=True)
         return user
 
 
