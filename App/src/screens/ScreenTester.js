@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, FlatList} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
@@ -9,6 +9,8 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 */
 
 const ScreenTester = ({navigation}) => {
+
+    const screens = ['Home', 'Login', 'Signup'];
 
     return (
         <View style={styles.container}>
@@ -20,26 +22,22 @@ const ScreenTester = ({navigation}) => {
 
             <Text style={styles.titleStyle}>Tester Screen</Text>
 
-            <TouchableOpacity 
-                style={styles.buttonStyle}
-                onPress = {() => {navigation.navigate('Home')}}
-            >
-                <Text style={{fontSize : 15, color : 'white'}}> Go to Home Screen </Text>
-            </TouchableOpacity>
+            <FlatList
+                keyExtractor={(screen) => {return screen;}}
+                data={screens}
+                renderItem={({item}) => {
 
-            <TouchableOpacity 
-                style={styles.buttonStyle}
-                onPress = {() => {navigation.navigate('Login')}}
-            >
-                <Text style={{fontSize : 15, color : 'white'}}> Go to Login Screen </Text>
-            </TouchableOpacity>
+                    return (
+                        <TouchableOpacity
+                            style={styles.buttonStyle}
+                            onPress = {() => {navigation.navigate(item)}}
+                        >
+                            <Text style={{fontSize : 15, color : 'white'}}> Go to {item} Screen </Text>
+                        </TouchableOpacity>
+                    );
 
-            <TouchableOpacity 
-                style={styles.buttonStyle}
-                onPress = {() => {navigation.navigate('Signup')}}
-            >
-                <Text style={{fontSize : 15, color : 'white'}}> Go to Signup Screen </Text>
-            </TouchableOpacity>
+                }}
+            />
 
         </View>
     );
@@ -50,20 +48,21 @@ const ScreenTester = ({navigation}) => {
 const styles = StyleSheet.create({
 
     container : {
-        alignItems : 'center',
-        backgroundColor : '#fefffe'
+        backgroundColor : '#fefffe',
+        flex : 1
     },
 
     titleStyle : {
+        alignSelf : 'center',
         fontSize : 50,
-        padding : 50
+        padding : hp(5)
     },
 
     buttonStyle : {
         backgroundColor : '#fd7719',
         borderRadius : 10,
-        padding : 20,
-        margin : 20
+        padding : hp(2),
+        margin : hp(2)
     },
 
     logoStyle : {
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
     logoContainerStyle : {
         marginTop : hp(10),
         width : wp('50%'),
-        height : hp('30%')
+        height : hp('30%'),
+        alignSelf : 'center'
     }
 
 });
