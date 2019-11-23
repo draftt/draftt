@@ -44,9 +44,14 @@ Server
 │ │ │ ├── test_admin.py  		# Admin page tests
 │ │ │ ├── test_commands.py  		# Custom run commands tests
 │ │ │ └── tests_models.py  		# Models tests
+│ │ ├── templates			# Contains reusable html templates
+│ │ │ └── activate_account.html		# Account Activation Email Template
 │ │ ├── admin.py  			# Django Admin Configs
 │ │ ├── apps.py  
-│ │ └── models.py  			# Models for database
+│ │ ├── email.py  			# Contains code for sending emails
+│ │ ├── models.py  			# Models for database
+│ │ ├── signals.py  			# Basic signals defining auto actions
+│ │ └── utils.py  			# Small Reusable utilities
 │ ├── user				# User handling api endpoint
 │ │ ├── tests
 │ │ │   └── test_user_api.py    	#Tests for users API endpoint
