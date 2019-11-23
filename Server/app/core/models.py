@@ -6,7 +6,7 @@ from django.core.validators import validate_email
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, email, password, **extra_fields):
+    def create_user(self, username, email, password="", **extra_fields):
         """Creates a new user"""
         if not username:
             raise ValueError('Users must have a username')
