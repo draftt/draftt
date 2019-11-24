@@ -42,7 +42,7 @@ const LoginScreen = ({navigation}) => {
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled>
 
             <View style={styles.logoContainerStyle}>
-                <Image source={require('../../assets/logo/Logo_NoBG.png')} style={styles.logoStyle} />
+                <Image source={require('../../assets/nonamelogo/Logo_NoBG.png')} style={styles.logoStyle} />
             </View>
 
             <View style={styles.formStyle}>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         alignItems : 'center',
         marginTop : hp(5),
-        width : wp('50%'),
+        width : wp('70%'),
         height : hp('50%'),
         // borderWidth : 1
     },

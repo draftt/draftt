@@ -59,7 +59,7 @@ const SignupScreen = ({navigation}) => {
             </View>
             
             <View style={styles.logoContainerStyle}>
-                <Image source={require('../../assets/logo/Logo_NoBG.png')} style={styles.logoStyle} />
+                <Image source={require('../../assets/nonamelogo/Logo_NoBG.png')} style={styles.logoStyle} />
             </View>
 
             <View style={styles.outerFormContainerStyle}>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         flex : 2,
         justifyContent : "center",
         alignItems : 'center',
-        width : wp('50%'),
+        width : wp('70%'),
         height : hp('50%'),
         // borderWidth : 1
     },
