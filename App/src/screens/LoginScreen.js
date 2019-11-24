@@ -54,8 +54,8 @@ const LoginScreen = ({navigation}) => {
                     <Text style={styles.submitButtonTextStyle}>Sign In</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.submitButtonStyle}>
-                    <Text style={styles.submitButtonTextStyle} onPress={() => {navigation.navigate('ResetPassword')}}>Forgot Password?</Text>
+                <TouchableOpacity style={styles.forgotPassButtonStyle}>
+                    <Text style={styles.forgotPassTextStyle} onPress={() => {navigation.navigate('ResetPassword')}}>Forgot Password?</Text>
                 </TouchableOpacity>
 
                 <Text style={styles.orTextStyle}> or </Text>
@@ -131,6 +131,20 @@ const styles = StyleSheet.create({
         fontSize : hp('2%'), 
         textAlign : 'center', 
         color:'white'
+    },
+
+    forgotPassTextStyle : {
+        fontSize : hp('2%'), 
+        textAlign : 'center', 
+        color:'#fd7719'
+    },
+
+    forgotPassButtonStyle : {
+        borderRadius : 5,
+        marginTop : hp(1),
+        padding : hp('1%'),
+        borderWidth : 2,
+        borderColor : '#fd7719'
     },
 
     // Or text styling
