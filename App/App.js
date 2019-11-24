@@ -4,6 +4,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import ScreenTester from './src/screens/ScreenTester';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import ResetPassword from './src/screens/ResetPassword';
 
 const navigator = createStackNavigator(
 	{
@@ -11,7 +12,8 @@ const navigator = createStackNavigator(
     Home : HomeScreen,
     Tester : ScreenTester,
     Login : LoginScreen,
-    Signup : SignupScreen
+    Signup : SignupScreen,
+    ResetPassword : ResetPassword
 	},
 	{
     // Stack navigator options
