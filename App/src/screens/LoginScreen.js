@@ -54,8 +54,11 @@ const LoginScreen = ({navigation}) => {
                     <Text style={styles.submitButtonTextStyle}>Sign In</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.submitButtonStyle}>
+                    <Text style={styles.submitButtonTextStyle} onPress={() => {navigation.navigate('ResetPassword')}}>Forgot Password?</Text>
+                </TouchableOpacity>
+
                 <Text style={styles.orTextStyle}> or </Text>
-                
 
                 <TouchableOpacity style={styles.placeholderStyle} onPress={() => {navigation.navigate('Tester')}} >
                     <Image source={require('../../assets/brands/google.png')} style={styles.googleImgStyle} />
