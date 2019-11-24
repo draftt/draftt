@@ -48,12 +48,12 @@ const options = {
 };
 
 
-const SignupScreen = () => {
+const SignupScreen = ({navigation}) => {
     return (
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled keyboardVerticalOffset={hp(20)}>
 
             <View style={styles.backArrowStyle}>
-                <TouchableOpacity style={styles.arrowButtonStyle}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.goBack()}}>
                     <AntDesign name="arrowleft" size={40} color="#fefffe" />
                 </TouchableOpacity>
             </View>
@@ -70,7 +70,7 @@ const SignupScreen = () => {
             </View>
 
             <View style={styles.confirmSignupStyle}>
-                <TouchableOpacity style={styles.arrowButtonStyle}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Login')}}>
                     <AntDesign name="arrowright" size={40} color="#fefffe" />
                 </TouchableOpacity>
             </View>

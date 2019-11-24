@@ -36,7 +36,7 @@ const options = {
 };
 
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
 
     return (
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled>
@@ -65,8 +65,8 @@ const LoginScreen = () => {
                     <Text style={{textAlign : 'center'}}>Sign in with Facebook placeholder</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.signUpStyle}>
-                    <Text style={{textAlign : 'center'}}>No Account? Sign up!</Text>
+                <TouchableOpacity style={styles.signUpStyle} onPress={() => {navigation.navigate('Signup')}}>
+                    <Text style={{textAlign : 'center', color : '#fd7719' }}>No Account? Sign up!</Text>
                 </TouchableOpacity>
 
             </View>
