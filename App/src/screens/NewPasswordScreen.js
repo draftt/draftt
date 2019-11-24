@@ -1,27 +1,40 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, TextInput, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { AntDesign } from '@expo/vector-icons'
 
 
 
 
-const ResetPassword = ({navigation}) => {
+const NewPassword = ({navigation}) => {
 
     return (
-        <View style={styles.containerStyle}>
+        <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled >
 
             <View style={styles.logoContainerStyle}>
                 <Image source={require('../../assets/logo/Logo_NoBG.png')} style={styles.logoStyle} />
             </View>
 
-            <Text style={styles.titleStyle}>Reset Password Screen</Text>
+            <Text style={styles.titleStyle}>New Password Screen</Text>
 
             <View style={styles.resetContainerStyle}>
 
-                <Text style={styles.resetTextStyle}>Enter Email Address to reset password:</Text>
+                <Text style={styles.resetTextStyle}>Enter new password:</Text>
 
                 <TextInput 
+                    secureTextEntry={true}                
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="Search"
+                    style={styles.inputStyle}
+                    onChangeText={(newTerm) => {} }
+                    onEndEditing={() => {}}
+                />
+
+                <Text style={styles.resetTextStyle}>Re-enter new password:</Text>
+
+                <TextInput
+                    secureTextEntry={true}
                     autoCapitalize="none"
                     autoCorrect={false}
                     placeholder="Search"
@@ -34,17 +47,17 @@ const ResetPassword = ({navigation}) => {
 
             <View style={styles.arrowContainerStyle}>
 
-                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Login')}}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('ResetPassword')}}>
                     <AntDesign name="arrowleft" size={40} color="#fefffe" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('NewPassword')}}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Tester')}}>
                     <AntDesign name="arrowright" size={40} color="#fefffe" />
                 </TouchableOpacity>
 
             </View>
             
-        </View>
+        </KeyboardAvoidingView>
     );
 
 };
@@ -122,4 +135,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ResetPassword;
+export default NewPassword;

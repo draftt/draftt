@@ -10,7 +10,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 const ScreenTester = ({navigation}) => {
 
-    const screens = ['Home', 'Login', 'Signup', 'ResetPassword'];
+    const screens = ['Home', 'Login', 'Signup', 'ResetPassword', 'NewPassword'];
 
     return (
         <View style={styles.container}>
