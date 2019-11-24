@@ -4,10 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, \
 from django.core.validators import validate_email
 
 
-
 class UserManager(BaseUserManager):
 
-    def create_user(self,username, email,password=None,first_name="",**extra_fields):
+    def create_user(self, username, email, password=None, **extra_fields):
         """Creates a new user"""
         if not username:
             raise ValueError('Users must have a username')
@@ -33,9 +32,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     """User model supporting emails"""
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255, blank= True)
-    last_name = models.CharField(max_length=255, blank= True)
-    fullname = models.CharField(max_length=255, blank= True)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
+    fullname = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)

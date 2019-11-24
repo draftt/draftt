@@ -31,8 +31,6 @@ class UserSerializer(serializers.ModelSerializer):
         ActivationEmail(context=context).send([user.email])
         return user
 
-
-
         """Create a new user with encrypted password and return it"""
         return get_user_model().objects.create_user(**validated_data)
 

@@ -3,7 +3,7 @@ from rest_framework.authtoken.views import ObtainAuthToken, APIView
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
 from user.serializers import UserSerializer, AuthTokenSerializer,  \
-                            ActivationSerializer
+    ActivationSerializer
 from rest_framework.authtoken.models import Token
 
 
@@ -57,4 +57,4 @@ class ActivationView(APIView):
         return Response(
             data="User verified",
             status=status.HTTP_204_NO_CONTENT
-            )
+        )

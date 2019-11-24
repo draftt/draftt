@@ -100,6 +100,7 @@ class ActivationEmail(EmailMessage):
         context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 
+
 class WelcomeEmail(EmailMessage):
     template_name = "welcome.html"
 
@@ -107,5 +108,5 @@ class WelcomeEmail(EmailMessage):
         # ActivationEmail can be deleted
         context = super().get_context_data()
         user = context.get("user")
-        context["name"]= user.fullname
+        context["name"] = user.fullname
         return context
