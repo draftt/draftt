@@ -58,7 +58,7 @@ const LoginScreen = ({navigation}) => {
                 
 
                 <TouchableOpacity style={styles.placeholderStyle}>
-                    <Text style={{textAlign : 'center'}}>Sign in with Google placeholder</Text>
+                    <Image source={require('../../assets/brands/google.png')} style={styles.googleImgStyle} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.placeholderStyle}>
@@ -141,11 +141,13 @@ const styles = StyleSheet.create({
     // Other sign in option styling
 
     placeholderStyle : {
-        borderWidth : 1,
         borderRadius : 5,
         padding : hp('1.5%'),
-        margin : hp('1%')
+        margin : hp('1%'),
+        alignItems : 'center',
+        width : wp('80%'),
     },
+    
 
     signUpStyle : {
         borderRadius : 5,
