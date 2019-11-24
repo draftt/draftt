@@ -4,7 +4,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import ScreenTester from './src/screens/ScreenTester';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
-import ResetPassword from './src/screens/ResetPassword';
+import ResetPassword from './src/screens/ResetPasswordScreen';
 
 const navigator = createStackNavigator(
 	{
