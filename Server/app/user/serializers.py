@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email, ValidationError
 from core.utils import decode_uid
 from django.contrib.auth.tokens import default_token_generator
+from core.email import ActivationEmail
 User = get_user_model()
 
 
@@ -25,6 +26,13 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
+        user = get_user_model().objects.create_user(**validated_data)
+        context = {"user": user}
+        ActivationEmail(context=context).send([user.email])
+        return user
+
+
+
         """Create a new user with encrypted password and return it"""
         return get_user_model().objects.create_user(**validated_data)
 

@@ -2,11 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, \
     BaseUserManager, PermissionsMixin
 from django.core.validators import validate_email
-# import the logging library
-import logging
 
-# Get an instance of a logger
-logger = logging.getLogger('app_api')
 
 
 class UserManager(BaseUserManager):
