@@ -70,7 +70,7 @@ const SignupScreen = ({navigation}) => {
             </View>
 
             <View style={styles.confirmSignupStyle}>
-                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Login')}}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Tester')}}>
                     <AntDesign name="arrowright" size={40} color="#fefffe" />
                 </TouchableOpacity>
             </View>
