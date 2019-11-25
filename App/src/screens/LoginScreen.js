@@ -64,12 +64,12 @@ const LoginScreen = ({navigation}) => {
                     <Image source={require('../../assets/brands/google.png')} style={styles.googleImgStyle} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.placeholderStyle} onPress={() => {navigation.navigate('Tester')}} >
-                    <Text style={{textAlign : 'center'}}>Sign in with Facebook placeholder</Text>
+                <TouchableOpacity style={styles.placeholderStyle}>
+                    <Text>Sign in with Facebook placeholder</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.signUpStyle} onPress={() => {navigation.navigate('Signup')}}>
-                    <Text style={{textAlign : 'center', color : '#fd7719' }}>No Account? Sign up!</Text>
+                    <Text style={{color : '#fd7719' }}>No Account? Sign up!</Text>                
                 </TouchableOpacity>
 
             </View>
@@ -112,19 +112,23 @@ const styles = StyleSheet.create({
 
     formStyle : {
         flex : 3,
-        width : wp('80%'),
+        width : wp('80%')
     },
 
     formHeaderStyle : {
         fontSize : hp('4%'),
         alignSelf : 'center',
-        paddingBottom : hp('5%')
+        paddingBottom : hp('5%'),
+        flex : 2
     },
 
     submitButtonStyle : {
         backgroundColor : '#fd7719',
         borderRadius : 5,
-        padding : hp('1%')
+        padding : hp('1%'),
+        flex : 1,
+        alignItems : 'center',
+        justifyContent : 'center'
     },
 
     submitButtonTextStyle : {
@@ -143,8 +147,11 @@ const styles = StyleSheet.create({
         borderRadius : 5,
         marginTop : hp(1),
         padding : hp('1%'),
-        borderWidth : 2,
-        borderColor : '#fd7719'
+        borderWidth : 1,
+        borderColor : '#fd7719',
+        flex : 1,
+        alignItems : 'center',
+        justifyContent : 'center'
     },
 
     // Or text styling
@@ -153,6 +160,7 @@ const styles = StyleSheet.create({
         alignSelf : 'center', 
         fontSize : hp('2%'), 
         padding : hp('3.5%'),
+        flex : 1
     },
 
     // Other sign in option styling
@@ -161,15 +169,19 @@ const styles = StyleSheet.create({
         borderRadius : 5,
         padding : hp('1.5%'),
         margin : hp('1%'),
-        alignItems : 'center',
         width : wp('80%'),
+        flex : 1,
+        alignItems : 'center',
+        justifyContent : 'center'
     },
     
 
     signUpStyle : {
         borderRadius : 5,
         padding : hp('1.5%'),
-        marginTop : hp('6%')
+        flex : 1,
+        alignItems : 'center',
+        justifyContent : 'center'
     }
 
 });
