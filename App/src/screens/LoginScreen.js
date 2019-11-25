@@ -57,11 +57,11 @@ const LoginScreen = ({navigation}) => {
                 <Text style={styles.orTextStyle}> or </Text>
                 
 
-                <TouchableOpacity style={styles.placeholderStyle}>
+                <TouchableOpacity style={styles.placeholderStyle} onPress={() => {navigation.navigate('Tester')}} >
                     <Image source={require('../../assets/brands/google.png')} style={styles.googleImgStyle} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.placeholderStyle}>
+                <TouchableOpacity style={styles.placeholderStyle} onPress={() => {navigation.navigate('Tester')}} >
                     <Text style={{textAlign : 'center'}}>Sign in with Facebook placeholder</Text>
                 </TouchableOpacity>
 
