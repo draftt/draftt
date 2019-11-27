@@ -47,30 +47,26 @@ const LoginScreen = ({navigation}) => {
 
             <View style={styles.formStyle}>
 
-                <Text style={styles.formHeaderStyle} >Login</Text>
+                <View style={styles.formHeaderStyle}>
+                    <Text style={{fontSize : hp('4%')}}>Login</Text>
+                </View>
+                <View style={{flex : 1}}>
+                    <Form type={login} options={options} />
 
-                <Form type={login} options={options} />
-                <TouchableOpacity style={styles.submitButtonStyle}>
-                    <Text style={styles.submitButtonTextStyle}>Sign In</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.submitButtonStyle}>
+                        <Text style={styles.submitButtonTextStyle}>Sign In</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.forgotPassButtonStyle}>
-                    <Text style={styles.forgotPassTextStyle} onPress={() => {navigation.navigate('ResetPassword')}}>Forgot Password?</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.forgotPassButtonStyle}>
+                        <Text style={styles.forgotPassTextStyle} onPress={() => {navigation.navigate('ResetPassword')}}>Forgot Password?</Text>
+                    </TouchableOpacity>
+                </View>
 
-                <Text style={styles.orTextStyle}> or </Text>
-
-                <TouchableOpacity style={styles.placeholderStyle} onPress={() => {navigation.navigate('Tester')}} >
-                    <Image source={require('../../assets/brands/google.png')} style={styles.googleImgStyle} />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.placeholderStyle}>
-                    <Text>Sign in with Facebook placeholder</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.signUpStyle} onPress={() => {navigation.navigate('Signup')}}>
-                    <Text style={{color : '#fd7719' }}>No Account? Sign up!</Text>                
-                </TouchableOpacity>
+                <View style={styles.signUpStyle}>
+                    <TouchableOpacity style={{width : '80%', height : '20%', alignItems : 'center', justifyContent : 'center'}} onPress={() => {navigation.navigate('Signup')}}>
+                        <Text style={{color : '#fd7719' }}>No Account? Sign up!</Text>
+                    </TouchableOpacity>
+                </View>
 
             </View>
         </KeyboardAvoidingView>
@@ -112,21 +108,23 @@ const styles = StyleSheet.create({
 
     formStyle : {
         flex : 3,
-        width : wp('80%')
+        width : wp('80%'),
+        justifyContent : 'space-between'
     },
 
     formHeaderStyle : {
         fontSize : hp('4%'),
         alignSelf : 'center',
+        justifyContent : 'center',
         paddingBottom : hp('5%'),
-        flex : 2
+        flex : 1
     },
 
     submitButtonStyle : {
         backgroundColor : '#fd7719',
         borderRadius : 5,
         padding : hp('1%'),
-        flex : 1,
+        // flex : 1,
         alignItems : 'center',
         justifyContent : 'center'
     },
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
         padding : hp('1%'),
         borderWidth : 1,
         borderColor : '#fd7719',
-        flex : 1,
+        // flex : 1,
         alignItems : 'center',
         justifyContent : 'center'
     },
@@ -179,9 +177,9 @@ const styles = StyleSheet.create({
     signUpStyle : {
         borderRadius : 5,
         padding : hp('1.5%'),
-        flex : 1,
+        flex : 2,
         alignItems : 'center',
-        justifyContent : 'center'
+        justifyContent : 'flex-end'
     }
 
 });

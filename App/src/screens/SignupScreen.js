@@ -10,8 +10,9 @@ var _ = require('lodash');
 const Form = tcomb.form.Form;
 const stylesheet = _.cloneDeep(Form.stylesheet);
 
-stylesheet.formGroup.normal.padding = wp(0.5);
+stylesheet.formGroup.normal.padding = 0;
 stylesheet.textbox.normal.height = hp(5);
+stylesheet.textbox.normal.margin = 0;
 
 const signup = tcomb.struct({
     name : tcomb.String,
@@ -54,7 +55,7 @@ const SignupScreen = ({navigation}) => {
 
             <View style={styles.backArrowStyle}>
                 <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.goBack()}}>
-                    <AntDesign name="arrowleft" size={40} color="#fefffe" />
+                    <AntDesign name="arrowleft" size={wp(8)} color="#fefffe" />
                 </TouchableOpacity>
             </View>
             
@@ -71,7 +72,7 @@ const SignupScreen = ({navigation}) => {
 
             <View style={styles.confirmSignupStyle}>
                 <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Tester')}}>
-                    <AntDesign name="arrowright" size={40} color="#fefffe" />
+                    <AntDesign name="arrowright" size={wp(8)} color="#fefffe" />
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
 
     containerStyle : {
         flex : 1,
-        alignItems : 'center',
+        // alignItems : 'center',
         justifyContent : 'space-between',
         backgroundColor : '#fefffe',
         borderWidth : 1
@@ -107,12 +108,10 @@ const styles = StyleSheet.create({
     },
 
     logoContainerStyle : {
-        flex : 2,
         justifyContent : "center",
         alignItems : 'center',
-        width : wp('70%'),
-        height : hp('50%'),
-        // borderWidth : 1
+        width : wp('100%'),
+        height : hp('15%')
     },
 
     logoStyle : {
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     outerFormContainerStyle : {
         flex : 5,
         width : wp(85),
+        alignSelf : 'center'
         // borderWidth : 1
     },
 
