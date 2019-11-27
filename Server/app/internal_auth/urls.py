@@ -5,5 +5,5 @@ app_name = 'internal_auth'
 
 urlpatterns = [
     path('token/', ExtendedTokenView.as_view(), name="token"),
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]

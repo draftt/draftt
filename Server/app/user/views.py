@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from user.serializers import UserSerializer, AuthTokenSerializer,  \
     ActivationSerializer
 from rest_framework.authtoken.models import Token
+from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -21,7 +22,7 @@ class CreateTokenView(ObtainAuthToken):
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manages authenticated user"""
     serializer_class = UserSerializer
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (OAuth2Authentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self):
@@ -32,7 +33,7 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
 class LogoutUser(APIView):
     """Manages user logout"""
     serializer_class = UserSerializer
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (OAuth2Authentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
