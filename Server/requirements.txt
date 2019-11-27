@@ -4,4 +4,4 @@ psycopg2>=2.7.5,<2.8.0
 
 flake8>=3.7.9,<3.8.0
 
-django-rest-framework-social-oauth2
+django-oauth-toolkit
