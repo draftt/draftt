@@ -5,9 +5,11 @@ import logging
 from oauthlib.oauth2.rfc6749 import errors, utils
 from oauthlib.oauth2.rfc6749.request_validator import RequestValidator
 from oauthlib.oauth2.rfc6749.grant_types.base import GrantTypeBase
-
+from django.http import HttpRequest
 log = logging.getLogger(__name__)
 from django.urls import reverse
+import oauthlib
+oauthlib.set_debug(True)
 # from social_django.views import NAMESPACE
 # from social_django.utils import load_backend, load_strategy
 # from social_core.exceptions import MissingBackend, SocialAuthBaseException
@@ -31,7 +33,6 @@ class ExternalTokenGrant(GrantTypeBase):
         the authorization server returns an error response.
         """
         headers = self._get_default_headers()
-        log.debug(self.request_validator.authenticate_client_id)
         try:
             if self.request_validator.client_authentication_required(request=request):
                 log.debug('Authenticating client, %r.', request)
@@ -70,12 +71,12 @@ class ExternalTokenGrant(GrantTypeBase):
             validator(request)
 
         #Check if the provider and access_code are provided
-        for param in ('grant_type', 'provider', 'access-code'):
+        for param in ('grant_type', 'provider', 'access_code'):
             if not getattr(request, param, None):
                 raise errors.InvalidRequestError(
                     'Request is missing %s parameter.' % param, request=request)
 
-        for param in ('grant_type', 'provider', 'access-code', 'scope'):
+        for param in ('grant_type', 'provider', 'access_code', 'scope'):
             if param in request.duplicate_params:
                 raise errors.InvalidRequestError(description='Duplicate %s parameter.' % param, request=request)
         
@@ -83,16 +84,7 @@ class ExternalTokenGrant(GrantTypeBase):
         # grant type handlers based on the grant_type parameter.
         if not request.grant_type == 'external_token':
             raise errors.UnsupportedGrantTypeError(request=request)
-
-        if self.request_validator.client_authentication_required(request):
-            log.debug('Authenticating client, %r.', request)
-            if not self.request_validator.authenticate_client(request):
-                log.debug('Invalid client (%r), denying access.', request)
-                raise errors.InvalidClientError(request=request)
-        elif not self.request_validator.authenticate_client_id(request.client_id, request):
-            log.debug('Client authentication failed, %r.', request)
-            raise errors.InvalidClientError(request=request)
-        
+       
         if not self.external_validator(request.provider, request.access_code, request):
             raise errors.InvalidGrantError(
                     'Invalid token or provider', request=request)
@@ -108,9 +100,12 @@ class ExternalTokenGrant(GrantTypeBase):
             validator(request)
 
     def external_validator(self,provider, access_code, request):
-        log.info("reached")
-        log.info(request.GET)
-        log.info(request.POST)
+        req= HttpRequest()
+        req.POST=request.body
+        req.http_method="POST"
+        req.path=request.uri
+        log.info(req.POST)
+        log.debug(req.get_host())
         return True
         # strategy = load_strategy(request=request)
         # try:
