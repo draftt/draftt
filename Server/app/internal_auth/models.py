@@ -13,7 +13,7 @@ class ExtendedApplication(AbstractApplication):
     GRANT_PASSWORD = "password"
     GRANT_CLIENT_CREDENTIALS = "client-credentials"
     # Adding our new grant-type
-    GRANT_EXTERNAL = "external"
+    GRANT_EXTERNAL = "external_token"
     GRANT_TYPES = (
         (GRANT_EXTERNAL,_("External")),
         (GRANT_AUTHORIZATION_CODE, _("Authorization code")),

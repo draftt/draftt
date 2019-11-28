@@ -2,11 +2,16 @@
 import json
 import logging
 
-from .. import errors, utils
-from ..request_validator import RequestValidator
+from oauthlib.oauth2.rfc6749 import errors, utils
+from oauthlib.oauth2.rfc6749.request_validator import RequestValidator
 from oauthlib.oauth2.rfc6749.grant_types.base import GrantTypeBase
 
 log = logging.getLogger(__name__)
+from django.urls import reverse
+# from social_django.views import NAMESPACE
+# from social_django.utils import load_backend, load_strategy
+# from social_core.exceptions import MissingBackend, SocialAuthBaseException
+# from social_core.utils import requests
 
 class ExternalTokenGrant(GrantTypeBase):
 
@@ -26,11 +31,17 @@ class ExternalTokenGrant(GrantTypeBase):
         the authorization server returns an error response.
         """
         headers = self._get_default_headers()
+        log.debug(self.request_validator.authenticate_client_id)
         try:
-            if self.request_validator.authenticate_client_id(request.client_id,request):
+            if self.request_validator.client_authentication_required(request=request):
+                log.debug('Authenticating client, %r.', request)
+                if not self.request_validator.authenticate_client(request=request):
+                    log.debug('Client authentication failed, %r.', request)
+                    raise errors.InvalidClientError(request=request)
+            elif not self.request_validator.authenticate_client_id(request.client_id, request=request):
                 log.debug('Client authentication failed, %r.', request)
                 raise errors.InvalidClientError(request=request)
-            log.debug('Validating external token request, %r.', request)
+            log.debug('Validating access token request, %r.', request)
             self.validate_token_request(request)
         except errors.OAuth2Error as e:
             log.debug('Client error in token request, %s.', e)
@@ -38,7 +49,7 @@ class ExternalTokenGrant(GrantTypeBase):
             return headers, e.json, e.status_code
 
         token = token_handler.create_token(request,
-                                           refresh_token=self.issue_new_refresh_tokens)
+                                           refresh_token=self.refresh_tokens)
 
         for modifier in self._token_modifiers:
             token = modifier(token)
@@ -81,6 +92,10 @@ class ExternalTokenGrant(GrantTypeBase):
         elif not self.request_validator.authenticate_client_id(request.client_id, request):
             log.debug('Client authentication failed, %r.', request)
             raise errors.InvalidClientError(request=request)
+        
+        if not self.external_validator(request.provider, request.access_code, request):
+            raise errors.InvalidGrantError(
+                    'Invalid token or provider', request=request)
 
         # Ensure client is authorized use of this grant type
         self.validate_grant_type(request)
@@ -91,3 +106,18 @@ class ExternalTokenGrant(GrantTypeBase):
 
         for validator in self.custom_validators.post_token:
             validator(request)
+
+    def external_validator(self,provider, access_code, request):
+        log.info("reached")
+        log.info(request.GET)
+        log.info(request.POST)
+        return True
+        # strategy = load_strategy(request=request)
+        # try:
+        #     backend= load_backend(strategy, provider, \
+        #                         reverse("%s:django:complete" % NAMESPACE,args=(provider,)))
+        # except MissingBackend:
+        #     raise errors.InvalidRequestError(
+        #             description='Invalud provider given',
+        #             request=request)
+        
