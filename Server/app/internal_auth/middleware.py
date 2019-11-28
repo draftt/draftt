@@ -15,7 +15,7 @@ def get_username(email):
         return None
 
 class GrantSubTypeMiddleware:
-
+    """Middleware to get username if email is provided for login"""
     def process_request(self, request):
         req= request.request
         req.POST._mutable = True

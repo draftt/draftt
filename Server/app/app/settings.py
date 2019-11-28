@@ -217,3 +217,5 @@ AUTHENTICATION_BACKENDS = (
 #     'https://www.googleapis.com/auth/userinfo.email',
 #     'https://www.googleapis.com/auth/userinfo.profile',
 # ]
+
+OAUTH2_PROVIDER_APPLICATION_MODEL='internal_auth.ExtendedApplication'
