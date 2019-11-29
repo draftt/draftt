@@ -10,10 +10,11 @@ log = logging.getLogger(__name__)
 from django.urls import reverse
 import oauthlib
 oauthlib.set_debug(True)
-# from social_django.views import NAMESPACE
-# from social_django.utils import load_backend, load_strategy
-# from social_core.exceptions import MissingBackend, SocialAuthBaseException
-# from social_core.utils import requests
+from django_global_request.middleware import get_request
+from social_django.views import NAMESPACE
+from social_django.utils import load_backend, load_strategy
+from social_core.exceptions import MissingBackend, SocialAuthBaseException
+from social_core.utils import requests
 
 class ExternalTokenGrant(GrantTypeBase):
 
@@ -21,6 +22,14 @@ class ExternalTokenGrant(GrantTypeBase):
         Grant type to accept and authorize external token requests
         i.e. Google/Facebook Auth Code
     """
+
+    def __init__(self, request_validator=None,
+             issue_new_refresh_tokens=True,
+             **kwargs):
+        super().__init__(
+            request_validator,
+            issue_new_refresh_tokens=issue_new_refresh_tokens,
+            **kwargs)
 
     def create_token_response(self, request, token_handler):
         """Create a new access token from an external token.
@@ -50,7 +59,7 @@ class ExternalTokenGrant(GrantTypeBase):
             return headers, e.json, e.status_code
 
         token = token_handler.create_token(request,
-                                           refresh_token=self.refresh_tokens)
+                                           refresh_token= self.issue_new_refresh_tokens)
 
         for modifier in self._token_modifiers:
             token = modifier(token)
@@ -71,12 +80,12 @@ class ExternalTokenGrant(GrantTypeBase):
             validator(request)
 
         #Check if the provider and access_code are provided
-        for param in ('grant_type', 'provider', 'access_code'):
+        for param in ('grant_type', 'provider', 'access_token'):
             if not getattr(request, param, None):
                 raise errors.InvalidRequestError(
                     'Request is missing %s parameter.' % param, request=request)
 
-        for param in ('grant_type', 'provider', 'access_code', 'scope'):
+        for param in ('grant_type', 'provider', 'access_token', 'scope'):
             if param in request.duplicate_params:
                 raise errors.InvalidRequestError(description='Duplicate %s parameter.' % param, request=request)
         
@@ -85,11 +94,10 @@ class ExternalTokenGrant(GrantTypeBase):
         if not request.grant_type == 'external_token':
             raise errors.UnsupportedGrantTypeError(request=request)
        
-        if not self.external_validator(request.provider, request.access_code, request):
+        if not self.external_validator(request.provider, request.access_token, request):
             raise errors.InvalidGrantError(
                     'Invalid token or provider', request=request)
 
-        # Ensure client is authorized use of this grant type
         self.validate_grant_type(request)
 
         if request.client:
@@ -100,19 +108,28 @@ class ExternalTokenGrant(GrantTypeBase):
             validator(request)
 
     def external_validator(self,provider, access_code, request):
-        req= HttpRequest()
-        req.POST=request.body
-        req.http_method="POST"
-        req.path=request.uri
-        log.info(req.POST)
-        log.debug(req.get_host())
+        strategy= load_strategy(request=get_request())
+        log.debug('Loading provider backend %s.',request.provider)
+        try:
+            backend= load_backend(strategy, provider, \
+                    reverse("%s:complete" % NAMESPACE,args=(provider,)))
+        except MissingBackend:
+            raise errors.InvalidRequestError(
+            description='Invalid provider given',
+            request=request)
+        log.debug('Dispatching authentication to provider %s.',request.provider)
+        try:
+            user = backend.do_auth(access_token=request.access_token)
+        except requests.HTTPError as e:
+            raise errors.InvalidRequestError(
+                description="Backend responded with HTTP{0}: {1}.".format(e.response.status_code,
+                                                                     e.response.text),
+                request=request)
+
+        if not user:
+            raise errors.InvalidGrantError('Invalid access-code', request=request)
+        if not user.is_active:
+            raise errors.InvalidGrantError('User inactive', request=request)
+        request.user = user
+        log.debug('Authorizing access to user %r.', request.user)
         return True
-        # strategy = load_strategy(request=request)
-        # try:
-        #     backend= load_backend(strategy, provider, \
-        #                         reverse("%s:django:complete" % NAMESPACE,args=(provider,)))
-        # except MissingBackend:
-        #     raise errors.InvalidRequestError(
-        #             description='Invalud provider given',
-        #             request=request)
-        

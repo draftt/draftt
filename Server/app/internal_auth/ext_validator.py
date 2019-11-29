@@ -1,10 +1,9 @@
 from oauth2_provider.oauth2_validators import OAuth2Validator
 from .models import ExtendedApplication 
-
 EXT_GRANT_TYPE_MAPPING = {
     "authorization_code": (ExtendedApplication.GRANT_AUTHORIZATION_CODE, ),
     "password": (ExtendedApplication.GRANT_PASSWORD, ),
-    "external_token": (ExtendedApplication.GRANT_EXTERNAL, ),
+    "external_token": (ExtendedApplication.GRANT_EXTERNAL_TOKEN, ),
     "client_credentials": (ExtendedApplication.GRANT_CLIENT_CREDENTIALS, ),
     "refresh_token": (
         ExtendedApplication.GRANT_AUTHORIZATION_CODE,

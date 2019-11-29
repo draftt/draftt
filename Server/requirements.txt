@@ -6,3 +6,4 @@ flake8>=3.7.9,<3.8.0
 
 django-oauth-toolkit
 social-auth-app-django
+django-middleware-global-request

@@ -7,4 +7,5 @@ urlpatterns = [
     path('token/', ExtendedTokenView.as_view(), name="token"),
     # path('external-token/', ExternalTokenView.as_view(), name="external-token"),
     path('', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('', include('social_django.urls', namespace="external")),
 ]

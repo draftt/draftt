@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_global_request',
     'core',
     'user',
     'internal_auth'
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_global_request.middleware.GlobalRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -186,18 +188,22 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
 )
 
 
-# # Facebook configuration
-# SOCIAL_AUTH_FACEBOOK_KEY = '721718534982258'
-# SOCIAL_AUTH_FACEBOOK_SECRET = '6c48668d5249334baf6fe53eb522a2de'
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '721718534982258'
+SOCIAL_AUTH_FACEBOOK_SECRET = '6c48668d5249334baf6fe53eb522a2de'
 
-# # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
-# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-# SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-#     'fields': 'id, name, email'
-# }
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_URL_NAMESPACE = 'auth:external'
 
 # SOCIAL_AUTH_PIPELINE = (
 #     'social_core.pipeline.social_auth.social_details',
