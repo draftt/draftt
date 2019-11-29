@@ -24,7 +24,6 @@ SECRET_KEY = '0x73f1pbwe9*=d6^n1599+%669so1tw3(nz!v!l(f62))%l^)*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -197,7 +196,9 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_KEY = '721718534982258'
 SOCIAL_AUTH_FACEBOOK_SECRET = '6c48668d5249334baf6fe53eb522a2de'
 
-# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from
+# facebook. Email is not sent by default, to get it, you must request the
+# email permission:
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
@@ -229,9 +230,9 @@ SOCIAL_AUTH_URL_NAMESPACE = 'auth:external'
 #     'https://www.googleapis.com/auth/userinfo.profile',
 # ]
 
-OAUTH2_PROVIDER_APPLICATION_MODEL='internal_auth.ExtendedApplication'
+OAUTH2_PROVIDER_APPLICATION_MODEL = 'internal_auth.ExtendedApplication'
 
 OAUTH2_PROVIDER = {
     'OAUTH2_BACKEND_CLASS': 'internal_auth.ext_backend.ExtOAuthLibCore',
-    'OAUTH2_VALIDATOR_CLASS' : 'internal_auth.ext_validator.ExtendedOAuth2Validator'
+    'OAUTH2_VALIDATOR_CLASS': 'internal_auth.ext_validator.ExtendedOAuth2Validator'
 }

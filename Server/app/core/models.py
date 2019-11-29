@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     fullname = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=True)
 
     """Assigns usermanager created above to the class"""
     objects = UserManager()

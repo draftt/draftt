@@ -5,7 +5,6 @@ from django.utils.translation import gettext as _
 from rest_framework.authtoken.models import Token
 
 
-
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['username', 'email', 'first_name', 'last_name', 'fullname']
