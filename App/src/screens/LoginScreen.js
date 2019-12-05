@@ -1,26 +1,31 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import userApi from '../api/user';
+
+
+
 
 var _ = require('lodash');
 
 // tcomb form library vars
 const Form = tcomb.form.Form;
 const stylesheet = _.cloneDeep(Form.stylesheet);
-
 stylesheet.formGroup.normal.padding = wp(0.5);
 stylesheet.textbox.normal.height = hp(5);
 
-const login = tcomb.struct({
-    email : tcomb.String,
+// define form
+const loginForm = tcomb.struct({
+    username_or_email : tcomb.String,
     password : tcomb.String
 });
 
+// define form options
 const options = {
     auto : 'placeholders',
     fields : {
-        email : {
+        username_or_email : {
             placeholder : 'Email / Username',
             label : null
         },
@@ -36,7 +41,36 @@ const options = {
 };
 
 
+// On Press functions
+const loginOnPress = async (navigation, formRef) => {
+
+    /* TODO:
+        - pass state variable ErrorString
+        - if userData is null --> validation failed --> modify ErrorString with message
+        - setup response from the server --> if not 200, modify ErrorString
+        - on successful login, go to Tester with some success message or something (for now)
+
+    */
+
+    console.log('Login Called');
+    const userData = formRef.current.getValue();
+
+    const response = await userApi.post(
+        '/login/',
+        userData
+    )   
+
+    console.log(response.status);
+    console.log(response.data);
+
+};
+
+
 const LoginScreen = ({navigation}) => {
+
+
+    const formRef = useRef(loginForm);
+
 
     return (
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled>
@@ -51,9 +85,9 @@ const LoginScreen = ({navigation}) => {
                     <Text style={{fontSize : hp('4%')}}>Login</Text>
                 </View>
                 <View style={{flex : 1}}>
-                    <Form type={login} options={options} />
+                    <Form ref={formRef} type={loginForm} options={options} />
 
-                    <TouchableOpacity style={styles.submitButtonStyle}>
+                    <TouchableOpacity style={styles.submitButtonStyle} onPress={() => loginOnPress(navigation, formRef)}>
                         <Text style={styles.submitButtonTextStyle}>Sign In</Text>
                     </TouchableOpacity>
 
