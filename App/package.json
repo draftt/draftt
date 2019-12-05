@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "braces": ">=2.3.1",
     "expo": "^35.0.0",
     "mem": ">=4.0.0",
