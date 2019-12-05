@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -55,26 +55,34 @@ const formOptions = {
 
 
 // On Press functions
-const signUpOnPress = async (navigation) => {
+const signUpOnPress = async (navigation, formRef) => {
 
-    console.log('called this function');
-    const response1 = await userApi.post(
-        'create/',
-        {
-            fullname: 'Adil Mian',
-            username: 'adil-test-username',
-            email: 'adilmian95@gmail.com',
-            password: '123456'
-        }
+    /* TODO:
+        - pass state variable ErrorString
+        - if userData is null --> validation failed --> modify ErrorString with message
+        - setup response from the server --> if not 201, modify ErrorString
+        - on successful signup, go to Login screen with some success message or something
+
+    */
+
+    console.log('Signup Called');
+    const userData = formRef.current.getValue();
+
+    const response = await userApi.post(
+        '/create/',
+        userData
     )
 
-    console.log(response1);
+    console.log(response);
 
 };
 
 
 // Component
 const SignupScreen = ({navigation}) => {
+
+    const formRef = useRef(null);   // reference to the Form object -- needed to get the values inputted into form
+
     return (
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled keyboardVerticalOffset={hp(20)}>
 
@@ -91,12 +99,12 @@ const SignupScreen = ({navigation}) => {
             <View style={styles.outerFormContainerStyle}>
                 <Text style={styles.formHeaderStyle}>Sign up</Text>
                 <View>
-                    <Form type={signupForm} options={formOptions} />
+                    <Form ref={formRef} type={signupForm} options={formOptions} />
                 </View>
             </View>
 
             <View style={styles.confirmSignupStyle}>
-                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => signUpOnPress(navigation)} >
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => signUpOnPress(navigation, formRef)} >
                     <AntDesign name="arrowright" size={wp(8)} color="#fefffe" />
                 </TouchableOpacity>
             </View>
