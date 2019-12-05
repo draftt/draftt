@@ -2,19 +2,22 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 import tcomb from 'tcomb-form-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons';
+import userApi from '../api/user';
+
+
 
 var _ = require('lodash');
 
 // tcomb form library vars
 const Form = tcomb.form.Form;
 const stylesheet = _.cloneDeep(Form.stylesheet);
-
 stylesheet.formGroup.normal.padding = 0;
 stylesheet.textbox.normal.height = hp(5);
 stylesheet.textbox.normal.margin = 0;
 
-const signup = tcomb.struct({
+// define form
+const signupForm = tcomb.struct({
     name : tcomb.String,
     username : tcomb.String,
     email : tcomb.String,
@@ -22,7 +25,8 @@ const signup = tcomb.struct({
     confirmpassword : tcomb.String
 });
 
-const options = {
+// define form options
+const formOptions = {
     auto : 'placeholders',
     fields : {
         email : {
@@ -49,6 +53,27 @@ const options = {
 };
 
 
+
+// On Press functions
+const signUpOnPress = async (navigation) => {
+
+    console.log('called this function');
+    const response1 = await userApi.post(
+        'create/',
+        {
+            fullname: 'Adil Mian',
+            username: 'adil-test-username',
+            email: 'adilmian95@gmail.com',
+            password: '123456'
+        }
+    )
+
+    console.log(response1);
+
+};
+
+
+// Component
 const SignupScreen = ({navigation}) => {
     return (
         <KeyboardAvoidingView style={styles.containerStyle} behavior="padding" enabled keyboardVerticalOffset={hp(20)}>
@@ -66,12 +91,12 @@ const SignupScreen = ({navigation}) => {
             <View style={styles.outerFormContainerStyle}>
                 <Text style={styles.formHeaderStyle}>Sign up</Text>
                 <View>
-                    <Form type={signup} options={options} />
+                    <Form type={signupForm} options={formOptions} />
                 </View>
             </View>
 
             <View style={styles.confirmSignupStyle}>
-                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => {navigation.navigate('Tester')}}>
+                <TouchableOpacity style={styles.arrowButtonStyle} onPress={() => signUpOnPress(navigation)} >
                     <AntDesign name="arrowright" size={wp(8)} color="#fefffe" />
                 </TouchableOpacity>
             </View>
