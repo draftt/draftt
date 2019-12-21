@@ -71,7 +71,7 @@ class AuthTokenSerializer(serializers.Serializer):
             )
             if user:
                 if not user.is_active:
-                    msg = _('User account is disabled.')
+                    msg = _('User account is inactive.')
                     raise serializers.ValidationError(msg)
 
                 attrs['user'] = user
@@ -120,12 +120,12 @@ class UidAndTokenSerializer(serializers.Serializer):
 
 class ActivationSerializer(UidAndTokenSerializer):
     default_error_messages = {
-        "stale_token": "User already verified",
+        "stale_token": "User already activated",
     }
 
     def validate(self, attrs):
         attrs = super().validate(attrs)
-        if not self.user.is_verified:
+        if not self.user.is_active:
             return attrs
         raise serializers.ValidationError(
-            "User already verified", code='authorization')
+            "User already active", code='authorization')

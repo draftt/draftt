@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
 
         user = self.create_user(username, email, password=password,
                                 is_superuser=True, is_staff=True,
-                                is_verified=True)
+                                is_active=True)
         return user
 
 
@@ -35,9 +35,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     fullname = models.CharField(max_length=255, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_verified = models.BooleanField(default=True)
 
     """Assigns usermanager created above to the class"""
     objects = UserManager()
