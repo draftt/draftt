@@ -38,14 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
-    'social_django',
     'rest_framework',
     'rest_framework.authtoken',
     'django_global_request',
     'core',
     'user',
-    'internal_auth'
+    'internal_auth',
+    'oauth2_provider',
+    'social_django',
 
 ]
 
