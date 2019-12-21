@@ -5,6 +5,7 @@ from django.core.validators import validate_email, ValidationError
 from core.utils import decode_uid
 from django.contrib.auth.tokens import default_token_generator
 from core.email import ActivationEmail
+from codegen.code_generator import CodeGenerator
 User = get_user_model()
 
 
@@ -16,23 +17,36 @@ def val_email(email):
         valid_email = False
     return valid_email
 
+def email_code(code_type,user):
+    # Initiate code generator with the code_type
+    codegen = CodeGenerator(code_type)
+    # Get the timestamp and code generated
+    timestamp,code=codegen.make_token(user).split('-')
+    # Pass on the code and user object to email function
+    context={"user": user,"token":code}
+    ActivationEmail(context=context).send([user.email])
+    # Return the timestamp
+    return timestamp
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for users object"""
 
     class Meta:
         model = get_user_model()
+        timestamp=""
         fields = ('fullname', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
+        """
+        Create a new user with encrypted password and return it
+        with the timestamp for activation
+        """
         user = get_user_model().objects.create_user(**validated_data)
-        context = {"user": user}
-        ActivationEmail(context=context).send([user.email])
+        
+        self.timestamp = email_code(code_type="activation",user=user)
         return user
-
-        """Create a new user with encrypted password and return it"""
-        return get_user_model().objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         """Update a user, set the pwd, and return updated data"""

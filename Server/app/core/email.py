@@ -96,7 +96,6 @@ class ActivationEmail(EmailMessage):
 
         user = context.get("user")
         context["uid"] = encode_uid(user.pk)
-        context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 
