@@ -9,5 +9,6 @@ urlpatterns = [
     # path('login/', views.CreateTokenView.as_view(), name='login'),
     path('account/', views.ManageUserView.as_view(), name='account'),
     # path('logout/', views.LogoutUser.as_view(), name='logout'),
-    path('activate/', views.ActivationView.as_view(), name='activate')
+    path('activate/', views.ActivationView.as_view(), name='activate'),
+    path('reset_pwd/', views.ResetPasswordView.as_view(),name='reset_pwd')
 ]

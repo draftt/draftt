@@ -2,27 +2,12 @@ from rest_framework import generics, permissions, status
 from rest_framework.authtoken.views import ObtainAuthToken, APIView
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
-from user.serializers import UserSerializer, AuthTokenSerializer,  \
-    ActivationSerializer
+from user.serializers import UserSerializer, ActivationSerializer
 from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
-from core.email import ActivationEmail
-from codegen.code_generator import CodeGenerator
-from core.utils import encode_uid
-import logging
+from .utils import email_code
+from django.contrib.auth import get_user_model
 
-log = logging.getLogger(__name__)
-def email_code(code_type,user):
-    # Initiate code generator with the code_type
-    codegen = CodeGenerator(code_type)
-    # Get the timestamp and code generated
-    timestamp,code=codegen.make_token(user).split('-')
-    # Pass on the code and user object to email function
-    context={"user": user,"code":code}
-    ActivationEmail(context=context).send([user.email])
-    uid = encode_uid(user.pk)
-    # Return the timestamp and uid
-    return {"timestamp":timestamp,"uid":uid}
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
@@ -75,4 +60,17 @@ class ActivationView(APIView):
             data="User Activated",
             status=status.HTTP_204_NO_CONTENT
         )
+
+class ResetPasswordView(APIView):
+
+    def post(self,request,*args,**kwargs):
+        email = request.data['email']
+        user = get_user_model().objects.get(email=email)
+        return_data= email_code(code_type="reset_password",user=user)
+        return Response(
+            return_data, 
+            status=status.HTTP_200_OK)
+
+
+
 

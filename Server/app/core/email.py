@@ -99,6 +99,18 @@ class ActivationEmail(EmailMessage):
         # context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 
+class ResetPasswordEmail(EmailMessage):
+    template_name = "reset_password.html"
+
+    def get_context_data(self):
+        # ActivationEmail can be deleted
+        context = super().get_context_data()
+
+        user = context.get("user")
+        context["name"]=user.fullname
+        # context["url"] = settings.ACTIVATION_URL.format(**context)
+        return context
+
 
 class WelcomeEmail(EmailMessage):
     template_name = "welcome.html"

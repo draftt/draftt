@@ -1,20 +1,10 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import validate_email, ValidationError
 from core.utils import decode_uid
-from django.contrib.auth.tokens import default_token_generator
+from django.core.validators import ValidationError
 from codegen.code_generator import CodeGenerator
 User = get_user_model()
-
-
-def val_email(email):
-    try:
-        validate_email(email)
-        valid_email = True
-    except ValidationError:
-        valid_email = False
-    return valid_email
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -47,8 +37,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UidAndTokenSerializer(serializers.Serializer):
+
     uid = serializers.CharField()
     token = serializers.CharField()
+    code_type=""
     default_error_messages = {
         "invalid_token": "The Token is invalid.",
         "invalid_uid": "No such user exists.",
@@ -56,7 +48,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         validated_data = super().validate(attrs)
-        codegen= CodeGenerator(code_type="activation")
+        codegen= CodeGenerator(code_type=self.code_type)
         # uid validation have to be here, because validate_<field_name>
         # doesn't work with modelserializer
         try:
@@ -81,7 +73,9 @@ class UidAndTokenSerializer(serializers.Serializer):
 
 
 class ActivationSerializer(UidAndTokenSerializer):
-
+    def __init(self):
+        super(ActivationSerializer, self).__init__()
+        self.code_type="activation"
     default_error_messages = {
         "stale_token": "User already activated",
     }
@@ -92,3 +86,4 @@ class ActivationSerializer(UidAndTokenSerializer):
             return attrs
         raise serializers.ValidationError(
             "User already active", code='authorization')
+
