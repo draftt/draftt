@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import validate_email, ValidationError
 from core.utils import decode_uid
 from django.contrib.auth.tokens import default_token_generator
-
+from codegen.code_generator import CodeGenerator
 User = get_user_model()
 
 
@@ -46,44 +46,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class AuthTokenSerializer(serializers.Serializer):
-    """Serializer for the user authentication object"""
-    username_or_email = serializers.CharField()
-    password = serializers.CharField(
-        style={'input_type': 'password'},
-        trim_whitespace=False
-    )
-
-    def validate(self, attrs):
-        """Validate and authenticate the user"""
-
-        username_or_email = attrs.get("username_or_email")
-        if (val_email(username_or_email)):
-            user = User.objects.get(email=username_or_email)
-            username = user.username
-        else:
-            username = username_or_email
-        if username is not None:
-            user = authenticate(
-                request=self.context.get('request'),
-                username=username,
-                password=attrs.get("password")
-            )
-            if user:
-                if not user.is_active:
-                    msg = _('User account is inactive.')
-                    raise serializers.ValidationError(msg)
-
-                attrs['user'] = user
-                return attrs
-            else:
-                msg = _('Unable to log in with provided credentials.')
-                raise serializers.ValidationError(msg, code='authorization')
-        else:
-            msg = _('Account with this email/username does not exists')
-            raise serializers.ValidationError(msg, code='authorization')
-
-
 class UidAndTokenSerializer(serializers.Serializer):
     uid = serializers.CharField()
     token = serializers.CharField()
@@ -94,7 +56,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         validated_data = super().validate(attrs)
-        token_generator = default_token_generator
+        codegen= CodeGenerator(code_type="activation")
         # uid validation have to be here, because validate_<field_name>
         # doesn't work with modelserializer
         try:
@@ -106,7 +68,7 @@ class UidAndTokenSerializer(serializers.Serializer):
                 {"uid": [self.error_messages[key_error]]}, code=key_error
             )
 
-        is_token_valid = token_generator.check_token(
+        is_token_valid = codegen.check_token(
             self.user, self.initial_data.get("token", "")
         )
         if is_token_valid:
@@ -119,6 +81,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
 
 class ActivationSerializer(UidAndTokenSerializer):
+
     default_error_messages = {
         "stale_token": "User already activated",
     }

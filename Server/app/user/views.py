@@ -39,13 +39,6 @@ class CreateUserView(generics.CreateAPIView):
         return Response(return_data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-
-class CreateTokenView(ObtainAuthToken):
-    """Create a new auth token for the user"""
-    serializer_class = AuthTokenSerializer
-    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
-
-
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manages authenticated user"""
     serializer_class = UserSerializer
@@ -73,11 +66,7 @@ class ActivationView(APIView):
     """Manages the activation link"""
 
     def post(self, request, *args, **kwargs):
-        data = {
-            'uid': kwargs['uid'],
-            'token': kwargs['token']
-        }
-        serializer_class = ActivationSerializer(data=data)
+        serializer_class = ActivationSerializer(data=request.data)
         serializer_class.is_valid(raise_exception=True)
         user = serializer_class.user
         user.is_active = True
