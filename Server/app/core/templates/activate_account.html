@@ -5,10 +5,11 @@
 {% endblock subject %}
 
 {% block text_body %}
+{% blocktrans %}Hi {{ fullname }},{% endblocktrans %}
 {% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}
 
-{% trans "Please go to the following page to activate account:" %}
-{{ protocol }}://{{ domain }}/{{ url|safe }}
+{% trans "Please enter the following code in the application to activate your account:" %}
+{{ code }}
 
 {% trans "Welcome to Draftt!!" %}
 
@@ -16,10 +17,11 @@
 {% endblock text_body %}
 
 {% block html_body %}
+<h1>Hello {{ fullname}},</h1>
 <p>{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}</p>
 
-<p>{% trans "Please go to the following page to activate account:" %}</p>
-<p><a href="{{ protocol }}://{{ domain }}/{{ url|safe }}">{{ protocol }}://{{ domain }}/{{ url|safe }}</a></p>
+<p>{% trans "Please enter the following code in the application to activate your account:" %}</p>
+<p>{{ code }}</p>
 
 <p>{% trans "Welcome to draftt!!" %}</p>
 

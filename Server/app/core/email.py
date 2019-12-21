@@ -95,8 +95,8 @@ class ActivationEmail(EmailMessage):
         context = super().get_context_data()
 
         user = context.get("user")
-        context["uid"] = encode_uid(user.pk)
-        context["url"] = settings.ACTIVATION_URL.format(**context)
+        context["name"]=user.fullname
+        # context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 
 

@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from core.email import ActivationEmail
 from codegen.code_generator import CodeGenerator
+from core.utils import encode_uid
 import logging
 
 log = logging.getLogger(__name__)
@@ -17,10 +18,11 @@ def email_code(code_type,user):
     # Get the timestamp and code generated
     timestamp,code=codegen.make_token(user).split('-')
     # Pass on the code and user object to email function
-    context={"user": user,"token":code}
+    context={"user": user,"code":code}
     ActivationEmail(context=context).send([user.email])
-    # Return the timestamp
-    return timestamp
+    uid = encode_uid(user.pk)
+    # Return the timestamp and uid
+    return {"timestamp":timestamp,"uid":uid}
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
@@ -31,9 +33,8 @@ class CreateUserView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user=serializer.save()
         headers = self.get_success_headers(serializer.data)
-        timestamp = email_code(code_type="activation",user=user)
         # Add timestamp and user details to return data
-        return_data={'timestamp':timestamp}
+        return_data= email_code(code_type="activation",user=user)
         return_data.update(serializer.data)
         return Response(return_data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -85,3 +86,4 @@ class ActivationView(APIView):
             data="User Activated",
             status=status.HTTP_204_NO_CONTENT
         )
+
