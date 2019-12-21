@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.utils.translation import ugettext_lazy as _
 from core.utils import decode_uid
 from django.core.validators import ValidationError
 from codegen.code_generator import CodeGenerator
@@ -21,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
         with the timestamp for activation
         """
         user = get_user_model().objects.create_user(**validated_data)
-        
+
         return user
 
     def update(self, instance, validated_data):
@@ -40,7 +39,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
     uid = serializers.CharField()
     token = serializers.CharField()
-    code_type=""
+    code_type = ""
     default_error_messages = {
         "invalid_token": "The Token is invalid.",
         "invalid_uid": "No such user exists.",
@@ -48,7 +47,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         validated_data = super().validate(attrs)
-        codegen= CodeGenerator(code_type=self.code_type)
+        codegen = CodeGenerator(code_type=self.code_type)
         # uid validation have to be here, because validate_<field_name>
         # doesn't work with modelserializer
         try:
@@ -73,7 +72,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
 
 class ActivationSerializer(UidAndTokenSerializer):
-    code_type="activation"
+    code_type = "activation"
     default_error_messages = {
         "stale_token": "User already activated",
     }
@@ -85,6 +84,7 @@ class ActivationSerializer(UidAndTokenSerializer):
         raise serializers.ValidationError(
             "User already active", code='authorization')
 
+
 class UpdatePasswordSerializer(UidAndTokenSerializer):
-    code_type="reset_password"
-    password=serializers.CharField(min_length=5,write_only=True)
+    code_type = "reset_password"
+    password = serializers.CharField(min_length=5, write_only=True)

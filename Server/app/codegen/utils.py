@@ -1,6 +1,5 @@
 
 
- 
 def truncate(hmac_sha1):
     """
     Truncate represents the function that converts an HMAC-SHA-1
@@ -10,4 +9,3 @@ def truncate(hmac_sha1):
     offset = int(hmac_sha1[-1], 16)
     binary = int(hmac_sha1[(offset * 2):((offset * 2) + 8)], 16) & 0x7fffffff
     return str(binary)
- 

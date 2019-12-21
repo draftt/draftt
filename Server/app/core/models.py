@@ -4,7 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, \
 from django.core.validators import validate_email
 import logging
 
-log=logging.getLogger(__name__)
+log = logging.getLogger(__name__)
+
+
 class UserManager(BaseUserManager):
 
     def create_user(self, username, email, password=None, **extra_fields):

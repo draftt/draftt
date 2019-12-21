@@ -1,6 +1,5 @@
 from rest_framework import generics, permissions, status
-from rest_framework.authtoken.views import ObtainAuthToken, APIView
-from rest_framework.settings import api_settings
+from rest_framework.authtoken.views import APIView
 from rest_framework.response import Response
 from user.serializers import UserSerializer, ActivationSerializer, \
     UpdatePasswordSerializer
@@ -8,9 +7,7 @@ from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from .utils import email_code
 from django.contrib.auth import get_user_model
-import logging
 
-log=logging.getLogger("app")
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
@@ -19,12 +16,13 @@ class CreateUserView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user=serializer.save()
+        user = serializer.save()
         headers = self.get_success_headers(serializer.data)
         # Add timestamp and user details to return data
-        return_data= email_code(code_type="activation",user=user)
+        return_data = email_code(code_type="activation", user=user)
         return_data.update(serializer.data)
-        return Response(return_data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+            return_data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
@@ -64,30 +62,31 @@ class ActivationView(APIView):
             status=status.HTTP_204_NO_CONTENT
         )
 
-class ResetPasswordView(APIView):
 
-    def get(self,request,*args,**kwargs):
+class ResetPasswordView(APIView):
+    """
+        Allows users to reset their password through email verification.
+        GET Method is used for requesting a verification code.
+        PATCH Method is used to provide the verification code and new
+        password.
+    """
+
+    def get(self, request, *args, **kwargs):
         email = request.data['email']
         user = get_user_model().objects.get(email=email)
-        return_data= email_code(code_type="reset_password",user=user)
+        return_data = email_code(code_type="reset_password", user=user)
         return Response(
-            return_data, 
+            return_data,
             status=status.HTTP_200_OK)
 
     def patch(self, request, *args, **kwargs):
         serializer = UpdatePasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.user
-        log.info(serializer.validated_data)
-        password= serializer.validated_data.pop('password', None)
+        password = serializer.validated_data.pop('password', None)
         user.set_password(password)
         user.save()
         return Response(
             data="Password Reset Successful",
             status=status.HTTP_204_NO_CONTENT
         )
-        
-
-
-
-

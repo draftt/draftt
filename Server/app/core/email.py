@@ -1,5 +1,3 @@
-from django.contrib.auth.tokens import default_token_generator
-from .utils import encode_uid
 from django.conf import settings
 from django.core import mail
 from django.template.context import make_context
@@ -95,9 +93,10 @@ class ActivationEmail(EmailMessage):
         context = super().get_context_data()
 
         user = context.get("user")
-        context["name"]=user.fullname
+        context["name"] = user.fullname
         # context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
+
 
 class ResetPasswordEmail(EmailMessage):
     template_name = "reset_password.html"
@@ -107,7 +106,7 @@ class ResetPasswordEmail(EmailMessage):
         context = super().get_context_data()
 
         user = context.get("user")
-        context["name"]=user.fullname
+        context["name"] = user.fullname
         # context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 

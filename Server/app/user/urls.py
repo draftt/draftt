@@ -6,9 +6,7 @@ app_name = 'user'
 """Redirects to the create user or login functions for each request"""
 urlpatterns = [
     path('create/', views.CreateUserView.as_view(), name='createuser'),
-    # path('login/', views.CreateTokenView.as_view(), name='login'),
     path('account/', views.ManageUserView.as_view(), name='account'),
-    # path('logout/', views.LogoutUser.as_view(), name='logout'),
     path('activate/', views.ActivationView.as_view(), name='activate'),
-    path('reset_pwd/', views.ResetPasswordView.as_view(),name='reset_pwd'),
+    path('reset_pwd/', views.ResetPasswordView.as_view(), name='reset_pwd'),
 ]

@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from .models import User
-from .email import ActivationEmail, WelcomeEmail
+from .email import WelcomeEmail
 
 
 def send_welcome_email(sender, instance, created, update_fields, **kwargs):
