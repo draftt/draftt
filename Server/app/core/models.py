@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, \
     BaseUserManager, PermissionsMixin
 from django.core.validators import validate_email
+from codegen.code_generator import code_gen
+import logging
 
-
+log=logging.getLogger(__name__)
 class UserManager(BaseUserManager):
 
     def create_user(self, username, email, password=None, **extra_fields):
@@ -14,6 +16,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email-address')
         validate_email(email)
         user = self.model(username=username, email=email, **extra_fields)
+        log.info(code_gen.make_token(user))
         user.set_password(password)
         user.save(using=self._db)
 
