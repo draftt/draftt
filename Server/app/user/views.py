@@ -2,12 +2,15 @@ from rest_framework import generics, permissions, status
 from rest_framework.authtoken.views import ObtainAuthToken, APIView
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
-from user.serializers import UserSerializer, ActivationSerializer
+from user.serializers import UserSerializer, ActivationSerializer, \
+    UpdatePasswordSerializer
 from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from .utils import email_code
 from django.contrib.auth import get_user_model
+import logging
 
+log=logging.getLogger("app")
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
@@ -63,13 +66,27 @@ class ActivationView(APIView):
 
 class ResetPasswordView(APIView):
 
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         email = request.data['email']
         user = get_user_model().objects.get(email=email)
         return_data= email_code(code_type="reset_password",user=user)
         return Response(
             return_data, 
             status=status.HTTP_200_OK)
+
+    def patch(self, request, *args, **kwargs):
+        serializer = UpdatePasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.user
+        log.info(serializer.validated_data)
+        password= serializer.validated_data.pop('password', None)
+        user.set_password(password)
+        user.save()
+        return Response(
+            data="Password Reset Successful",
+            status=status.HTTP_204_NO_CONTENT
+        )
+        
 
 
 

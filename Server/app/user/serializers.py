@@ -73,9 +73,7 @@ class UidAndTokenSerializer(serializers.Serializer):
 
 
 class ActivationSerializer(UidAndTokenSerializer):
-    def __init(self):
-        super(ActivationSerializer, self).__init__()
-        self.code_type="activation"
+    code_type="activation"
     default_error_messages = {
         "stale_token": "User already activated",
     }
@@ -87,3 +85,6 @@ class ActivationSerializer(UidAndTokenSerializer):
         raise serializers.ValidationError(
             "User already active", code='authorization')
 
+class UpdatePasswordSerializer(UidAndTokenSerializer):
+    code_type="reset_password"
+    password=serializers.CharField(min_length=5,write_only=True)
