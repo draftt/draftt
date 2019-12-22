@@ -1,5 +1,5 @@
 frontend:
-  - App/*
+  - App/**/*
   
 backend: 
-  - Server/*
+  - Server/**/*
