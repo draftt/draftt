@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+try:
+    from .keys import *
+except ImportError:
+    from .testkeys import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0x73f1pbwe9*=d6^n1599+%669so1tw3(nz!v!l(f62))%l^)*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -137,8 +140,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'draftt.no.reply@gmail.com'
-EMAIL_HOST_PASSWORD = 'Cointed#32'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -192,9 +193,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# Facebook configuration
-SOCIAL_AUTH_FACEBOOK_KEY = '721718534982258'
-SOCIAL_AUTH_FACEBOOK_SECRET = '6c48668d5249334baf6fe53eb522a2de'
+
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from
 # facebook. Email is not sent by default, to get it, you must request the
@@ -218,10 +217,7 @@ SOCIAL_AUTH_URL_NAMESPACE = 'auth:external'
 #     'social_core.pipeline.user.user_details',
 # )
 
-# # Google configuration
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
-#     '24313542359-jsje86tkbi701s3cdlm2h2ba0foevaqe.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'NHXiAaKFV1N8SJHHivtMo6vl'
+
 
 
 # # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.

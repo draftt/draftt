@@ -1,0 +1,13 @@
+SECRET_KEY = '0x123'
+
+EMAIL_HOST_USER = 'test@test.com'
+EMAIL_HOST_PASSWORD = 'testpassword'
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = ''
+SOCIAL_AUTH_FACEBOOK_SECRET = ''
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
+     ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
