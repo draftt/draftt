@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 try:
-    from .keys import *
+    from .securekeys import *
 except ImportError:
     from .testkeys import *
 
