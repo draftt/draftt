@@ -1,0 +1,17 @@
+name: Django Server Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build server in Docker
+        working-directory: ./Server
+        run: docker-compose up -d
+      - name: Test Django Server
+        working-directory: ./Server
+        run: docker-compose run app sh -c "python manage.py test"
