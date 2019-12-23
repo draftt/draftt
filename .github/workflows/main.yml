@@ -5,10 +5,18 @@ on:
     branches:
       - master
 jobs:
-  test:
+  core-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Test Django Server
+      - name: Core App Tests
         working-directory: ./Server
-        run: docker-compose run app sh -c "python manage.py test"
+        run: docker-compose run app sh -c "python manage.py test core"
+  user-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: User App Tests
+        working-directory: ./Server
+        run: docker-compose run app sh -c "python manage.py test user"
+
