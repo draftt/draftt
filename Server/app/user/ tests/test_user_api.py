@@ -6,9 +6,8 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 
-CREATE_USER_URL = reverse('user:create')
+CREATE_USER_URL = reverse('user:createuser')
 ACCOUNT_URL = reverse('user:account')
-LOGOUT_URL = reverse('user:logout')
 
 
 def create_user(**params):
@@ -34,7 +33,7 @@ class PublicUserApiTests(TestCase):
         """Check if user is created"""
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
-        user = get_user_model().objects.get(**res.data)
+        user = get_user_model().objects.get(username=payload['username'])
         """Check if password is set properly"""
         self.assertTrue(user.check_password(payload['password']))
         """Check password not returned"""
@@ -116,9 +115,3 @@ class PrivateUserApiTests(TestCase):
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
-    def test_user_logout(self):
-        """Tests if a user can logout"""
-
-        res = self.client.post(LOGOUT_URL, {})
-
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
