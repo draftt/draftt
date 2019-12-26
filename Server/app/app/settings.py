@@ -232,3 +232,5 @@ OAUTH2_PROVIDER = {
     'OAUTH2_BACKEND_CLASS': 'internal_auth.ext_backend.ExtOAuthLibCore',
     'OAUTH2_VALIDATOR_CLASS': 'internal_auth.ext_validator.ExtendedOAuth2Validator'
 }
+
+CODE_LENGTH = 6

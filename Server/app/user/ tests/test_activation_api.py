@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.core import mail
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.conf import settings
 
 ACTIVATION_URL = reverse('user:activate')
 CREATE_USER_URL = reverse('user:createuser')
@@ -11,6 +12,12 @@ CREATE_USER_URL = reverse('user:createuser')
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
+def extract_code_from_mail(body):
+    possible_codes = [int(s) for s in body.split() if 
+                        s.isdigit() and len(s) is settings.CODE_LENGTH]
+    if not possible_codes:
+        return False
+    return possible_codes[0]
 
 class ActivationApiTests(TestCase):
     """Test the users API (public) that does not require authentication"""
@@ -43,6 +50,9 @@ class ActivationApiTests(TestCase):
         """ Test activation Email sent"""
         self.assertTrue(len(mail.outbox) == 1)
         self.assertIn("Activate", mail.outbox[0].subject)
+        self.assertEqual(mail.outbox[0].to[0],self.payload['email'])
+        self.assertTrue(mail.outbox[0].body)
+
 
     # def test_activation_code_expires(self):
 

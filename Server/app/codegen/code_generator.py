@@ -2,7 +2,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.crypto import salted_hmac
 from django.utils.http import int_to_base36
 from .utils import truncate
-
+from django.conf import settings
 
 class CodeGenerator(PasswordResetTokenGenerator):
     """
@@ -22,5 +22,5 @@ class CodeGenerator(PasswordResetTokenGenerator):
             secret=self.secret,
         ).hexdigest()
         # Truncate the hash_string and ensure we have 6 characters
-        hash_string = truncate(hash_string)[-6:]
+        hash_string = truncate(hash_string)[-settings.CODE_LENGTH:]
         return "%s-%s" % (ts_b36, hash_string)
