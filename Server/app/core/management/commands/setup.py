@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
-from app.settings import DEBUG
 from django.contrib.auth import get_user_model
 from oauth2_provider.models import get_application_model
-
+import os
 Application = get_application_model()
 User = get_user_model()
 
@@ -39,12 +38,16 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        if DEBUG is False:
+        if not self.is_debug_mode():
+            self.stdout.write("Production Mode.")
             return
-        self.stdout.write("Running in Debug Mode")
+        self.stdout.write("Debug Mode.")
         if Application.objects.count() > 0 or User.objects.count() > 0:
-            self.stdout.write('Already test set up.')
+            self.stdout.write('Skipping setup.')
             return
         su = self.createsuper()
         self.createapp(su)
         self.stdout.write(self.style.SUCCESS('Test Setup complete.'))
+
+    def is_debug_mode(self):
+        return os.getenv('DEBUG', False) == 'True'

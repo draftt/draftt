@@ -25,7 +25,7 @@ class CodeGenerator(PasswordResetTokenGenerator):
         return self._make_token_with_timestamp(
             user,
             self._num_seconds(self._now())
-            )
+        )
 
     def check_token(self, user, token):
         """
