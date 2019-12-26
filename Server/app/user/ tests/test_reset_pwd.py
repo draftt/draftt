@@ -15,7 +15,7 @@ RESET_PWD_URL = reverse('user:reset_pwd')
 def extract_code_from_mail(body):
     possible_codes = [s for s in body.split() if
                       s.isdigit() and len(s) is settings.CODE_LENGTH]
-    if not possible_codes:
+    if not possible_codes:  # pragma: no cover
         return False
     return possible_codes[0]
 
