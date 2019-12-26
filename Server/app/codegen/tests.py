@@ -39,3 +39,14 @@ class CodegenTests(TestCase):
         """Tests if the length of code is same as defined in settings"""
         ts,code = self.base_code.split('-')
         self.assertTrue(len(code) is settings.CODE_LENGTH)
+
+    def test_code_type(self):
+        """Tests whether the code type works or not"""
+        
+        diff_codegen = CodeGenerator(code_type="testingtype")
+        diff_code = diff_codegen.make_token(self.test_user)
+
+        self.assertFalse(self.base_codegen.check_token(self.test_user,diff_code))
+        self.assertFalse(diff_codegen.check_token(self.test_user,self.base_code))
+
+        self.assertTrue(diff_codegen.check_token(self.test_user,diff_code))
