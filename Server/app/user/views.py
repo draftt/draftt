@@ -74,7 +74,7 @@ class ResetPasswordView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             email = request.data['email']
-        except KeyError as e:
+        except KeyError:
             return Response(
                 data = "Email not provided",
                 status=status.HTTP_400_BAD_REQUEST
