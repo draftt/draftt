@@ -5,7 +5,6 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 from oauth2_provider.models import get_application_model
-from django.core.management import call_command
 
 LOGIN_URL = reverse('internal_auth:token')
 Application = get_application_model()

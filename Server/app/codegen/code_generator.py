@@ -9,7 +9,7 @@ from datetime import datetime
 class CodeGenerator(PasswordResetTokenGenerator):
     """
     Numeric small code generator based on Django
-    Password Reset Token Generator that supports 
+    Password Reset Token Generator that supports
     seconds timeout.
     """
 
@@ -22,7 +22,10 @@ class CodeGenerator(PasswordResetTokenGenerator):
         Return a token that can be used once to do a password reset
         for the given user.
         """
-        return self._make_token_with_timestamp(user, self._num_seconds(self._now()))
+        return self._make_token_with_timestamp(
+            user,
+            self._num_seconds(self._now())
+            )
 
     def check_token(self, user, token):
         """
@@ -41,7 +44,9 @@ class CodeGenerator(PasswordResetTokenGenerator):
         except ValueError:
             return False
         # Check that the timestamp/uid has not been tampered with
-        if not constant_time_compare(self._make_token_with_timestamp(user, ts), token):
+        if not constant_time_compare(
+                self._make_token_with_timestamp(user, ts),
+                token):
             return False
         # Check the timestamp is within limit.
         if (self._num_seconds(self._now()) - ts) > settings.CODE_TIMEOUT:

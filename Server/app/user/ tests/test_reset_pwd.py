@@ -35,7 +35,7 @@ class ResetPwdApiTests(TestCase):
         self.code_request = self.client.post(RESET_PWD_URL, payload)
 
     def test_request_code(self):
-        """Test request succeeds and check if required stuff is 
+        """Test request succeeds and check if required stuff is
         provided"""
 
         self.assertEqual(self.code_request.status_code, status.HTTP_200_OK)

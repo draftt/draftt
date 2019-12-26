@@ -72,7 +72,10 @@ class ActivationApiTests(TestCase):
         self.assertTrue(user.is_active)
 
     def test_activate_user_fails(self):
-        """Tests the activation link to activate a user fails with wrong code"""
+        """
+        Tests the activation link to activate a
+            user fails with wrong code
+        """
         code = extract_code_from_mail(mail.outbox[0].body)
         timestamp = self.res.data['timestamp']
         uid = self.res.data['uid']
