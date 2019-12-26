@@ -1,0 +1,7 @@
+steps:
+    - uses: actions/checkout@master
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} 
+        file: ./Server/app/coverage.xml #optional
+        fail_ci_if_error: true #optional (default = false)

@@ -1,0 +1,14 @@
+[run]
+source = .
+omit = 
+    */node_modules/*
+    */migrations/*
+    manage.py
+    ./app/settings.py
+branch = true
+
+[report]
+
+fail_under = 80
+show_missing = True
+skip_covered = True
