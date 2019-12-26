@@ -71,6 +71,26 @@ class LoginApiTests(TestCase):
         res = self.client.post(LOGIN_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
+    def test_create_token_no_user(self):
+        """Test that token is not created if user doens't exist"""
+        payload = { 'grant_type': 'password',
+                    'grant_sub_type': 'username',
+                    'username': 'newtest',
+                    'password': 'testpassword',
+                    'client_id':self.app.client_id,
+                    'client_secret':self.app.client_secret}
+        res = self.client.post(LOGIN_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+        payload = { 'grant_type': 'password',
+                    'grant_sub_type': 'email',
+                    'email': 'newtest@email.com',
+                    'password': 'testpassword',
+                    'client_id':self.app.client_id,
+                    'client_secret':self.app.client_secret}
+        res = self.client.post(LOGIN_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
 
     # def test_create_token_invalid_credentials(self):
     #     """Test that token is not created if """
@@ -84,14 +104,7 @@ class LoginApiTests(TestCase):
     #     self.assertNotIn('token', res.data)
     #     self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # def test_create_token_no_user(self):
-    #     """Test that token is not created if user doens't exist"""
-    #     payload = {'username_or_email': 'testuser', 'password': 'testpassword'}
-    #     res = self.client.post(LOGIN_URL, payload)
-
-    #     self.assertNotIn('token', res.data)
-    #     self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
+  
     # def test_create_token_missing_field(self):
     #     """Test that email/username and password are required"""
     #     payload = {'username_or_email': 'testuser', 'password': 'testpassword'}
