@@ -3,6 +3,7 @@ djangorestframework
 psycopg2
 
 flake8>=3.7.9,<3.8.0
+coverage
 
 django-oauth-toolkit>=1.2.0,<1.3.0
 social-auth-app-django
