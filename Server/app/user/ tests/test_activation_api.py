@@ -54,6 +54,7 @@ class ActivationApiTests(TestCase):
         self.assertTrue(mail.outbox[0].body)
 
     def test_activate_user(self):
+        """Tests the activation link to activate a user"""
         code = extract_code_from_mail(mail.outbox[0].body)
         timestamp = self.res.data['timestamp']
         uid = self.res.data['uid']
@@ -68,7 +69,24 @@ class ActivationApiTests(TestCase):
         self.assertEqual(act_res.status_code, status.HTTP_200_OK)
         self.assertTrue(user.is_active)
 
+    def test_activate_user_fails(self):
+        """Tests the activation link to activate a user fails with wrong code"""
+        code = extract_code_from_mail(mail.outbox[0].body)
+        timestamp = self.res.data['timestamp']
+        uid = self.res.data['uid']
+        code = timestamp+ '-' + "123456"
+        activate_payload = {
+            'uid': uid,
+            'token':code
+        }
+        act_res = self.client.post(ACTIVATION_URL, activate_payload)
+        user =  get_user_model().objects.get(
+            username=self.payload['username'])      
+        self.assertEqual(act_res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(user.is_active)
+
     def test_activated_email_send(self):
+        """ Tests if confirmation email is sent after activation"""
         user =  get_user_model().objects.get(
             username=self.payload['username']) 
         user.is_active = True
