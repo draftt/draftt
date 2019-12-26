@@ -71,8 +71,14 @@ class ResetPasswordView(APIView):
         password.
     """
 
-    def get(self, request, *args, **kwargs):
-        email = request.data['email']
+    def post(self, request, *args, **kwargs):
+        try:
+            email = request.data['email']
+        except KeyError as e:
+            return Response(
+                data = "Email not provided",
+                status=status.HTTP_400_BAD_REQUEST
+            )
         user = get_user_model().objects.get(email=email)
         return_data = email_code(code_type="reset_password", user=user)
         return Response(
