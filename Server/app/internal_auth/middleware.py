@@ -24,7 +24,7 @@ class GrantSubTypeMiddleware:
                 try:
                     username = get_username(req.POST['email'])
                 except get_user_model().DoesNotExist:
-                    username="invalidusername"
+                    username = "invalidusername"
                 req.POST.pop('email')
                 req.POST['username'] = username
             req.POST.pop('grant_sub_type')

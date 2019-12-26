@@ -193,8 +193,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-
-
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from
 # facebook. Email is not sent by default, to get it, you must request the
 # email permission:
@@ -216,8 +214,6 @@ SOCIAL_AUTH_URL_NAMESPACE = 'auth:external'
 #     'social_core.pipeline.social_auth.load_extra_data',
 #     'social_core.pipeline.user.user_details',
 # )
-
-
 
 
 # # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.

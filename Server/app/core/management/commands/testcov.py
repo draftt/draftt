@@ -15,5 +15,6 @@ class Command(BaseCommand):
         cov.stop()
         cov.save()
         covered = cov.report()
+        cov.xml_report()
         if covered < 100:
             sys.exit(1)

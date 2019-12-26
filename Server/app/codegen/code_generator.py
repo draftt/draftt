@@ -1,9 +1,11 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.crypto import constant_time_compare,salted_hmac
+from django.utils.crypto import constant_time_compare, salted_hmac
 from django.utils.http import int_to_base36, base36_to_int
 from .utils import truncate
 from django.conf import settings
 from datetime import datetime
+
+
 class CodeGenerator(PasswordResetTokenGenerator):
     """
     Numeric small code generator based on Django
@@ -47,7 +49,6 @@ class CodeGenerator(PasswordResetTokenGenerator):
 
         return True
 
-    
     def _make_token_with_timestamp(self, user, timestamp):
         ts_b36 = int_to_base36(timestamp)
         hash_string = salted_hmac(

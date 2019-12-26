@@ -3,6 +3,8 @@ source = .
 omit = 
     */node_modules/*
     */migrations/*
+    */apps.py
+    */wsgi.py
     manage.py
     ./app/settings.py
 branch = true

@@ -9,5 +9,5 @@ SOCIAL_AUTH_FACEBOOK_SECRET = ''
 
 # Google configuration
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
-     ''
+    ''
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''

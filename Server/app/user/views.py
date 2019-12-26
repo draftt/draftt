@@ -76,7 +76,7 @@ class ResetPasswordView(APIView):
             email = request.data['email']
         except KeyError:
             return Response(
-                data = "Email not provided",
+                data="Email not provided",
                 status=status.HTTP_400_BAD_REQUEST
             )
         user = get_user_model().objects.get(email=email)
