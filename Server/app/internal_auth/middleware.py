@@ -21,7 +21,10 @@ class GrantSubTypeMiddleware:
         # to return access-token even if user provided email
         if req.POST['grant_type'] == "password":
             if req.POST['grant_sub_type'] == "email":
-                username = get_username(req.POST['email'])
+                try:
+                    username = get_username(req.POST['email'])
+                except get_user_model().DoesNotExist:
+                    username="invalidusername"
                 req.POST.pop('email')
                 req.POST['username'] = username
             req.POST.pop('grant_sub_type')
