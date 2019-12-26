@@ -68,5 +68,12 @@ class ActivationApiTests(TestCase):
         self.assertEqual(act_res.status_code, status.HTTP_200_OK)
         self.assertTrue(user.is_active)
 
+    def test_activated_email_send(self):
+        user =  get_user_model().objects.get(
+            username=self.payload['username']) 
+        user.is_active = True
+        user.save(update_fields=['is_active'])
 
+        self.assertTrue(len(mail.outbox)==2)
+        self.assertIn("activated", mail.outbox[1].body)
 
