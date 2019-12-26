@@ -5,8 +5,8 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 
-CREATE_USER_URL = reverse('user:activate')
-
+ACTIVATION_URL = reverse('user:activate')
+CREATE_USER_URL = reverse('user:createuser')
 
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
@@ -26,7 +26,33 @@ class PublicUserApiTests(TestCase):
     def tearDown(self):
         self.test_user.delete()
 
-    
+    def test_activation_data_returned_on_creation(self):
+        """ Test if required activation data is returned on account
+            creation"""
+        payload = {
+            'username': 'newuser',
+            'email': 'test@tester.com',
+            'password': 'testpass123',
+            'fullname': 'Test Name 123'
+        }
+        res = self.client.post(CREATE_USER_URL, payload)
+        self.assertIn('timestamp', res.data)
+        self.assertIn('uid', res.data)
+
+    def test_new_user_inactive(self):
+        """ Test new user is inactive by default"""
+        payload = {
+            'username': 'newuser',
+            'email': 'test@tester.com',
+            'password': 'testpass123',
+            'fullname': 'Test Name 123'
+        }
+        self.client.post(CREATE_USER_URL, payload)
+
+        user = get_user_model().objects.get(username=payload['username'])
+        
+        self.assertFalse(user.is_active)
+
     
 
     
