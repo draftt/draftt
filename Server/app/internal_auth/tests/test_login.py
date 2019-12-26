@@ -2,7 +2,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
 from rest_framework.test import APIClient
 from rest_framework import status
 from oauth2_provider.models import get_application_model
@@ -11,11 +10,9 @@ from django.core.management import call_command
 LOGIN_URL = reverse('internal_auth:token')   
 Application = get_application_model()
 
-import logging
-log=logging.getLogger(__name__)
 
-class LoginApiTests(TestCase):
-
+class PasswordLoginApiTests(TestCase):
+    """Test cases for grant_type password login"""
     def setUp(self):
         self.client = APIClient()
 
@@ -42,8 +39,6 @@ class LoginApiTests(TestCase):
         self.test_user.delete()
         self.superuser.delete()
 
-    #############################
-    # Create Auth Token Tests   #
 
     def test_login_with_username(self):
         """Test token creation with username"""
@@ -73,6 +68,7 @@ class LoginApiTests(TestCase):
 
     def test_create_token_no_user(self):
         """Test that token is not created if user doens't exist"""
+        
         payload = { 'grant_type': 'password',
                     'grant_sub_type': 'username',
                     'username': 'newtest',
@@ -90,24 +86,4 @@ class LoginApiTests(TestCase):
                     'client_secret':self.app.client_secret}
         res = self.client.post(LOGIN_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
-
-    # def test_create_token_invalid_credentials(self):
-    #     """Test that token is not created if """
-    #     """invalid credentials are provided"""
-    #     create_user(username='test', email="test@draftt.com",
-    #                 password='testpass')
-    #     payload = {'username': 'test',
-    #                'password': 'nottherightpassword'}
-    #     res = self.client.post(LOGIN_URL, payload)
-
-    #     self.assertNotIn('token', res.data)
-    #     self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
   
-    # def test_create_token_missing_field(self):
-    #     """Test that email/username and password are required"""
-    #     payload = {'username_or_email': 'testuser', 'password': 'testpassword'}
-    #     res = self.client.post(LOGIN_URL, payload)
-    #     self.assertNotIn('token', res.data)
-    #     self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
