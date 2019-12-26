@@ -3,10 +3,7 @@ from django.utils.crypto import constant_time_compare,salted_hmac
 from django.utils.http import int_to_base36, base36_to_int
 from .utils import truncate
 from django.conf import settings
-import logging
 from datetime import datetime
-
-log = logging.getLogger(__name__)
 class CodeGenerator(PasswordResetTokenGenerator):
     """
     Numeric small code generator based on Django
@@ -41,17 +38,16 @@ class CodeGenerator(PasswordResetTokenGenerator):
             ts = base36_to_int(ts_b36)
         except ValueError:
             return False
-
         # Check that the timestamp/uid has not been tampered with
         if not constant_time_compare(self._make_token_with_timestamp(user, ts), token):
             return False
-
         # Check the timestamp is within limit.
-        if (self._num_seconds(self._now()) - ts) > settings.PASSWORD_RESET_TIMEOUT:
+        if (self._num_seconds(self._now()) - ts) > settings.CODE_TIMEOUT:
             return False
 
         return True
 
+    
     def _make_token_with_timestamp(self, user, timestamp):
         ts_b36 = int_to_base36(timestamp)
         hash_string = salted_hmac(
