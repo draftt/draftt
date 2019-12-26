@@ -59,7 +59,7 @@ class ActivationView(APIView):
         user.save(update_fields=['is_active'])
         return Response(
             data="User Activated",
-            status=status.HTTP_204_NO_CONTENT
+            status=status.HTTP_200_OK
         )
 
 
