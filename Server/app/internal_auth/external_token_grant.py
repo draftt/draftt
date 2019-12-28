@@ -27,7 +27,9 @@ class ExternalTokenGrant(GrantTypeBase):
                 if not self.request_validator.authenticate_client(request):
                     log.debug('Client authentication failed, %r.', request)
                     raise errors.InvalidClientError(request=request)
-            elif not self.request_validator.authenticate_client_id(request.client_id, request):
+            elif not self.request_validator.authenticate_client_id(
+                    request.client_id,
+                    request):
                 log.debug('Client authentication failed, %r.', request)
                 raise errors.InvalidClientError(request=request)
             log.debug('Validating access token request, %r.', request)
@@ -88,7 +90,7 @@ class ExternalTokenGrant(GrantTypeBase):
                     'Validate user must set the '
                     'request.client.client_id attribute '
                     'in authenticate_client.')
-        
+
         log.debug('Authorizing access to user %r.', request.user)
 
         self.validate_grant_type(request)
@@ -99,5 +101,3 @@ class ExternalTokenGrant(GrantTypeBase):
 
         for validator in self.custom_validators.post_token:
             validator(request)
-
-

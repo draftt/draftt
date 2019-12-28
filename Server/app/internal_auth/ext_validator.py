@@ -46,7 +46,8 @@ class ExtendedOAuth2Validator(OAuth2Validator):
 
     def external_validator(self, provider, access_code, request):
         """
-        Calls the social backend to validate the access_code and get information
+        Calls the social backend to validate the access_code
+        and get information
         """
         strategy = load_strategy(request=get_request())
         log.debug('Loading provider backend %s.', request.provider)

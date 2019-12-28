@@ -8,6 +8,7 @@ from internal_auth.external_token_grant import ExternalTokenGrant
 from oauthlib.oauth2.rfc6749.tokens import BearerToken
 from unittest import TestCase
 
+
 class ExternalGrantTest(TestCase):
 
     def setUp(self):
@@ -20,9 +21,9 @@ class ExternalGrantTest(TestCase):
         self.request.client = mock_client
         self.request.scopes = ('mocked', 'scopes')
         self.mock_validator = mock.MagicMock()
-        
+
         self.auth = ExternalTokenGrant(
-                request_validator=self.mock_validator)
+            request_validator=self.mock_validator)
 
     def set_client(self, request, *args, **kwargs):
         request.client = mock.MagicMock()
@@ -30,10 +31,10 @@ class ExternalGrantTest(TestCase):
         return True
 
     def test_create_token_response(self):
-        
+
         bearer = BearerToken(self.mock_validator)
         headers, body, status_code = self.auth.create_token_response(
-                self.request, bearer)
+            self.request, bearer)
         token = json.loads(body)
         self.assertEqual(self.mock_validator.save_token.call_count, 1)
         self.assertIn('access_token', token)
@@ -41,7 +42,9 @@ class ExternalGrantTest(TestCase):
         self.assertIn('expires_in', token)
         self.assertIn('refresh_token', token)
         # ensure client_authentication_required() is properly called
-        self.mock_validator.client_authentication_required.assert_called_once_with(self.request)
+        self.mock_validator.\
+            client_authentication_required.assert_called_once_with(
+                self.request)
         # fail client authentication
         self.mock_validator.reset_mock()
         self.mock_validator.validate_user.return_value = True
@@ -61,10 +64,10 @@ class ExternalGrantTest(TestCase):
     def test_create_token_response_without_refresh_token(self):
         # self.auth.refresh_token = False so we don't generate a refresh token
         self.auth = ExternalTokenGrant(
-                request_validator=self.mock_validator, refresh_token=False)
+            request_validator=self.mock_validator, refresh_token=False)
         bearer = BearerToken(self.mock_validator)
         headers, body, status_code = self.auth.create_token_response(
-                self.request, bearer)
+            self.request, bearer)
         token = json.loads(body)
         self.assertEqual(self.mock_validator.save_token.call_count, 1)
         self.assertIn('access_token', token)
@@ -73,7 +76,9 @@ class ExternalGrantTest(TestCase):
         # ensure no refresh token is generated
         self.assertNotIn('refresh_token', token)
         # ensure client_authentication_required() is properly called
-        self.mock_validator.client_authentication_required.assert_called_once_with(self.request)
+        self.mock_validator.\
+            client_authentication_required.assert_called_once_with(
+                self.request)
         # fail client authentication
         self.mock_validator.reset_mock()
         self.mock_validator.validate_user.return_value = True
@@ -93,14 +98,14 @@ class ExternalGrantTest(TestCase):
         authval1, authval2 = mock.Mock(), mock.Mock()
         expected = ('ExternalTokenGrant does not '
                     'support authorization validators. Use token '
-                              'validators instead.')
+                    'validators instead.')
         with self.assertRaises(ValueError) as caught:
             ExternalTokenGrant(self.mock_validator,
-                                                  pre_auth=[authval1])
+                               pre_auth=[authval1])
         self.assertEqual(caught.exception.args[0], expected)
         with self.assertRaises(ValueError) as caught:
             ExternalTokenGrant(self.mock_validator,
-                                                  post_auth=[authval2])
+                               post_auth=[authval2])
         self.assertEqual(caught.exception.args[0], expected)
         with self.assertRaises(AttributeError):
             self.auth.custom_validators.pre_auth.append(authval1)
@@ -125,14 +130,20 @@ class ExternalGrantTest(TestCase):
 
     def test_invalid_request_missing_params(self):
         del self.request.grant_type
-        self.assertRaises(errors.InvalidRequestError, self.auth.validate_token_request,
-                          self.request)
+        self.assertRaises(
+            errors.InvalidRequestError,
+            self.auth.validate_token_request,
+            self.request
+        )
 
     def test_invalid_request_duplicates(self):
         request = mock.MagicMock(wraps=self.request)
         request.duplicate_params = ['scope']
-        self.assertRaises(errors.InvalidRequestError, self.auth.validate_token_request,
-                          request)
+        self.assertRaises(
+            errors.InvalidRequestError,
+            self.auth.validate_token_request,
+            request
+        )
 
     def test_invalid_grant_type(self):
         self.request.grant_type = 'foo'
@@ -141,13 +152,19 @@ class ExternalGrantTest(TestCase):
 
     def test_invalid_user(self):
         self.mock_validator.external_validator.return_value = False
-        self.assertRaises(errors.InvalidGrantError, self.auth.validate_token_request,
-                          self.request)
+        self.assertRaises(
+            errors.InvalidGrantError,
+            self.auth.validate_token_request,
+            self.request
+        )
 
     def test_client_id_missing(self):
         del self.request.client.client_id
-        self.assertRaises(NotImplementedError, self.auth.validate_token_request,
-                          self.request)
+        self.assertRaises(
+            NotImplementedError,
+            self.auth.validate_token_request,
+            self.request
+        )
 
     def test_valid_token_request(self):
         self.mock_validator.validate_grant_type.return_value = True
