@@ -107,3 +107,48 @@ class ExternalGrantTest(TestCase):
         with self.assertRaises(AttributeError):
             self.auth.custom_validators.pre_auth.append(authval2)
 
+    def test_custom_token_validators(self):
+        tknval1, tknval2 = mock.Mock(), mock.Mock()
+        self.auth.custom_validators.pre_token.append(tknval1)
+        self.auth.custom_validators.post_token.append(tknval2)
+
+        bearer = BearerToken(self.mock_validator)
+        self.auth.create_token_response(self.request, bearer)
+        self.assertTrue(tknval1.called)
+        self.assertTrue(tknval2.called)
+
+    def test_error_response(self):
+        pass
+
+    def test_scopes(self):
+        pass
+
+    def test_invalid_request_missing_params(self):
+        del self.request.grant_type
+        self.assertRaises(errors.InvalidRequestError, self.auth.validate_token_request,
+                          self.request)
+
+    def test_invalid_request_duplicates(self):
+        request = mock.MagicMock(wraps=self.request)
+        request.duplicate_params = ['scope']
+        self.assertRaises(errors.InvalidRequestError, self.auth.validate_token_request,
+                          request)
+
+    def test_invalid_grant_type(self):
+        self.request.grant_type = 'foo'
+        self.assertRaises(errors.UnsupportedGrantTypeError,
+                          self.auth.validate_token_request, self.request)
+
+    def test_invalid_user(self):
+        self.mock_validator.external_validator.return_value = False
+        self.assertRaises(errors.InvalidGrantError, self.auth.validate_token_request,
+                          self.request)
+
+    def test_client_id_missing(self):
+        del self.request.client.client_id
+        self.assertRaises(NotImplementedError, self.auth.validate_token_request,
+                          self.request)
+
+    def test_valid_token_request(self):
+        self.mock_validator.validate_grant_type.return_value = True
+        self.auth.validate_token_request(self.request)
