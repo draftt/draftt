@@ -35,17 +35,12 @@ class ExternalTokenGrant(GrantTypeBase):
         headers = self._get_default_headers()
 
         try:
-            if self.request_validator.client_authentication_required(
-                    request=request):
+            if self.request_validator.client_authentication_required(request):
                 log.debug('Authenticating client, %r.', request)
-                if not self.request_validator.authenticate_client(
-                        request=request):
+                if not self.request_validator.authenticate_client(request):
                     log.debug('Client authentication failed, %r.', request)
                     raise errors.InvalidClientError(request=request)
-            elif not self.request_validator.authenticate_client_id(
-                request.client_id,
-                request=request
-            ):
+            elif not self.request_validator.authenticate_client_id(request.client_id, request):
                 log.debug('Client authentication failed, %r.', request)
                 raise errors.InvalidClientError(request=request)
             log.debug('Validating access token request, %r.', request)
@@ -56,7 +51,7 @@ class ExternalTokenGrant(GrantTypeBase):
             return headers, e.json, e.status_code
 
         token = token_handler.create_token(
-            request, refresh_token=self.issue_new_refresh_tokens)
+            request, self.refresh_token)
 
         for modifier in self._token_modifiers:
             token = modifier(token)
