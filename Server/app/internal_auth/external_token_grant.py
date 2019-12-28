@@ -4,12 +4,7 @@ import logging
 
 from oauthlib.oauth2.rfc6749 import errors
 from oauthlib.oauth2.rfc6749.grant_types.base import GrantTypeBase
-from django.urls import reverse
-from django_global_request.middleware import get_request
-from social_django.views import NAMESPACE
-from social_django.utils import load_backend, load_strategy
-from social_core.exceptions import MissingBackend
-from social_core.utils import requests
+
 log = logging.getLogger(__name__)
 
 
@@ -19,14 +14,6 @@ class ExternalTokenGrant(GrantTypeBase):
         Grant type to accept and authorize external token requests
         i.e. Google/Facebook Auth Code
     """
-
-    def __init__(self, request_validator=None,
-                 issue_new_refresh_tokens=True,
-                 **kwargs):
-        super().__init__(
-            request_validator,
-            issue_new_refresh_tokens=issue_new_refresh_tokens,
-            **kwargs)
 
     def create_token_response(self, request, token_handler):
         """
@@ -89,12 +76,20 @@ class ExternalTokenGrant(GrantTypeBase):
         if not request.grant_type == 'external_token':
             raise errors.UnsupportedGrantTypeError(request=request)
 
-        if not self.external_validator(
+        if not self.request_validator.external_validator(
                 request.provider,
                 request.access_token,
                 request):
             raise errors.InvalidGrantError(
                 'Invalid token or provider', request=request)
+        else:
+            if not hasattr(request.client, 'client_id'):
+                raise NotImplementedError(
+                    'Validate user must set the '
+                    'request.client.client_id attribute '
+                    'in authenticate_client.')
+        
+        log.debug('Authorizing access to user %r.', request.user)
 
         self.validate_grant_type(request)
 
@@ -105,37 +100,4 @@ class ExternalTokenGrant(GrantTypeBase):
         for validator in self.custom_validators.post_token:
             validator(request)
 
-    def external_validator(self, provider, access_code, request):
-        """
-        Calls the backend to validate the access_code and get information
-        """
-        strategy = load_strategy(request=get_request())
-        log.debug('Loading provider backend %s.', request.provider)
-        try:
-            backend = load_backend(
-                strategy, provider, reverse(
-                    "%s:complete" %
-                    NAMESPACE, args=(
-                        provider,)))
-        except MissingBackend:
-            raise errors.InvalidRequestError(
-                description='Invalid provider given',
-                request=request)
-        log.debug(
-            'Dispatching authentication to provider %s.',
-            request.provider)
-        try:
-            user = backend.do_auth(access_token=request.access_token)
-        except requests.HTTPError as e:
-            raise errors.InvalidRequestError(
-                description="Backend responded with HTTP{0}: {1}.".format(
-                    e.response.status_code, e.response.text), request=request)
 
-        if not user:
-            raise errors.InvalidGrantError(
-                'Invalid access-code', request=request)
-        if not user.is_active:
-            raise errors.InvalidGrantError('User inactive', request=request)
-        request.user = user
-        log.debug('Authorizing access to user %r.', request.user)
-        return True
