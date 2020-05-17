@@ -6,14 +6,23 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	TextInput,
+	ActivityIndicator,
 } from "react-native";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
+import * as yup from "yup";
 
 const LoginScreen = ({ navigation }) => {
+	// Validation
+
+	const validationSchema = yup.object().shape({
+		user: yup.string().required(),
+		password: yup.string().required(),
+	});
+
 	return (
 		<>
 			<View style={styles.logoContainerStyle}>
@@ -32,8 +41,13 @@ const LoginScreen = ({ navigation }) => {
 						user: "",
 						password: "",
 					}}
+					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						alert(JSON.stringify(values));
+						setTimeout(() => {
+							actions.setSubmitting(false);
+						}, 2000);
+
+						alert("no frontend errors");
 						/*
 							TODO:
 								- call login API here after validation
@@ -46,6 +60,11 @@ const LoginScreen = ({ navigation }) => {
 								placeholder={"Email / Username"}
 								onChangeText={formikProps.handleChange("user")}
 							/>
+							{formikProps.errors.user ? (
+								<Text style={styles.errorStyle}>
+									{formikProps.errors.user}
+								</Text>
+							) : null}
 							<TextInput
 								secureTextEntry
 								style={styles.formInput}
@@ -54,13 +73,22 @@ const LoginScreen = ({ navigation }) => {
 									"password"
 								)}
 							/>
-							<TouchableOpacity
-								style={styles.submitButtonStyle}
-								onPress={formikProps.handleSubmit}>
-								<Text style={styles.submitButtonTextStyle}>
-									Sign In
+							{formikProps.errors.password ? (
+								<Text style={styles.errorStyle}>
+									{formikProps.errors.password}
 								</Text>
-							</TouchableOpacity>
+							) : null}
+							{formikProps.isSubmitting ? (
+								<ActivityIndicator />
+							) : (
+								<TouchableOpacity
+									style={styles.submitButtonStyle}
+									onPress={formikProps.handleSubmit}>
+									<Text style={styles.submitButtonTextStyle}>
+										Sign In
+									</Text>
+								</TouchableOpacity>
+							)}
 						</>
 					)}
 				</Formik>
@@ -205,6 +233,10 @@ const styles = StyleSheet.create({
 		flex: 2,
 		alignItems: "center",
 		justifyContent: "flex-end",
+	},
+
+	errorStyle: {
+		color: "red",
 	},
 });
 
