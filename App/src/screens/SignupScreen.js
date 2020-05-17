@@ -60,12 +60,14 @@ const SignupScreen = ({ navigation }) => {
 									"email"
 								)}></TextInput>
 							<TextInput
+								secureTextEntry
 								style={styles.formInput}
 								placeholder={"Password"}
 								onChangeText={formikProps.handleChange(
 									"password"
 								)}></TextInput>
 							<TextInput
+								secureTextEntry
 								style={styles.formInput}
 								placeholder={"Confirm Password"}
 								onChangeText={formikProps.handleChange(

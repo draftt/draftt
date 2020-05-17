@@ -47,6 +47,7 @@ const LoginScreen = ({ navigation }) => {
 								onChangeText={formikProps.handleChange("user")}
 							/>
 							<TextInput
+								secureTextEntry
 								style={styles.formInput}
 								placeholder={"Password"}
 								onChangeText={formikProps.handleChange(
