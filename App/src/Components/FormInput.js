@@ -8,9 +8,10 @@ const FormInput = ({ formikProps, formikKey, ...rest }) => {
 			<TextInput
 				style={styles.input}
 				onChangeText={formikProps.handleChange(formikKey)}
+				onBlur={formikProps.handleBlur(formikKey)}
 				{...rest}
 			/>
-			{formikProps.errors[formikKey] ? (
+			{formikProps.errors[formikKey] && formikProps.touched[formikKey] ? (
 				<Text style={styles.error}>
 					{formikProps.errors[formikKey]}
 				</Text>
