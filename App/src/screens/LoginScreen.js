@@ -1,11 +1,17 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	StyleSheet,
+	TouchableOpacity,
+	TextInput,
+} from "react-native";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
-import { TextInput } from "react-native-gesture-handler";
 
 const LoginScreen = ({ navigation }) => {
 	return (
@@ -21,13 +27,10 @@ const LoginScreen = ({ navigation }) => {
 				<View style={styles.formHeaderStyle}>
 					<Text style={{ fontSize: hp("4%") }}>Login</Text>
 				</View>
-
-				{/* Form goes here */}
-
 				<Formik
 					initialValues={{
-						email: "johndoe@test.com",
-						pass: "password",
+						user: "",
+						password: "",
 					}}
 					onSubmit={(values, actions) => {
 						alert(JSON.stringify(values));
@@ -40,13 +43,15 @@ const LoginScreen = ({ navigation }) => {
 						<>
 							<TextInput
 								style={styles.formInput}
-								placeholder={formikProps.initialValues.email}
-								onChangeText={formikProps.handleChange("email")}
+								placeholder={"Email / Username"}
+								onChangeText={formikProps.handleChange("user")}
 							/>
 							<TextInput
 								style={styles.formInput}
-								placeholder={formikProps.initialValues.pass}
-								onChangeText={formikProps.handleChange("pass")}
+								placeholder={"Password"}
+								onChangeText={formikProps.handleChange(
+									"password"
+								)}
 							/>
 							<TouchableOpacity
 								style={styles.submitButtonStyle}
@@ -97,7 +102,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		backgroundColor: "#fefffe",
-		// borderWidth : 1
 	},
 
 	// Logo Styles
@@ -109,7 +113,6 @@ const styles = StyleSheet.create({
 		marginTop: hp(5),
 		width: wp("70%"),
 		height: hp("50%"),
-		// borderWidth : 1
 	},
 
 	logoStyle: {
@@ -155,7 +158,6 @@ const styles = StyleSheet.create({
 	},
 
 	submitButtonTextStyle: {
-		// fontSize: hp("2%"),
 		textAlign: "center",
 		color: "white",
 	},
@@ -170,9 +172,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		marginTop: hp(1),
 		padding: hp("1%"),
-		borderWidth: 1,
 		borderColor: "#fd7719",
-		// flex : 1,
 		alignItems: "center",
 		justifyContent: "center",
 	},
