@@ -12,8 +12,18 @@ import {
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
+import * as Yup from "yup";
+import FormInput from "../Components/FormInput";
 
 const SignupScreen = ({ navigation }) => {
+	const validationSchema = Yup.object().shape({
+		name: Yup.string().required(),
+		username: Yup.string().required(),
+		email: Yup.string().required(),
+		password: Yup.string().required(),
+		confirmPassword: Yup.string().required(),
+	});
+
 	return (
 		<>
 			<View style={styles.logoContainerStyle}>
@@ -32,6 +42,7 @@ const SignupScreen = ({ navigation }) => {
 						password: "",
 						confirmPassword: "",
 					}}
+					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
 						alert(JSON.stringify(values));
 						/*
@@ -41,38 +52,31 @@ const SignupScreen = ({ navigation }) => {
 					}}>
 					{formikProps => (
 						<>
-							<TextInput
-								style={styles.formInput}
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"name"}
 								placeholder={"Name"}
-								onChangeText={formikProps.handleChange(
-									"name"
-								)}></TextInput>
-							<TextInput
-								style={styles.formInput}
+							/>
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"username"}
 								placeholder={"Username"}
-								onChangeText={formikProps.handleChange(
-									"username"
-								)}></TextInput>
-							<TextInput
-								style={styles.formInput}
+							/>
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"email"}
 								placeholder={"Email"}
-								onChangeText={formikProps.handleChange(
-									"email"
-								)}></TextInput>
-							<TextInput
-								secureTextEntry
-								style={styles.formInput}
+							/>
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"password"}
 								placeholder={"Password"}
-								onChangeText={formikProps.handleChange(
-									"password"
-								)}></TextInput>
-							<TextInput
-								secureTextEntry
-								style={styles.formInput}
+							/>
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"confirmPassword"}
 								placeholder={"Confirm Password"}
-								onChangeText={formikProps.handleChange(
-									"confirmPassword"
-								)}></TextInput>
+							/>
 							<TouchableOpacity
 								style={styles.signupButtonStyle}
 								onPress={formikProps.handleSubmit}>
@@ -89,13 +93,6 @@ const SignupScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	backArrowStyle: {
-		flex: 1,
-		alignSelf: "flex-start",
-		paddingTop: hp(5),
-		paddingHorizontal: wp(3),
-	},
-
 	signupButtonStyle: {
 		marginTop: 15,
 		backgroundColor: "#fd7719",

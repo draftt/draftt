@@ -14,6 +14,7 @@ import {
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as yup from "yup";
+import FormInput from "../Components/FormInput";
 
 const LoginScreen = ({ navigation }) => {
 	// Validation
@@ -55,29 +56,18 @@ const LoginScreen = ({ navigation }) => {
 					}}>
 					{formikProps => (
 						<>
-							<TextInput
-								style={styles.formInput}
-								placeholder={"Email / Username"}
-								onChangeText={formikProps.handleChange("user")}
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"user"}
+								placeholder={"Username"}
 							/>
-							{formikProps.errors.user ? (
-								<Text style={styles.errorStyle}>
-									{formikProps.errors.user}
-								</Text>
-							) : null}
-							<TextInput
-								secureTextEntry
-								style={styles.formInput}
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"password"}
 								placeholder={"Password"}
-								onChangeText={formikProps.handleChange(
-									"password"
-								)}
+								secureTextEntry={true}
 							/>
-							{formikProps.errors.password ? (
-								<Text style={styles.errorStyle}>
-									{formikProps.errors.password}
-								</Text>
-							) : null}
+
 							{formikProps.isSubmitting ? (
 								<ActivityIndicator />
 							) : (
@@ -167,15 +157,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 
-	formInput: {
-		borderWidth: 1,
-		borderColor: "#fd7719",
-		borderRadius: 5,
-		margin: 5,
-		padding: 7,
-		height: 40,
-	},
-
 	submitButtonStyle: {
 		backgroundColor: "#fd7719",
 		borderRadius: 5,
@@ -233,10 +214,6 @@ const styles = StyleSheet.create({
 		flex: 2,
 		alignItems: "center",
 		justifyContent: "flex-end",
-	},
-
-	errorStyle: {
-		color: "red",
 	},
 });
 
