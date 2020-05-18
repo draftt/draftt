@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, TextInput, Text } from "react-native";
 
 const FormInput = ({ formikProps, formikKey, ...rest }) => {
-	console.log("About to render Form Input");
 	return (
 		<>
 			<TextInput

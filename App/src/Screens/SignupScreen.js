@@ -19,9 +19,13 @@ const SignupScreen = ({ navigation }) => {
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required(),
 		username: Yup.string().required(),
-		email: Yup.string().required(),
+		email: Yup.string()
+			.required()
+			.email("Please enter a valid email address"),
 		password: Yup.string().required(),
-		confirmPassword: Yup.string().required(),
+		confirmPassword: Yup.string()
+			.required()
+			.equals([Yup.ref("password")], "Passwords do not match"),
 	});
 
 	return (
@@ -71,11 +75,13 @@ const SignupScreen = ({ navigation }) => {
 								formikProps={formikProps}
 								formikKey={"password"}
 								placeholder={"Password"}
+								secureTextEntry
 							/>
 							<FormInput
 								formikProps={formikProps}
 								formikKey={"confirmPassword"}
 								placeholder={"Confirm Password"}
+								secureTextEntry
 							/>
 							<TouchableOpacity
 								style={styles.signupButtonStyle}

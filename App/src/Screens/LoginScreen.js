@@ -17,8 +17,6 @@ import * as yup from "yup";
 import FormInput from "../Components/FormInput";
 
 const LoginScreen = ({ navigation }) => {
-	// Validation
-
 	const validationSchema = yup.object().shape({
 		user: yup.string().required(),
 		password: yup.string().required(),
@@ -46,7 +44,7 @@ const LoginScreen = ({ navigation }) => {
 					onSubmit={(values, actions) => {
 						setTimeout(() => {
 							actions.setSubmitting(false);
-						}, 2000);
+						}, 1000);
 
 						alert("no frontend errors");
 						/*
