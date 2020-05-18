@@ -13,7 +13,7 @@ import {
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
-import { Formik, yupToFormErrors } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../Components/FormInput";
 
@@ -59,7 +59,7 @@ const ResetPassword = ({ navigation }) => {
 							) : null}
 
 							<TouchableOpacity
-								style={styles.arrowButtonStyle}
+								style={styles.submitButtonStyle}
 								onPress={formikProps.handleSubmit}>
 								<Text style={{ color: "#fefffe" }}>Submit</Text>
 							</TouchableOpacity>
@@ -109,27 +109,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: wp(2),
 	},
 
-	resetTextStyle: {
-		fontSize: hp(2),
-		paddingTop: hp(3),
-		paddingBottom: hp(1),
-	},
-
-	inputStyle: {
-		// flex : 1,
-		borderWidth: 1,
-		padding: hp(1),
-	},
-
-	arrowContainerStyle: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		paddingHorizontal: wp(4),
-	},
-
-	arrowButtonStyle: {
+	submitButtonStyle: {
 		backgroundColor: "#fd7719",
 		borderRadius: 5,
 		padding: hp("1%"),
