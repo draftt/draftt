@@ -8,4 +8,4 @@ mock>=2.0
 
 django-oauth-toolkit
 social-auth-app-django
-django-middleware-global-request
+django-middleware-global-request==0.1.2
