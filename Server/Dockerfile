@@ -9,6 +9,8 @@ COPY ./requirements.txt /requirements.txt
 RUN apk add --update --no-cache postgresql-client
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
     gcc libc-dev linux-headers postgresql-dev
+
+RUN apk add --no-cache python3-dev openssl-dev libffi-dev gcc && pip3 install --upgrade pip
 #Installing everything else
 RUN pip install -r /requirements.txt
 
