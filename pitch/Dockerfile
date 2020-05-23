@@ -13,8 +13,8 @@ RUN apk --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/test
 RUN apk add bash
 RUN yarn global add expo-cli
 
-WORKDIR /home/App
-COPY . /home/App/
+WORKDIR /home/pitch
+COPY . /home/pitch/
 RUN ls
 RUN hostname -I | awk '{print $1}'
 RUN yarn global list
