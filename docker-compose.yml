@@ -1,12 +1,23 @@
-version: "3"
+version: "3.8"
 
 services:
   pitch:
-    build: ./App/
-    env_file: .env
+    container_name: pitch
+    networks:
+      - host
+    build: 
+      context: ./App/
+      dockerfile: Dockerfile
+      network: host
     ports:
-      - 19000:19000
-      - 19001:19001
-      - 19002:19002
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    env_file: .env
     volumes:
-      - ${PWD}/:/pitch/
+      - ${PWD}/App/:/home/App/
+
+
+networks:
+  host:
+    external: true

@@ -3,7 +3,6 @@
     "name": "draftt",
     "slug": "draftt",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
@@ -14,8 +13,8 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/logo/NoText/Logo.png",
-      "resizeMode" : "contain",
-      "backgroundColor" : "#061f26"
+      "resizeMode": "contain",
+      "backgroundColor": "#061f26"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
