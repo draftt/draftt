@@ -2,21 +2,15 @@ version: "3.8"
 
 services:
   pitch:
-    networks:
-      - host
     build: 
       context: ./pitch/
       dockerfile: Dockerfile
-      network: host
     ports:
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
+      - "19000-19010:19000-19010"
+    command: >
+      sh -c "yarn &&
+             yarn start"
     env_file: .env
     volumes:
       - ${PWD}/pitch/:/home/pitch/
 
-
-networks:
-  host:
-    external: true
