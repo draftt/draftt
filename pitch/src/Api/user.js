@@ -1,6 +1,7 @@
 import axios from 'axios';
-
+import Constants from "expo-constants";
+const {manifest} = Constants
 
 export default axios.create({
-    baseURL : 'http://192.168.100.20:8080/api'    // POINT TO THE IP OF YOUR SERVER
+    baseURL : `http://${manifest.hostUri.split(':').shift()}:8080/api`    
 })

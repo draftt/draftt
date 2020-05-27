@@ -15,6 +15,7 @@ import {
 } from "react-native-responsive-screen";
 import userApi from '../Api/user'
 
+
 /*
     This screen will have buttons to go to other screens to test them out.
     It will be default route for the stack navigator in App.js
@@ -22,7 +23,6 @@ import userApi from '../Api/user'
 
 // Status check functions
 const statusCheck = async (setStatus) => {
-	console.log('Status check initiated');
 	const delay = ms => new Promise(res => setTimeout(res, ms));
 	await delay(1500);
 	userApi.get('/status', {timeout: 1000})
@@ -40,7 +40,6 @@ const ScreenTester = ({ navigation }) => {
 	const [status,setStatus]= useState('checking')
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
 	statusCheck(setStatus);
-	console.log(status);
 	let iconStyle = status==='Connected'? styles.successIcon: styles.errorIcon;
 	return (
 		<View style={styles.container}>
