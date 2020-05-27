@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_global_request',
     'core',
+    'codegen',
     'user',
     'internal_auth',
     'oauth2_provider',
