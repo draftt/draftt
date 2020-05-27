@@ -5,7 +5,6 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
-
 1. [Setup](#setup)
 1. [Docs](#docs)
 1. [Stack](#stack)
@@ -25,7 +24,7 @@ Draftt is a cricket fantasy league mobile application. It is built using React-N
 
 ## Docs
 
-Detailed docs can be accessed at [notion.so/draftt](https://notion.so/draftt/)
+Detailed docs can be accessed at [notion.so/draftt](https://notion.so/draftt/).
 
 ## Stack
 - [React-Native](https://facebook.github.io/react-native/) 
