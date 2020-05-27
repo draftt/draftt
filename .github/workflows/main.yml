@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Core App Tests
+      - name: API Tests
         working-directory: ./Server
         run: |
           docker-compose run --rm  app sh -c "coverage run manage.py test"
@@ -20,4 +20,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./Server/app/coverage.xml
           name: codecov-umbrella
-          fail_ci_if_error: true
+          fail_ci_if_error: false
