@@ -31,6 +31,11 @@ const statusCheck = async (setStatus) => {
 		}).catch(error => {setStatus("error")});
 };
 
+const onStatusPress = async (setStatus) => {
+	setStatus('checking');
+	statusCheck(setStatus);
+}
+
 const ScreenTester = ({ navigation }) => {
 	const [status,setStatus]= useState('checking')
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
@@ -39,7 +44,7 @@ const ScreenTester = ({ navigation }) => {
 	let iconStyle = status==='Connected'? styles.successIcon: styles.errorIcon;
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={styles.status} onPress={()=> statusCheck(setStatus)}>
+			<TouchableOpacity style={styles.status} onPress={()=> onStatusPress(setStatus)}>
 				<View style={styles.statusIcon}>
 				{status==='checking'?
 					<ActivityIndicator size={10} color="#0000ff" />:
