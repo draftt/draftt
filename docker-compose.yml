@@ -16,7 +16,7 @@ services:
     volumes:
       - ${PWD}/pitch/:/home/pitch/
 
-  app:
+  pavillion:
     networks:
       - oval
       - long-room
@@ -35,13 +35,13 @@ services:
     environment:
       - DEBUG=True
       - InsecureTransportError=1
-      - DB_HOST=db
+      - DB_HOST=scoreboard
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=supersecretpassword
     depends_on:
-      - db
-  db:
+      - scoreboard
+  scoreboard:
     image: postgres:10-alpine
     environment:
       - POSTGRES_DB=app
