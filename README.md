@@ -1,4 +1,4 @@
-![alt test](Mockups/Logo.png)
+![alt test](mockups/Logo.png)
 
 ![Lifecycle][lifecycle]
 
