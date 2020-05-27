@@ -5,6 +5,7 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
+1. [Docs](#docs)
 1. [Stack](#stack)
 1. [Project Structure](#project-structure)
 1. [Authors](#authors)
@@ -12,6 +13,10 @@
 ## Introduction
 
 Draftt is a cricket fantasy league mobile application. It is built using React-Native and Django. This repository contains all of the development code and documentation for the project.
+
+## Docs
+
+Detailed docs can be accessed at [notion.so/draftt](https://notion.so/draftt/)
 
 ## Stack
 - [React-Native](https://facebook.github.io/react-native/) 
@@ -24,9 +29,9 @@ Draftt is a cricket fantasy league mobile application. It is built using React-N
 The project structure presented in this repository is divided into high level folders consisting of the frontend and backend code. Additional details regarding the structure are located inside each of these folders.
 ```
 . 
-├── App  			# React-native code 
+├── pitch  			    # React-native App
 ├── Mockups  			# Design mockups
-└── Server  			# Django backend code
+└── pavillion  			# Django API
 ```
 
 ## Authors
