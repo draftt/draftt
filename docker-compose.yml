@@ -21,12 +21,12 @@ services:
       - oval
       - long-room
     build:
-      context: ./Server
+      context: ./pavillion
     user: root
     ports:
       - "8080:8000"
     volumes:
-      - ./Server/pavillion:/pavillion
+      - ./pavillion:/pavillion
     command:  >
       sh -c "python manage.py wait_for_db && 
              python manage.py migrate &&

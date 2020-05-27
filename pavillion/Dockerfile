@@ -11,14 +11,14 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps \
 
 RUN apk add --no-cache python3-dev openssl-dev libffi-dev gcc && pip3 install --upgrade pip
 #Installing everything else
-RUN pip install -r /requirements.txt
+RUN pip install -r requirements.txt
 
 #Delete the dependencies used for installing
 RUN apk del .tmp-build-deps
 
 RUN mkdir /pavillion
 WORKDIR /pavillion
-COPY ./pavillion /pavillion
+COPY . /pavillion
 
 RUN adduser -D user
 USER user
