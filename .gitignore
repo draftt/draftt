@@ -1,2 +1,3 @@
 App/.vscode
 .gitsecret/keys/random_seed
+.env
