@@ -1,23 +1,23 @@
-# name: Django Server Tests
+name: Django Server Tests
 
-# on:
-#   pull_request:
-#     branches:
-#       - master
-# jobs:
-#   test-runner:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v1
-#       - name: API Tests
-#         working-directory: ./Server
-#         run: |
-#           docker-compose run --rm  app sh -c "coverage run manage.py test"
-#           docker-compose run --rm  app sh -c "coverage xml"
-#       - name: Upload coverage to Codecov  
-#         uses: codecov/codecov-action@v1
-#         with:
-#           token: ${{ secrets.CODECOV_TOKEN }}
-#           file: ./Server/app/coverage.xml
-#           name: codecov-umbrella
-#           fail_ci_if_error: false
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  test-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: API Tests
+        working-directory: .
+        run: |
+          docker-compose run --rm  pavillion sh -c "coverage run manage.py test"
+          docker-compose run --rm  pavillion sh -c "coverage xml"
+      - name: Upload coverage to Codecov  
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./Server/app/coverage.xml
+          name: codecov-umbrella
+          fail_ci_if_error: false
