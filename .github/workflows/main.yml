@@ -12,12 +12,12 @@ jobs:
       - name: API Tests
         working-directory: .
         run: |
-          docker-compose run --rm  pavillion sh -c "coverage run manage.py test"
-          docker-compose run --rm  pavillion sh -c "coverage xml"
+          docker-compose run --rm  pavilion sh -c "coverage run manage.py test"
+          docker-compose run --rm  pavilion sh -c "coverage xml"
       - name: Upload coverage to Codecov  
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./pavillion/coverage.xml
+          file: ./pavilion/coverage.xml
           name: codecov-umbrella
           fail_ci_if_error: false

@@ -51,7 +51,7 @@ const ScreenTester = ({ navigation }) => {
 				}
 				</View>
 				
-				<Text style={{fontFamily:'monospace'}}>pavillion</Text>
+				<Text style={{fontFamily:'monospace'}}>pavilion</Text>
 			</TouchableOpacity>
 			<View style={styles.logoContainerStyle}>
 				<Image

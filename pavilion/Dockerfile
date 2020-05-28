@@ -16,9 +16,9 @@ RUN pip install -r requirements.txt
 #Delete the dependencies used for installing
 RUN apk del .tmp-build-deps
 
-RUN mkdir /pavillion
-WORKDIR /pavillion
-COPY . /pavillion
+RUN mkdir /pavilion
+WORKDIR /pavilion
+COPY . /pavilion
 
 RUN adduser -D user
 USER user

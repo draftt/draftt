@@ -2,4 +2,4 @@ frontend:
   - pitch/**/*
   
 backend: 
-  - pavillion/**/*
+  - pavilion/**/*

@@ -39,7 +39,7 @@ The project structure presented in this repository is divided into high level fo
 . 
 ├── pitch  			  # React-native App
 ├── Mockups  			# Design mockups
-└── pavillion  			# Django API
+└── pavilion  			# Django API
 ```
 
 ## Authors

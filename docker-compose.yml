@@ -16,17 +16,17 @@ services:
     volumes:
       - ${PWD}/pitch/:/home/pitch/
 
-  pavillion:
+  pavilion:
     networks:
       - oval
       - long-room
     build:
-      context: ./pavillion
+      context: ./pavilion
     user: root
     ports:
       - "8080:8000"
     volumes:
-      - ./pavillion:/pavillion
+      - ./pavilion:/pavilion
     command:  >
       sh -c "python manage.py wait_for_db && 
              python manage.py migrate &&
