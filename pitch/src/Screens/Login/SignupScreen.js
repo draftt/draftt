@@ -5,7 +5,7 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Image,
-	TextInput,
+	ActivityIndicator,
 } from "react-native";
 import {
 	widthPercentageToDP as wp,
@@ -14,17 +14,18 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../Components/FormInput";
+import api from "../../Api/user";
 
 const SignupScreen = ({ navigation }) => {
 	const validationSchema = Yup.object().shape({
-		name: Yup.string().required(),
-		username: Yup.string().required(),
+		name: Yup.string().required("Name is required"),
+		username: Yup.string().required("Username is required"),
 		email: Yup.string()
-			.required()
+			.required("Email is required")
 			.email("Please enter a valid email address"),
-		password: Yup.string().required(),
+		password: Yup.string().required("Password is required"),
 		confirmPassword: Yup.string()
-			.required()
+			.required("Enter password again")
 			.equals([Yup.ref("password")], "Passwords do not match"),
 	});
 
@@ -40,19 +41,46 @@ const SignupScreen = ({ navigation }) => {
 				<Text style={styles.formHeaderStyle}>Sign up</Text>
 				<Formik
 					initialValues={{
-						name: "",
-						username: "",
-						email: "",
-						password: "",
-						confirmPassword: "",
+						name: "yo",
+						username: "yo",
+						email: "yo@yo.com",
+						password: "pass",
+						confirmPassword: "pass",
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						alert(JSON.stringify(values));
-						/*
-							TODO:
-								- call Signup API here after validation
-						*/
+						const params = {
+							fullname: values.name,
+							username: values.username,
+							email: values.email,
+							password: values.password,
+						};
+
+						api.post("/user/create/", params)
+							.then(response => {
+								// Successfully signed up
+								alert("Signed up");
+								console.log(response);
+							})
+							.catch(err => {
+								// Error signing up
+								switch (err.response.status) {
+									case 400:
+										const serverValidErr =
+											err.response.data;
+										actions.setErrors(serverValidErr);
+										break;
+									default:
+										alert("Oops...Something went wrong");
+										console.log(
+											"Error status: " +
+												err.response.status
+										);
+										console.log(err.response);
+								}
+							});
+
+						actions.setSubmitting(false);
 					}}>
 					{formikProps => (
 						<>
@@ -83,13 +111,17 @@ const SignupScreen = ({ navigation }) => {
 								placeholder={"Confirm Password"}
 								secureTextEntry
 							/>
-							<TouchableOpacity
-								style={styles.signupButtonStyle}
-								onPress={formikProps.handleSubmit}>
-								<Text style={{ color: "#fefffe" }}>
-									Sign up
-								</Text>
-							</TouchableOpacity>
+							{formikProps.isSubmitting ? (
+								<ActivityIndicator />
+							) : (
+								<TouchableOpacity
+									style={styles.signupButtonStyle}
+									onPress={formikProps.handleSubmit}>
+									<Text style={{ color: "#fefffe" }}>
+										Sign up
+									</Text>
+								</TouchableOpacity>
+							)}
 						</>
 					)}
 				</Formik>
