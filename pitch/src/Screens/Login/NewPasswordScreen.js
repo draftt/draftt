@@ -15,7 +15,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../Components/FormInput";
+import FormInput from "../../Components/FormInput";
 
 const NewPassword = ({ navigation }) => {
 	const validationSchema = Yup.object().shape({
@@ -28,7 +28,7 @@ const NewPassword = ({ navigation }) => {
 		<>
 			<View style={styles.logoContainerStyle}>
 				<Image
-					source={require("../../assets/logo/Logo_NoBG.png")}
+					source={require("../../../assets/logo/Logo_NoBG.png")}
 					style={styles.logoStyle}
 				/>
 			</View>

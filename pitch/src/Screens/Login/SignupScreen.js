@@ -13,7 +13,7 @@ import {
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../Components/FormInput";
+import FormInput from "../../Components/FormInput";
 
 const SignupScreen = ({ navigation }) => {
 	const validationSchema = Yup.object().shape({
@@ -32,7 +32,7 @@ const SignupScreen = ({ navigation }) => {
 		<>
 			<View style={styles.logoContainerStyle}>
 				<Image
-					source={require("../../assets/nonamelogo/Logo_NoBG.png")}
+					source={require("../../../assets/nonamelogo/Logo_NoBG.png")}
 					style={styles.logoStyle}
 				/>
 			</View>

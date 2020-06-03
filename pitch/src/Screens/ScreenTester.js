@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
 	ActivityIndicator,
 	View,
@@ -7,14 +7,13 @@ import {
 	TouchableOpacity,
 	Image,
 	FlatList,
-	StatusBar
+	StatusBar,
 } from "react-native";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import userApi from '../Api/user'
-
+import userApi from "../Api/user";
 
 /*
     This screen will have buttons to go to other screens to test them out.
@@ -22,36 +21,44 @@ import userApi from '../Api/user'
 */
 
 // Status check functions
-const statusCheck = async (setStatus) => {
+const statusCheck = async setStatus => {
 	const delay = ms => new Promise(res => setTimeout(res, ms));
 	await delay(1500);
-	userApi.get('/status', {timeout: 1000})
+	userApi
+		.get("/status", { timeout: 1000 })
 		.then(res => {
-			setStatus(res.data)
-		}).catch(error => {setStatus("error")});
+			setStatus(res.data);
+		})
+		.catch(error => {
+			setStatus("error");
+		});
 };
 
-const onStatusPress = async (setStatus) => {
-	setStatus('checking');
+const onStatusPress = async setStatus => {
+	setStatus("checking");
 	statusCheck(setStatus);
-}
+};
 
 const ScreenTester = ({ navigation }) => {
-	const [status,setStatus]= useState('checking')
+	const [status, setStatus] = useState("checking");
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
 	statusCheck(setStatus);
-	let iconStyle = status==='Connected'? styles.successIcon: styles.errorIcon;
+	let iconStyle =
+		status === "Connected" ? styles.successIcon : styles.errorIcon;
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={styles.status} onPress={()=> onStatusPress(setStatus)}>
+			<TouchableOpacity
+				style={styles.status}
+				onPress={() => onStatusPress(setStatus)}>
 				<View style={styles.statusIcon}>
-				{status==='checking'?
-					<ActivityIndicator size={10} color="#0000ff" />:
-					<View style={[styles.circle, iconStyle]}></View>
-				}
+					{status === "checking" ? (
+						<ActivityIndicator size={10} color='#0000ff' />
+					) : (
+						<View style={[styles.circle, iconStyle]}></View>
+					)}
 				</View>
-				
-				<Text style={{fontFamily:'monospace'}}>pavilion</Text>
+
+				<Text style={{ fontFamily: "monospace" }}>pavilion</Text>
 			</TouchableOpacity>
 			<View style={styles.logoContainerStyle}>
 				<Image
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fefffe",
 		flex: 1,
-		marginTop: StatusBar.currentHeight
+		marginTop: StatusBar.currentHeight,
 	},
 
 	titleStyle: {
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		padding: hp(2),
 		margin: hp(2),
-		color: 'black'
+		color: "black",
 	},
 
 	logoStyle: {
@@ -121,36 +128,36 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 	},
 
-	status:{
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignSelf:'flex-end',
+	status: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignSelf: "flex-end",
 		margin: hp(1),
 		paddingVertical: 5,
-		paddingHorizontal:8,
-		borderRadius: 10
+		paddingHorizontal: 8,
+		borderRadius: 10,
 	},
 
-	errorIcon:{
-		backgroundColor: 'red'
+	errorIcon: {
+		backgroundColor: "red",
 	},
 
-	successIcon:{
-		backgroundColor: 'green'
+	successIcon: {
+		backgroundColor: "green",
 	},
 
-	statusIcon:{
-		alignSelf:'center',
+	statusIcon: {
+		alignSelf: "center",
 		marginRight: hp(1),
-		marginTop:hp(0.5),
+		marginTop: hp(0.5),
 	},
 
-	circle:{
+	circle: {
 		width: 10,
 		height: 10,
-		borderRadius: 10/2,
-		backgroundColor: 'black',
-	}
+		borderRadius: 10 / 2,
+		backgroundColor: "black",
+	},
 });
 
 export default ScreenTester;

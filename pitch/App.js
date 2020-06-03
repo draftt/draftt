@@ -2,10 +2,10 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./src/Screens/HomeScreen";
 import ScreenTester from "./src/Screens/ScreenTester";
-import LoginScreen from "./src/Screens/LoginScreen";
-import SignupScreen from "./src/Screens/SignupScreen";
-import ResetPassword from "./src/Screens/ResetPasswordScreen";
-import NewPassword from "./src/Screens/NewPasswordScreen";
+import LoginScreen from "./src/Screens/Login/LoginScreen";
+import SignupScreen from "./src/Screens/Login/SignupScreen";
+import ResetPassword from "./src/Screens/Login/ResetPasswordScreen";
+import NewPassword from "./src/Screens/Login/NewPasswordScreen";
 
 const navigator = createStackNavigator(
 	{
