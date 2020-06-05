@@ -59,7 +59,7 @@ class EmailMessage(mail.EmailMultiAlternatives, ContextMixin):
         self.bcc = kwargs.pop('bcc', [])
         self.reply_to = kwargs.pop('reply_to', [])
 
-        super(EmailMessage, self).send(*args, **kwargs)
+        super(EmailMessage, self).send(fail_silently=True, *args, **kwargs)
 
     def _process_block(self, block_node, context):
         attr = self._node_map.get(block_node.name)
