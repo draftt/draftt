@@ -75,13 +75,13 @@ const validationSchema = Yup.object().shape({
 const SignupScreen = ({ navigation }) => {
 	return (
 		<>
-			<View style={styles.logoContainerStyle}>
+			<View style={globalStyles.logoContainer}>
 				<Image
 					source={require("../../../assets/nonamelogo/Logo_NoBG.png")}
 					style={globalStyles.logo}
 				/>
 			</View>
-			<View style={styles.outerFormContainerStyle}>
+			<View style={globalStyles.formContainer}>
 				<Text style={globalStyles.formHeader}>Sign up</Text>
 				<Formik
 					initialValues={{
@@ -142,21 +142,5 @@ const SignupScreen = ({ navigation }) => {
 		</>
 	);
 };
-
-const styles = StyleSheet.create({
-	logoContainerStyle: {
-		justifyContent: "center",
-		alignItems: "center",
-		width: wp("100%"),
-		height: hp("15%"),
-		marginTop: 30,
-	},
-
-	outerFormContainerStyle: {
-		flex: 5,
-		width: wp(85),
-		alignSelf: "center",
-	},
-});
 
 export default SignupScreen;

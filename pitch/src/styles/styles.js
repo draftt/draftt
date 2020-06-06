@@ -16,15 +16,25 @@ const styles = StyleSheet.create({
 		padding: 20,
 		alignSelf: "center",
 	},
+	formContainer: {
+		alignSelf: "center",
+		width: "85%",
+	},
 
 	// BUTTON STYLING
 	opaqueButton: {
-		marginTop: 15,
 		backgroundColor: "#fd7719",
 		borderRadius: 10,
 		height: 50,
 		margin: 5,
-		padding: 7,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+
+	transparentButton: {
+		borderRadius: 10,
+		height: 50,
+		margin: 5,
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -41,6 +51,14 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		resizeMode: "contain",
+	},
+
+	logoContainer: {
+		justifyContent: "center",
+		alignItems: "center",
+		width: "100%",
+		height: "15%",
+		marginTop: 30,
 	},
 });
 
