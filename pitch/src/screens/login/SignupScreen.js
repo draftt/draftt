@@ -13,9 +13,9 @@ import {
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../../Components/FormInput";
-import api from "../../Api/user";
-import globalStyles from "../../Styles/Styles";
+import FormInput from "../../components/FormInput";
+import api from "../../api/user";
+import globalStyles from "../../styles/styles";
 
 // Helper functions
 

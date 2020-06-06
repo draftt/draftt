@@ -14,7 +14,7 @@ import {
 } from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as yup from "yup";
-import FormInput from "../../Components/FormInput";
+import FormInput from "../../components/FormInput";
 
 const LoginScreen = ({ navigation }) => {
 	const validationSchema = yup.object().shape({

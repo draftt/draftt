@@ -15,33 +15,32 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../../Components/FormInput";
+import FormInput from "../../components/FormInput";
 
-const ResetPassword = ({ navigation }) => {
+const NewPassword = ({ navigation }) => {
 	const validationSchema = Yup.object().shape({
-		email: Yup.string()
+		password: Yup.string().required(),
+		confirmPassword: Yup.string()
 			.required()
-			.label("Email Address")
-			.email("Please enter a valid email address"),
+			.equals([Yup.ref("password")], "Passwords do not match"),
 	});
 	return (
-		<View style={styles.containerStyle}>
+		<>
 			<View style={styles.logoContainerStyle}>
 				<Image
 					source={require("../../../assets/logo/Logo_NoBG.png")}
 					style={styles.logoStyle}
 				/>
 			</View>
-
-			<Text style={styles.titleStyle}>Reset Password Screen</Text>
-
+			<Text style={styles.titleStyle}>New Password Screen</Text>
 			<View style={styles.resetContainerStyle}>
-				<Text>Enter email address to reset password</Text>
 				<Formik
-					initialValues={{ email: "" }}
+					initialValues={{
+						password: "",
+						confirmPassword: "",
+					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						// Call reset password Api Here
 						setTimeout(() => {
 							actions.setSubmitting(false);
 						}, 1000);
@@ -50,10 +49,16 @@ const ResetPassword = ({ navigation }) => {
 						<>
 							<FormInput
 								formikProps={formikProps}
-								formikKey={"email"}
-								placeholder={"Email address"}
+								formikKey={"password"}
+								placeholder={"Enter Password"}
+								secureTextEntry
 							/>
-
+							<FormInput
+								formikProps={formikProps}
+								formikKey={"confirmPassword"}
+								placeholder={"Re-Enter Password"}
+								secureTextEntry
+							/>
 							{formikProps.isSubmitting ? (
 								<ActivityIndicator />
 							) : null}
@@ -67,7 +72,7 @@ const ResetPassword = ({ navigation }) => {
 					)}
 				</Formik>
 			</View>
-		</View>
+		</>
 	);
 };
 
@@ -109,6 +114,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: wp(2),
 	},
 
+	resetTextStyle: {
+		fontSize: hp(2),
+		paddingTop: hp(3),
+		paddingBottom: hp(1),
+	},
 	submitButtonStyle: {
 		backgroundColor: "#fd7719",
 		borderRadius: 5,
@@ -120,4 +130,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ResetPassword;
+export default NewPassword;

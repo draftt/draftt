@@ -13,7 +13,7 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import userApi from "../Api/user";
+import userApi from "../api/user";
 
 /*
     This screen will have buttons to go to other screens to test them out.
