@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/forminput";
 import globalStyles from "../../styles/styles";
 
 // Validation Schema

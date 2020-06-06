@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/forminput";
 import globalStyles from "../../styles/styles";
 
 const LoginScreen = ({ navigation }) => {
