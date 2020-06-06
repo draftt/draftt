@@ -15,6 +15,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../Components/FormInput";
 import api from "../../Api/user";
+import globalStyles from "../../Styles/Styles";
 
 // Helper functions
 
@@ -127,7 +128,7 @@ const SignupScreen = ({ navigation }) => {
 								<ActivityIndicator />
 							) : (
 								<TouchableOpacity
-									style={styles.signupButtonStyle}
+									style={globalStyles.opaqueButton}
 									onPress={formikProps.handleSubmit}>
 									<Text style={{ color: "#fefffe" }}>
 										Sign up
@@ -143,17 +144,6 @@ const SignupScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	signupButtonStyle: {
-		marginTop: 15,
-		backgroundColor: "#fd7719",
-		borderRadius: 10,
-		height: wp(10),
-		margin: 5,
-		padding: 7,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-
 	logoContainerStyle: {
 		justifyContent: "center",
 		alignItems: "center",
@@ -179,15 +169,6 @@ const styles = StyleSheet.create({
 		fontSize: hp(4),
 		padding: hp(5),
 		alignSelf: "center",
-	},
-
-	formInput: {
-		borderWidth: 1,
-		borderColor: "#fd7719",
-		borderRadius: 5,
-		margin: 5,
-		padding: 7,
-		height: 40,
 	},
 });
 

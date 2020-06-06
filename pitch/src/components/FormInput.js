@@ -1,37 +1,23 @@
 import React from "react";
 import { StyleSheet, TextInput, Text } from "react-native";
+import globalStyles from "../styles/Styles";
 
 const FormInput = ({ formikProps, formikKey, ...rest }) => {
 	return (
 		<>
 			<TextInput
-				style={styles.input}
+				style={globalStyles.input}
 				onChangeText={formikProps.handleChange(formikKey)}
 				onBlur={formikProps.handleBlur(formikKey)}
 				{...rest}
 			/>
 			{formikProps.errors[formikKey] && formikProps.touched[formikKey] ? (
-				<Text style={styles.error}>
+				<Text style={globalStyles.errorText}>
 					{formikProps.errors[formikKey]}
 				</Text>
 			) : null}
 		</>
 	);
 };
-
-const styles = StyleSheet.create({
-	input: {
-		borderWidth: 1,
-		borderColor: "#fd7719",
-		borderRadius: 5,
-		margin: 5,
-		padding: 7,
-		height: 40,
-	},
-	error: {
-		color: "red",
-		margin: 5,
-	},
-});
 
 export default FormInput;
