@@ -84,11 +84,11 @@ const SignupScreen = ({ navigation }) => {
 				<Text style={styles.formHeaderStyle}>Sign up</Text>
 				<Formik
 					initialValues={{
-						name: "yo",
-						username: "yo",
-						email: "yo@yo.com",
-						password: "pass",
-						confirmPassword: "pass",
+						name: "",
+						username: "",
+						email: "",
+						password: "",
+						confirmPassword: "",
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) =>
