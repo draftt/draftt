@@ -14,6 +14,7 @@ import {
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import userApi from "../api/user";
+import Logo from "../components/logo";
 
 /*
     This screen will have buttons to go to other screens to test them out.
@@ -60,12 +61,7 @@ const ScreenTester = ({ navigation }) => {
 
 				<Text style={{ fontFamily: "monospace" }}>pavilion</Text>
 			</TouchableOpacity>
-			<View style={styles.logoContainerStyle}>
-				<Image
-					source={require("../../assets/logo/Logo_NoBG.png")}
-					style={styles.logoStyle}
-				/>
-			</View>
+			<Logo />
 
 			<Text style={styles.titleStyle}>Tester Screen</Text>
 

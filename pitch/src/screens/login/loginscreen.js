@@ -9,6 +9,7 @@ import {
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInput from "../../components/forminput";
+import Logo from "../../components/logo";
 import globalStyles from "../../styles/styles";
 
 const LoginScreen = ({ navigation }) => {
@@ -19,12 +20,7 @@ const LoginScreen = ({ navigation }) => {
 
 	return (
 		<>
-			<View style={globalStyles.logoContainer}>
-				<Image
-					source={require("../../../assets/nonamelogo/Logo_NoBG.png")}
-					style={globalStyles.logo}
-				/>
-			</View>
+			<Logo />
 
 			<View style={globalStyles.formContainer}>
 				<Text style={globalStyles.formHeader}>Login</Text>
