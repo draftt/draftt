@@ -3,15 +3,9 @@ import {
 	View,
 	Text,
 	Image,
-	StyleSheet,
 	TouchableOpacity,
-	TextInput,
 	ActivityIndicator,
 } from "react-native";
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInput from "../../components/FormInput";

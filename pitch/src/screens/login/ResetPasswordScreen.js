@@ -2,41 +2,36 @@ import React from "react";
 import {
 	View,
 	Text,
-	StyleSheet,
-	TextInput,
 	Image,
 	TouchableOpacity,
 	ActivityIndicator,
 } from "react-native";
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../components/FormInput";
+import globalStyles from "../../styles/styles";
+
+// Validation Schema
+const validationSchema = Yup.object().shape({
+	email: Yup.string()
+		.required()
+		.label("Email Address")
+		.email("Please enter a valid email address"),
+});
 
 const ResetPassword = ({ navigation }) => {
-	const validationSchema = Yup.object().shape({
-		email: Yup.string()
-			.required()
-			.label("Email Address")
-			.email("Please enter a valid email address"),
-	});
 	return (
-		<View style={styles.containerStyle}>
-			<View style={styles.logoContainerStyle}>
+		<>
+			<View style={globalStyles.logoContainer}>
 				<Image
-					source={require("../../../assets/logo/Logo_NoBG.png")}
-					style={styles.logoStyle}
+					source={require("../../../assets/nonamelogo/Logo_NoBG.png")}
+					style={globalStyles.logo}
 				/>
 			</View>
-
-			<Text style={styles.titleStyle}>Reset Password Screen</Text>
-
-			<View style={styles.resetContainerStyle}>
-				<Text>Enter email address to reset password</Text>
+			<View style={globalStyles.formContainer}>
+				<Text style={globalStyles.formHeader}>
+					Reset Password Screen
+				</Text>
 				<Formik
 					initialValues={{ email: "" }}
 					validationSchema={validationSchema}
@@ -51,7 +46,7 @@ const ResetPassword = ({ navigation }) => {
 							<FormInput
 								formikProps={formikProps}
 								formikKey={"email"}
-								placeholder={"Email address"}
+								placeholder={"Enter email address"}
 							/>
 
 							{formikProps.isSubmitting ? (
@@ -59,65 +54,18 @@ const ResetPassword = ({ navigation }) => {
 							) : null}
 
 							<TouchableOpacity
-								style={styles.submitButtonStyle}
+								style={globalStyles.opaqueButton}
 								onPress={formikProps.handleSubmit}>
-								<Text style={{ color: "#fefffe" }}>Submit</Text>
+								<Text style={{ color: "#fefffe" }}>
+									Reset Password
+								</Text>
 							</TouchableOpacity>
 						</>
 					)}
 				</Formik>
 			</View>
-		</View>
+		</>
 	);
 };
-
-const styles = StyleSheet.create({
-	containerStyle: {
-		flex: 1,
-		backgroundColor: "#fefffe",
-		justifyContent: "flex-start",
-	},
-
-	logoContainerStyle: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		width: wp("50%"),
-		height: hp("35%"),
-		alignSelf: "center",
-		paddingTop: hp(10),
-		// borderWidth : 1
-	},
-
-	logoStyle: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
-		resizeMode: "contain",
-	},
-
-	titleStyle: {
-		// flex : 1,
-		fontSize: hp(3),
-		alignSelf: "center",
-		padding: hp(5),
-		// borderWidth : 1
-	},
-
-	resetContainerStyle: {
-		flex: 1,
-		paddingHorizontal: wp(2),
-	},
-
-	submitButtonStyle: {
-		backgroundColor: "#fd7719",
-		borderRadius: 5,
-		padding: hp("1%"),
-		height: 40,
-		margin: 5,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
 
 export default ResetPassword;

@@ -2,27 +2,24 @@ import React from "react";
 import {
 	View,
 	Text,
-	StyleSheet,
 	Image,
 	TouchableOpacity,
 	ActivityIndicator,
 } from "react-native";
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../components/FormInput";
 import globalStyles from "../../styles/styles";
 
+// Validation Schema
+const validationSchema = Yup.object().shape({
+	password: Yup.string().required(),
+	confirmPassword: Yup.string()
+		.required()
+		.equals([Yup.ref("password")], "Passwords do not match"),
+});
+
 const NewPassword = ({ navigation }) => {
-	const validationSchema = Yup.object().shape({
-		password: Yup.string().required(),
-		confirmPassword: Yup.string()
-			.required()
-			.equals([Yup.ref("password")], "Passwords do not match"),
-	});
 	return (
 		<>
 			<View style={globalStyles.logoContainer}>

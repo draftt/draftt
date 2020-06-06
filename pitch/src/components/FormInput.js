@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TextInput, Text } from "react-native";
+import { TextInput, Text } from "react-native";
 import globalStyles from "../styles/styles";
 
 const FormInput = ({ formikProps, formikKey, ...rest }) => {
