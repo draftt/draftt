@@ -78,11 +78,11 @@ const SignupScreen = ({ navigation }) => {
 			<View style={styles.logoContainerStyle}>
 				<Image
 					source={require("../../../assets/nonamelogo/Logo_NoBG.png")}
-					style={styles.logoStyle}
+					style={globalStyles.logo}
 				/>
 			</View>
 			<View style={styles.outerFormContainerStyle}>
-				<Text style={styles.formHeaderStyle}>Sign up</Text>
+				<Text style={globalStyles.formHeader}>Sign up</Text>
 				<Formik
 					initialValues={{
 						name: "",
@@ -152,22 +152,9 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 	},
 
-	logoStyle: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
-		resizeMode: "contain",
-	},
-
 	outerFormContainerStyle: {
 		flex: 5,
 		width: wp(85),
-		alignSelf: "center",
-	},
-
-	formHeaderStyle: {
-		fontSize: hp(4),
-		padding: hp(5),
 		alignSelf: "center",
 	},
 });

@@ -2,7 +2,7 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-	// INPUT STYLING
+	// FORM STYLING
 	input: {
 		borderWidth: 1,
 		borderColor: "#fd7719",
@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
 		margin: 5,
 		padding: 7,
 		height: 40,
+	},
+	formHeader: {
+		fontSize: 40,
+		padding: 20,
+		alignSelf: "center",
 	},
 
 	// BUTTON STYLING
@@ -28,6 +33,14 @@ const styles = StyleSheet.create({
 	errorText: {
 		color: "red",
 		margin: 5,
+	},
+
+	// LOGO STYLING
+	logo: {
+		flex: 1,
+		width: "100%",
+		height: "100%",
+		resizeMode: "contain",
 	},
 });
 
