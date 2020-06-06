@@ -7,10 +7,6 @@ import {
 	Image,
 	ActivityIndicator,
 } from "react-native";
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../components/FormInput";
