@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
 
 const NewPassword = ({ navigation }) => {
 	return (
-		<>
+		<View style={globalStyles.rootContainer}>
 			<Logo />
 			<View style={globalStyles.formContainer}>
 				<Text style={globalStyles.formHeader}>New Password Screen</Text>
@@ -64,7 +64,7 @@ const NewPassword = ({ navigation }) => {
 					)}
 				</Formik>
 			</View>
-		</>
+		</View>
 	);
 };
 

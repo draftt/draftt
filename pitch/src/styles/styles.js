@@ -2,6 +2,12 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+	// OUTERMOST container styling
+	rootContainer: {
+		backgroundColor: "#061f26",
+		flex: 1,
+	},
+
 	// FORM STYLING
 	input: {
 		borderWidth: 1,
@@ -15,6 +21,7 @@ const styles = StyleSheet.create({
 		fontSize: 40,
 		padding: 20,
 		alignSelf: "center",
+		color: "#fefffe",
 	},
 	formContainer: {
 		alignSelf: "center",
@@ -25,7 +32,7 @@ const styles = StyleSheet.create({
 	opaqueButton: {
 		backgroundColor: "#fd7719",
 		borderRadius: 10,
-		height: 50,
+		height: 40,
 		margin: 5,
 		alignItems: "center",
 		justifyContent: "center",

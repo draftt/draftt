@@ -70,7 +70,7 @@ const validationSchema = Yup.object().shape({
 // Component
 const SignupScreen = ({ navigation }) => {
 	return (
-		<>
+		<View style={globalStyles.rootContainer}>
 			<Logo />
 			<View style={globalStyles.formContainer}>
 				<Text style={globalStyles.formHeader}>Sign up</Text>
@@ -130,7 +130,7 @@ const SignupScreen = ({ navigation }) => {
 					)}
 				</Formik>
 			</View>
-		</>
+		</View>
 	);
 };
 

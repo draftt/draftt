@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	View,
-	Text,
-	Image,
-	TouchableOpacity,
-	ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../components/forminput";
@@ -22,7 +16,7 @@ const validationSchema = Yup.object().shape({
 
 const ResetPassword = ({ navigation }) => {
 	return (
-		<>
+		<View style={globalStyles.rootContainer}>
 			<Logo />
 			<View style={globalStyles.formContainer}>
 				<Text style={globalStyles.formHeader}>
@@ -60,7 +54,7 @@ const ResetPassword = ({ navigation }) => {
 					)}
 				</Formik>
 			</View>
-		</>
+		</View>
 	);
 };
 

@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
 	});
 
 	return (
-		<>
+		<View style={globalStyles.rootContainer}>
 			<Logo />
 
 			<View style={globalStyles.formContainer}>
@@ -90,7 +90,7 @@ const LoginScreen = ({ navigation }) => {
 					</Text>
 				</TouchableOpacity>
 			</View>
-		</>
+		</View>
 	);
 };
 

@@ -15,6 +15,7 @@ import {
 } from "react-native-responsive-screen";
 import userApi from "../api/user";
 import Logo from "../components/logo";
+import { AppearanceProvider } from "react-native-appearance";
 
 /*
     This screen will have buttons to go to other screens to test them out.
@@ -59,7 +60,9 @@ const ScreenTester = ({ navigation }) => {
 					)}
 				</View>
 
-				<Text style={{ fontFamily: "monospace" }}>pavilion</Text>
+				<Text style={{ fontFamily: "monospace", color: "white" }}>
+					pavilion
+				</Text>
 			</TouchableOpacity>
 			<Logo />
 
@@ -91,15 +94,16 @@ const ScreenTester = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "#fefffe",
+		backgroundColor: "#061f26",
 		flex: 1,
-		marginTop: StatusBar.currentHeight,
+		paddingTop: StatusBar.currentHeight,
 	},
 
 	titleStyle: {
 		alignSelf: "center",
 		fontSize: 50,
 		padding: hp(5),
+		color: "white",
 	},
 
 	buttonStyle: {

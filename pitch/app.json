@@ -1,29 +1,27 @@
 {
-  "expo": {
-    "name": "draftt",
-    "slug": "draftt",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/logo/NoText/Logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#061f26"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
-  }
+	"expo": {
+		"name": "draftt",
+		"slug": "draftt",
+		"privacy": "public",
+		"platforms": ["ios", "android", "web"],
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/logo/NoText/Logo.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#061f26"
+		},
+		"androidStatusBar": {
+			"barStyle": "light-content",
+			"backgroundColor": "#00000000"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		}
+	}
 }
