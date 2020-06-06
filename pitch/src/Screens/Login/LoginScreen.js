@@ -18,7 +18,7 @@ import FormInput from "../../Components/FormInput";
 
 const LoginScreen = ({ navigation }) => {
 	const validationSchema = yup.object().shape({
-		user: yup.string().required("Username is required"),
+		user: yup.string().required("Username/Email is required"),
 		password: yup.string().required("Password is required"),
 	});
 
