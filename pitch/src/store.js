@@ -1,12 +1,8 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import { version } from '../../package.json'
-import makeRootReducer from './reducers';
+import combinedReducers from "./reducers";
 
 export default (initialState = {}) => {
-  // ======================================================
-  // Window Vars Config
-  // ======================================================
-  window.version = version
+
 
   // ======================================================
   // Middleware Configuration
@@ -21,25 +17,29 @@ export default (initialState = {}) => {
     const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
       enhancers.push(devToolsExtension())
   // ======================================================
-  // Store Instantiation and HMR Setup
+  // Store Instantiation
   // ======================================================
   const store = createStore(
-    makeRootReducer(),
+    combinedReducers(),
     initialState, // initial state
     compose(
      applyMiddleware(...middleware),
      ...enhancers
     )
   )
-  store.asyncReducers = {}
+//   store.asyncReducers = {}
+  // ======================================================
+  // Hot Module Reloading (HMR) Setup
+  // ======================================================
+//   if(module.hot) {
+//     // Enable Webpack hot module replacement for reducers
+//     module.hot.accept('../reducers', () => {
+//       const nextReducer = require('../reducers').default;
 
-  if(module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers/index').default;
+//       store.replaceReducer(nextReducer);
+//     });
+//    };
 
-      store.replaceReducer(nextReducer);
-    });
 
-  return store
+  return store;
 }
