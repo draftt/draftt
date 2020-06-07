@@ -10,7 +10,7 @@ const Home = () => {
 		<View style={styles.containerStyle}>
 			<View style={styles.logoContainerStyle}>
 				<Image
-					source={require("../../../assets/logo/Logo_NoBG.png")}
+					source={require("assets/logo/Logo_NoBG.png")}
 					style={styles.logoStyle}
 				/>
 			</View>

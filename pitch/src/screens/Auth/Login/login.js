@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import FormInput from "../../components/forminput";
-import Logo from "../../components/logo";
-import globalStyles from "../../styles/styles";
+import FormInput from "components/forminput";
+import Logo from "components/logo";
+import globalStyles from "styles/styles";
 
-const LoginScreen = ({ navigation }) => {
+const Login = ({ navigation }) => {
 	const validationSchema = yup.object().shape({
 		user: yup.string().required("Username/Email is required"),
 		password: yup.string().required("Password is required"),
@@ -94,4 +94,4 @@ const LoginScreen = ({ navigation }) => {
 	);
 };
 
-export default LoginScreen;
+export default Login;

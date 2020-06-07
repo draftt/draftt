@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../../components/forminput";
-import Logo from "../../components/logo";
-import globalStyles from "../../styles/styles";
+import FormInput from "components/forminput";
+import Logo from "components/logo";
+import globalStyles from "styles/styles";
 
 // Validation Schema
 const validationSchema = Yup.object().shape({

@@ -1,19 +1,12 @@
 
 import { connect } from 'react-redux';
 import {compose} from 'recompose';
-import {setStatus} from 'src/actions';
 
 const mapDispatchToProps = dispatch  =>{
-	return { 
-	    setStatus: (status) => { 
-		dispatch (setStatus(status))
-	    }
-}
+	return {}
 }; 
 const mapStateToProps = (state)=>{
-	return{
-		status: state.pavilionInfo.status
-	}
+	return{};
 }
 
 export default compose(

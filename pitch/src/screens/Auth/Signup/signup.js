@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import FormInput from "../../components/forminput";
-import Logo from "../../components/logo";
-import api from "../../api/user";
-import globalStyles from "../../styles/styles";
+import FormInput from "components/forminput";
+import Logo from "components/logo";
+import api from "src/api/user";
+import globalStyles from "styles/styles";
 
 // Helper functions
 
@@ -68,7 +68,7 @@ const validationSchema = Yup.object().shape({
 });
 
 // Component
-const SignupScreen = ({ navigation }) => {
+const Signup = ({ navigation }) => {
 	return (
 		<View style={globalStyles.rootContainer}>
 			<Logo />
@@ -134,4 +134,4 @@ const SignupScreen = ({ navigation }) => {
 	);
 };
 
-export default SignupScreen;
+export default Signup;
