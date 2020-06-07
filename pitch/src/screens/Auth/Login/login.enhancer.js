@@ -1,14 +1,26 @@
+import { connect } from "react-redux";
+import { compose } from "recompose";
+import { setLoginToken, setEmail, setUsername } from "../../../actions";
 
-import { connect } from 'react-redux';
-import {compose} from 'recompose';
+const mapDispatchToProps = dispatch => {
+	return {
+		setToken: token => {
+			dispatch(setLoginToken(token));
+		},
+		setEmail: email => {
+			dispatch(setEmail(email));
+		},
+		setUsername: username => {
+			dispatch(setUsername(username));
+		},
+	};
+};
+const mapStateToProps = state => {
+	return {
+		token: state.userInfo.token,
+		email: state.userInfo.email,
+		username: state.userInfo.username,
+	};
+};
 
-const mapDispatchToProps = dispatch  =>{
-	return {}
-}; 
-const mapStateToProps = (state)=>{
-	return{};
-}
-
-export default compose(
-    connect(mapStateToProps,mapDispatchToProps)
-)
+export default compose(connect(mapStateToProps, mapDispatchToProps));

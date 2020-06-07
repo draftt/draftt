@@ -6,7 +6,6 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
-	Image,
 	FlatList,
 	StatusBar,
 } from "react-native";
@@ -34,8 +33,6 @@ const fetchStatus = async setStatus => {
 			setStatus("error");
 		});
 };
-
-
 
 const Tester = ({ setStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
@@ -155,17 +152,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapDispatchToProps = dispatch  =>{
-	return { 
-	    setStatus: (status) => { 
-		dispatch (setStatus(status))
-	    }
-}
-}; 
-const mapStateToProps = (state)=>{
-	return{
-		status: state.pavilionInfo.status
-	}
-}
+const mapDispatchToProps = dispatch => {
+	return {
+		setStatus: status => {
+			dispatch(setStatus(status));
+		},
+	};
+};
+const mapStateToProps = state => {
+	return {
+		status: state.pavilionInfo.status,
+	};
+};
 
 export default Tester;
