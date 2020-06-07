@@ -20,7 +20,7 @@ export default (initialState = {}) => {
   // Store Instantiation
   // ======================================================
   const store = createStore(
-    combinedReducers(),
+    combinedReducers,
     initialState, // initial state
     compose(
      applyMiddleware(...middleware),

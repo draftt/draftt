@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux'
 import {
 	ActivityIndicator,
 	View,
@@ -13,6 +14,7 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import {setStatus} from '../actions';
 import userApi from "../api/user";
 import Logo from "../components/logo";
 
@@ -21,8 +23,7 @@ import Logo from "../components/logo";
     It will be default route for the stack navigator in App.js
 */
 
-// Status check functions
-const statusCheck = async setStatus => {
+const fetchStatus = async setStatus => {
 	const delay = ms => new Promise(res => setTimeout(res, ms));
 	await delay(1500);
 	userApi
@@ -35,22 +36,18 @@ const statusCheck = async setStatus => {
 		});
 };
 
-const onStatusPress = async setStatus => {
-	setStatus("checking");
-	statusCheck(setStatus);
-};
 
-const ScreenTester = ({ navigation }) => {
-	const [status, setStatus] = useState("checking");
+
+const ScreenTester = ({ setStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
-	statusCheck(setStatus);
+	fetchStatus();
 	let iconStyle =
 		status === "Connected" ? styles.successIcon : styles.errorIcon;
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.status}
-				onPress={() => onStatusPress(setStatus)}>
+				onPress={() => fetchStatus(setStatus)}>
 				<View style={styles.statusIcon}>
 					{status === "checking" ? (
 						<ActivityIndicator size={10} color='#0000ff' />
@@ -159,4 +156,20 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ScreenTester;
+const mapDispatchToProps = dispatch  =>{
+	return { 
+	    setStatus: () => { 
+		dispatch (setStatus())
+	    }
+}
+}; 
+const mapStateToProps = (state)=>{
+	return{
+		status: state.status
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps)
+	(ScreenTester);
