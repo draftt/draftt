@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 		margin: 5,
 		padding: 7,
 		height: 40,
+		color: "#fefffe",
 	},
 	formHeader: {
 		fontSize: 40,
