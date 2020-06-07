@@ -5,12 +5,12 @@ import {
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const HomeScreen = () => {
+const Home = () => {
 	return (
 		<View style={styles.containerStyle}>
 			<View style={styles.logoContainerStyle}>
 				<Image
-					source={require("../../assets/logo/Logo_NoBG.png")}
+					source={require("../../../assets/logo/Logo_NoBG.png")}
 					style={styles.logoStyle}
 				/>
 			</View>
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default HomeScreen;
+export default Home;

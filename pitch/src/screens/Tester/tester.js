@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux'
+
 import {
 	ActivityIndicator,
 	View,
@@ -14,9 +14,8 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {setStatus} from '../actions';
-import userApi from "../api/user";
-import Logo from "../components/logo";
+import userApi from "../../api/user";
+import Logo from "../../components/logo";
 
 /*
     This screen will have buttons to go to other screens to test them out.
@@ -38,7 +37,7 @@ const fetchStatus = async setStatus => {
 
 
 
-const ScreenTester = ({ setStatus, status, navigation }) => {
+const Tester = ({ setStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
 	fetchStatus(setStatus);
 	let iconStyle =
@@ -169,7 +168,4 @@ const mapStateToProps = (state)=>{
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps)
-	(ScreenTester);
+export default Tester;

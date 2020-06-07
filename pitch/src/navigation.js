@@ -1,7 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import HomeScreen from "./screens/homescreen";
-import ScreenTester from "./screens/screentester";
+import HomeScreen from "./screens/Home";
+import ScreenTester from "./screens/Tester";
 import LoginScreen from "./screens/login/loginscreen";
 import SignupScreen from "./screens/login/signupscreen";
 import ResetPassword from "./screens/login/resetpasswordscreen";
