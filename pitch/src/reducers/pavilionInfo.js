@@ -6,11 +6,11 @@ const defaultState={
     status: 'checking'
 }
 
-export default function status(state = defaultState, action){
+export default function pavilionInfo(state = defaultState, action){
     switch (action.type){
         case SET_STATUS:
             return Object.assign({}, state, {
-                isConnected: action.status
+                status: action.status
             })
         default:
             return state;

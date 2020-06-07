@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import status from './status'
+import pavilionInfo from './pavilionInfo'
 
 export default combinedReducers = combineReducers({
-    status
+    pavilionInfo
 });

@@ -40,7 +40,7 @@ const fetchStatus = async setStatus => {
 
 const ScreenTester = ({ setStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
-	fetchStatus();
+	fetchStatus(setStatus);
 	let iconStyle =
 		status === "Connected" ? styles.successIcon : styles.errorIcon;
 	return (
@@ -158,14 +158,14 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch  =>{
 	return { 
-	    setStatus: () => { 
-		dispatch (setStatus())
+	    setStatus: (status) => { 
+		dispatch (setStatus(status))
 	    }
 }
 }; 
 const mapStateToProps = (state)=>{
 	return{
-		status: state.status
+		status: state.pavilionInfo.status
 	}
 }
 
