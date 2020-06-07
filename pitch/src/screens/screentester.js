@@ -15,7 +15,6 @@ import {
 } from "react-native-responsive-screen";
 import userApi from "../api/user";
 import Logo from "../components/logo";
-import { AppearanceProvider } from "react-native-appearance";
 
 /*
     This screen will have buttons to go to other screens to test them out.
