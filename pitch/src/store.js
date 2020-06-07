@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import combinedReducers from "./reducers";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default (initialState = {}) => {
 
@@ -13,18 +14,21 @@ export default (initialState = {}) => {
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = []
-    const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-      enhancers.push(devToolsExtension())
+  // const enhancers = []
+  //   const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  //     enhancers.push(devToolsExtension())
+
+  // const composeEnhancers = composeWithDevTools({
+  //       // Specify here name, actionsBlacklist, actionsCreators and other options
+  //     });
   // ======================================================
   // Store Instantiation
   // ======================================================
   const store = createStore(
     combinedReducers,
     initialState, // initial state
-    compose(
+    composeWithDevTools(
      applyMiddleware(...middleware),
-     ...enhancers
     )
   )
 //   store.asyncReducers = {}
