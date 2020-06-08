@@ -1,6 +1,8 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import combinedReducers from "./reducers";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import {createSagaMiddleware} from 'redux-saga';
+import combinedReducers from "./reducers";
+import rootSaga from 'src/sagas'
 
 export default (initialState = {}) => {
 
@@ -8,8 +10,10 @@ export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
+  const sagaMiddleware = createSagaMiddleware();
   const middleware = [
- ];
+    sagaMiddleware
+  ];
 
   // ======================================================
   // Store Enhancers
@@ -31,6 +35,8 @@ export default (initialState = {}) => {
      applyMiddleware(...middleware),
     )
   )
+
+  sagaMiddleware.run(rootSaga);
 //   store.asyncReducers = {}
   // ======================================================
   // Hot Module Reloading (HMR) Setup
