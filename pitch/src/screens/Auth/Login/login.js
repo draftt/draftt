@@ -5,7 +5,7 @@ import * as yup from "yup";
 import FormInput from "components/forminput";
 import Logo from "components/logo";
 import globalStyles from "styles/styles";
-import userApi from "src/api/user";
+import userApi from "src/api";
 
 // Helper Functions
 const SIMPLE_EMAIL_REGEX = /\S+@\S+\.\S+/;
@@ -41,18 +41,18 @@ const handleLogin = async (
 		let res = response.data;
 
 		if (isEmailLogin) {
-			res= {...res, email: formikValues.user}
+			res = { ...res, email: formikValues.user };
 		} else {
-			res = {...res, username: formikValues.user}
+			res = { ...res, username: formikValues.user };
 		}
-		console.log(res)
+		console.log(res);
 		// Set in redux store
 		setUserInfo(res);
 
 		// TODO: this will be changed to an authenticated navigator
 		navigation.navigate("Home");
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		// TODO: need to better this error
 		alert("COULD NOT SIGN IN");
 	} finally {
@@ -79,12 +79,7 @@ const Login = ({ setUserInfo, navigation }) => {
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						handleLogin(
-							setUserInfo,
-							values,
-							actions,
-							navigation
-						);
+						handleLogin(setUserInfo, values, actions, navigation);
 					}}>
 					{formikProps => (
 						<>

@@ -8,18 +8,7 @@ export function setUserInfo(data) {
 	return { type: SET_USER_INFO, data };
 }
 
-export const FETCH_STATUS="FETCH_STATUS";
+export const FETCH_STATUS = "FETCH_STATUS";
 export const fetchStatus = () => ({
-    type: FETCH_STATUS
-})
-
-export const FETCH_STATUS="FETCH_STATUS";
-export const fetchStatus = () => ({
-    type: FETCH_STATUS
-})
-
-export const SET_STATUS="SET_STATUS";
-export function setStatus(status){
-    return { type: SET_STATUS, status};
-}
-
+	type: FETCH_STATUS,
+});
