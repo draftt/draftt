@@ -20,7 +20,6 @@ import Logo from "components/logo";
     It will be default route for the stack navigator in App.js
 */
 
-
 const Tester = ({ fetchStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
 	let iconStyle =
