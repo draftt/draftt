@@ -12,9 +12,7 @@ const SIMPLE_EMAIL_REGEX = /\S+@\S+\.\S+/;
 
 // Handle Login
 const handleLogin = async (
-	setToken,
-	setEmail,
-	setUsername,
+	setUserInfo,
 	formikValues,
 	formikActions,
 	navigation
@@ -40,19 +38,21 @@ const handleLogin = async (
 	var response = null;
 	try {
 		response = await userApi.post("/auth/token/", params);
-
-		// Set in redux store
-		setToken(response.data.access_token);
+		let res = response.data;
 
 		if (isEmailLogin) {
-			setEmail(formikValues.user);
+			res= {...res, email: formikValues.user}
 		} else {
-			setUsername(formikValues.user);
+			res = {...res, username: formikValues.user}
 		}
+		console.log(res)
+		// Set in redux store
+		setUserInfo(res);
 
 		// TODO: this will be changed to an authenticated navigator
 		navigation.navigate("Home");
 	} catch (error) {
+		console.log(error)
 		// TODO: need to better this error
 		alert("COULD NOT SIGN IN");
 	} finally {
@@ -60,7 +60,7 @@ const handleLogin = async (
 	}
 };
 
-const Login = ({ setToken, setEmail, setUsername, navigation }) => {
+const Login = ({ setUserInfo, navigation }) => {
 	const validationSchema = yup.object().shape({
 		user: yup.string().required("Username/Email is required"),
 		password: yup.string().required("Password is required"),
@@ -80,9 +80,7 @@ const Login = ({ setToken, setEmail, setUsername, navigation }) => {
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
 						handleLogin(
-							setToken,
-							setEmail,
-							setUsername,
+							setUserInfo,
 							values,
 							actions,
 							navigation

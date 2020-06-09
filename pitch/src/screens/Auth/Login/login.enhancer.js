@@ -1,18 +1,12 @@
 import { connect } from "react-redux";
 import { compose } from "recompose";
-import { setLoginToken, setEmail, setUsername } from "../../../actions";
+import { setUserInfo } from "src/actions";
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setToken: token => {
-			dispatch(setLoginToken(token));
-		},
-		setEmail: email => {
-			dispatch(setEmail(email));
-		},
-		setUsername: username => {
-			dispatch(setUsername(username));
-		},
+		setUserInfo: data => {
+			dispatch(setUserInfo(data));
+		}
 	};
 };
 const mapStateToProps = state => {
