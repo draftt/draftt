@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, } from "react-native";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const Home = () => {
+const Home = ({navigation}) => {
 	return (
 		<View style={styles.containerStyle}>
 			<View style={styles.logoContainerStyle}>
@@ -15,6 +15,16 @@ const Home = () => {
 				/>
 			</View>
 			<Text style={styles.titleTextStyle}>Home Screen</Text>
+			<TouchableOpacity
+							style={styles.buttonStyle}
+							onPress={() => {
+								navigation.navigate('Tester');
+							}}>
+							<Text style={{ fontSize: 15, color: "white" }}>
+								{" "}
+								Go to tester{" "}
+							</Text>
+						</TouchableOpacity>
 		</View>
 	);
 };
@@ -24,6 +34,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		backgroundColor: "#fefffe",
+	},
+
+	buttonStyle: {
+		backgroundColor: "#fd7719",
+		borderRadius: 10,
+		padding: hp(2),
+		margin: hp(2),
+		color: "black",
 	},
 
 	titleTextStyle: {
