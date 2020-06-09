@@ -20,20 +20,6 @@ import Logo from "components/logo";
     It will be default route for the stack navigator in App.js
 */
 
-// const fetchStatus = async setStatus => {
-// 	const delay = ms => new Promise(res => setTimeout(res, ms));
-// 	await delay(1500);
-// 	userApi
-// 		.get("/status", { timeout: 1000 })
-// 		.then(res => {
-// 			setStatus(res.data);
-// 		})
-// 		.catch(error => {
-// 			setStatus("error");
-// 		});
-// };
-
-
 
 const Tester = ({ fetchStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
