@@ -16,53 +16,51 @@ const handleLogin = async (
 	setEmail,
 	setUsername,
 	formikValues,
-	formikActions
+	formikActions,
+	navigation
 ) => {
-	console.log("in loginUser in login.js");
-
-	// determine if we have an email or a username
-	const result = SIMPLE_EMAIL_REGEX.test(formikValues.user);
 	const params = new FormData(); // .set() does not work, use .append()
 	params.append("grant_type", "password");
 	params.append("password", formikValues.password);
 	params.append("client_id", "T001");
 	params.append("client_secret", "R2D2");
 
-	if (result) {
-		console.log("Entered an email");
+	// determine if we have an email or a username
+	const isEmailLogin = SIMPLE_EMAIL_REGEX.test(formikValues.user);
+
+	if (isEmailLogin) {
 		params.append("grant_sub_type", "email");
 		params.append("email", formikValues.user);
 	} else {
-		console.log("Entered a username");
 		params.append("grant_sub_type", "username");
 		params.append("username", formikValues.user);
 	}
 
 	// call API
 	var response = null;
-	console.log(params);
 	try {
 		response = await userApi.post("/auth/token/", params);
-		console.log("SUCCESS");
-		alert("LOGGED IN");
+
+		// Set in redux store
+		setToken(response.data.access_token);
+
+		if (isEmailLogin) {
+			setEmail(formikValues.user);
+		} else {
+			setUsername(formikValues.user);
+		}
+
+		// TODO: this will be changed to an authenticated navigator
+		navigation.navigate("Home");
 	} catch (error) {
-		console.log(error);
+		// TODO: need to better this error
 		alert("COULD NOT SIGN IN");
 	} finally {
 		formikActions.setSubmitting(false);
 	}
-	// setup global state
 };
 
-const Login = ({
-	setToken,
-	setEmail,
-	setUsername,
-	token,
-	email,
-	username,
-	navigation,
-}) => {
+const Login = ({ setToken, setEmail, setUsername, navigation }) => {
 	const validationSchema = yup.object().shape({
 		user: yup.string().required("Username/Email is required"),
 		password: yup.string().required("Password is required"),
@@ -86,7 +84,8 @@ const Login = ({
 							setEmail,
 							setUsername,
 							values,
-							actions
+							actions,
+							navigation
 						);
 					}}>
 					{formikProps => (
