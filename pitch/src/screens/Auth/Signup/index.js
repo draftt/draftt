@@ -1,5 +1,5 @@
 import Signup from './signup'
 import enhance from './signup.enhancer'
-
-export default enhance(Signup);
+import {hoistStatics} from 'recompose'
+export default hoistStatics(enhance)(Signup);
 

@@ -1,5 +1,5 @@
 import Home from './home'
 import enhance from './home.enhancer'
-
-export default enhance(Home);
+import {hoistStatics} from 'recompose'
+export default hoistStatics(enhance)(Home);
 

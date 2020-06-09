@@ -1,19 +1,21 @@
 
-import { createStackNavigator} from 'react-navigation';
-import SignUp from './Signup';
+import { createStackNavigator} from 'react-navigation-stack';
+import Signup from './Signup';
 import Login from './Login';
 import NewPassword from './NewPassword';
 import ResetPassword from './ResetPassword';
-import MainTabNavigator from './MainTabNavigator';
+import Tester from 'screens/Tester'
 
 
-const AuthStack = createStackNavigator({ 
+export default OpenStack = createStackNavigator({ 
   Login,
   Signup,
   NewPassword,
   ResetPassword,
   Tester
 },
+
 {
-  initialRouteName: 'Signup',
+  initialRouteName: 'Tester',
+  headerMode: 'none'
 });
