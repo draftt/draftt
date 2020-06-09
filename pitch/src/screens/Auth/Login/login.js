@@ -1,18 +1,68 @@
 import React from "react";
-import {
-	View,
-	Text,
-	Image,
-	TouchableOpacity,
-	ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInput from "components/forminput";
 import Logo from "components/logo";
 import globalStyles from "styles/styles";
+import userApi from "src/api/user";
 
-const Login = ({ navigation }) => {
+// Helper Functions
+const SIMPLE_EMAIL_REGEX = /\S+@\S+\.\S+/;
+
+// Handle Login
+const handleLogin = async (
+	setToken,
+	setEmail,
+	setUsername,
+	formikValues,
+	formikActions
+) => {
+	console.log("in loginUser in login.js");
+
+	// determine if we have an email or a username
+	const result = SIMPLE_EMAIL_REGEX.test(formikValues.user);
+	const params = new FormData(); // .set() does not work, use .append()
+	params.append("grant_type", "password");
+	params.append("password", formikValues.password);
+	params.append("client_id", "T001");
+	params.append("client_secret", "R2D2");
+
+	if (result) {
+		console.log("Entered an email");
+		params.append("grant_sub_type", "email");
+		params.append("email", formikValues.user);
+	} else {
+		console.log("Entered a username");
+		params.append("grant_sub_type", "username");
+		params.append("username", formikValues.user);
+	}
+
+	// call API
+	var response = null;
+	console.log(params);
+	try {
+		response = await userApi.post("/auth/token/", params);
+		console.log("SUCCESS");
+		alert("LOGGED IN");
+	} catch (error) {
+		console.log(error);
+		alert("COULD NOT SIGN IN");
+	} finally {
+		formikActions.setSubmitting(false);
+	}
+	// setup global state
+};
+
+const Login = ({
+	setToken,
+	setEmail,
+	setUsername,
+	token,
+	email,
+	username,
+	navigation,
+}) => {
 	const validationSchema = yup.object().shape({
 		user: yup.string().required("Username/Email is required"),
 		password: yup.string().required("Password is required"),
@@ -31,15 +81,13 @@ const Login = ({ navigation }) => {
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						setTimeout(() => {
-							actions.setSubmitting(false);
-						}, 1000);
-
-						alert("no frontend errors");
-						/*
-							TODO:
-								- call login API here after validation
-						*/
+						handleLogin(
+							setToken,
+							setEmail,
+							setUsername,
+							values,
+							actions
+						);
 					}}>
 					{formikProps => (
 						<>
