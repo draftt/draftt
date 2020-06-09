@@ -3,15 +3,15 @@ import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "screens/Home";
 import ScreenTester from "screens/Tester";
 import OpenStack from "screens/Auth/authnavigator";
+
 const AuthenticatedStack = createStackNavigator(
 	{
 		// Routes
 		Home: HomeScreen,
-		Tester: ScreenTester,
 	},
 	{
 		// Stack navigator options
-		initialRouteName: "Tester",
+		initialRouteName: "Home",
 		headerMode: 'none',
 		defaultNavigationOptions: {
 			title: "draftt", // displayed on the top
