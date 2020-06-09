@@ -1,6 +1,5 @@
 
-import {SET_STATUS} from '../actions';
-
+import {SET_STATUS, FETCH_STATUS} from '../actions';
 const defaultState={
     link: [],
     status: 'checking'
@@ -9,9 +8,15 @@ const defaultState={
 export default function pavilionInfo(state = defaultState, action){
     switch (action.type){
         case SET_STATUS:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 status: action.status
-            })
+            };
+        case FETCH_STATUS:
+            return {
+                ...state,
+                status: 'checking'
+            };
         default:
             return state;
     }

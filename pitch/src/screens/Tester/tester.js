@@ -13,7 +13,6 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import userApi from "src/api/user";
 import Logo from "components/logo";
 
 /*
@@ -21,29 +20,30 @@ import Logo from "components/logo";
     It will be default route for the stack navigator in App.js
 */
 
-const fetchStatus = async setStatus => {
-	const delay = ms => new Promise(res => setTimeout(res, ms));
-	await delay(1500);
-	userApi
-		.get("/status", { timeout: 1000 })
-		.then(res => {
-			setStatus(res.data);
-		})
-		.catch(error => {
-			setStatus("error");
-		});
-};
+// const fetchStatus = async setStatus => {
+// 	const delay = ms => new Promise(res => setTimeout(res, ms));
+// 	await delay(1500);
+// 	userApi
+// 		.get("/status", { timeout: 1000 })
+// 		.then(res => {
+// 			setStatus(res.data);
+// 		})
+// 		.catch(error => {
+// 			setStatus("error");
+// 		});
+// };
 
-const Tester = ({ setStatus, status, navigation }) => {
+
+
+const Tester = ({ fetchStatus, status, navigation }) => {
 	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
-	fetchStatus(setStatus);
 	let iconStyle =
 		status === "Connected" ? styles.successIcon : styles.errorIcon;
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.status}
-				onPress={() => fetchStatus(setStatus)}>
+				onPress={() => fetchStatus()}>
 				<View style={styles.statusIcon}>
 					{status === "checking" ? (
 						<ActivityIndicator size={10} color='#0000ff' />
@@ -151,18 +151,4 @@ const styles = StyleSheet.create({
 		backgroundColor: "black",
 	},
 });
-
-const mapDispatchToProps = dispatch => {
-	return {
-		setStatus: status => {
-			dispatch(setStatus(status));
-		},
-	};
-};
-const mapStateToProps = state => {
-	return {
-		status: state.pavilionInfo.status,
-	};
-};
-
 export default Tester;

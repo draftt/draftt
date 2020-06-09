@@ -1,13 +1,13 @@
 
 import { connect } from 'react-redux';
-import {compose} from 'recompose';
-import {setStatus} from 'src/actions';
+import {lifecycle, compose} from 'recompose';
+import {fetchStatus} from 'src/actions';
 
 const mapDispatchToProps = dispatch  =>{
 	return { 
-	    setStatus: (status) => { 
-		dispatch (setStatus(status))
-	    }
+	    fetchStatus: () => { 
+		dispatch (fetchStatus())
+		},
 }
 }; 
 const mapStateToProps = (state)=>{
@@ -17,5 +17,11 @@ const mapStateToProps = (state)=>{
 }
 
 export default compose(
-    connect(mapStateToProps,mapDispatchToProps)
+	connect(mapStateToProps,mapDispatchToProps),
+	lifecycle({
+        componentDidMount() {
+            // Fetch repos and select lang on mount
+            this.props.fetchStatus();
+        }
+    })
 )

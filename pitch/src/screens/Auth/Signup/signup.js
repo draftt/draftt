@@ -10,7 +10,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "components/forminput";
 import Logo from "components/logo";
-import api from "src/api/user";
+import api from "src/api";
 import globalStyles from "styles/styles";
 
 // Helper functions
