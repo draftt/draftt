@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	View,
-	Text,
-	TouchableOpacity,
-	Image,
-	ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "components/forminput";

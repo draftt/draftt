@@ -21,7 +21,14 @@ import Logo from "components/logo";
 */
 
 const Tester = ({ fetchStatus, status, navigation }) => {
-	const screens = ["Home", "Login", "Signup", "ResetPassword", "NewPassword"];
+	const screens = [
+		"Home",
+		"Login",
+		"Signup",
+		"ResetPassword",
+		"NewPassword",
+		"ActivateAccount",
+	];
 	let iconStyle =
 		status === "Connected" ? styles.successIcon : styles.errorIcon;
 	return (

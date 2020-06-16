@@ -1,7 +1,6 @@
-import { createAppContainer, createSwitchNavigator} from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "screens/Home";
-import ScreenTester from "screens/Tester";
 import OpenStack from "screens/Auth/authnavigator";
 
 const AuthenticatedStack = createStackNavigator(
@@ -12,23 +11,25 @@ const AuthenticatedStack = createStackNavigator(
 	{
 		// Stack navigator options
 		initialRouteName: "Home",
-		headerMode: 'none',
+		headerMode: "none",
 		defaultNavigationOptions: {
 			title: "draftt", // displayed on the top
 		},
 	}
 );
 
-export default createAppContainer(createSwitchNavigator(
-    {
-      Open: OpenStack,
-      AuthenticatedStack: AuthenticatedStack,
-    },
-    {
-      initialRouteName: 'Open',
-      defaultNavigationOptions : {
-        header: null,
-        tabBarVisible: false,
-      }
-    }
-  ));
+export default createAppContainer(
+	createSwitchNavigator(
+		{
+			Open: OpenStack,
+			AuthenticatedStack: AuthenticatedStack,
+		},
+		{
+			initialRouteName: "Open",
+			defaultNavigationOptions: {
+				header: null,
+				tabBarVisible: false,
+			},
+		}
+	)
+);
