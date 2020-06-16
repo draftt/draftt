@@ -8,21 +8,12 @@ const defaultState = {
 };
 
 export default function userInfo(state = defaultState, action) {
+	let data = action.data;
 	switch (action.type) {
 		case SET_USER_INFO:
-			const name = action.data.name;
-			const email = action.data.email;
-			const username = action.data.username;
 			return {
 				...state,
-				name: name,
-				email: email,
-				username: username,
-			};
-		case SET_USER_ACTIVE:
-			return {
-				...state,
-				isActive: true,
+				...data,
 			};
 		default:
 			return state;

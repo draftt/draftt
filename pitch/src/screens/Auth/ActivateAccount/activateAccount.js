@@ -1,10 +1,51 @@
 import React from "react";
+import api from "src/api";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import FormInput from "components/forminput";
 import Logo from "components/logo";
 import globalStyles from "styles/styles";
+
+// Helper functions
+
+const activateUser = async (values, actions, navigation) => {
+	// TODO: put these in!
+	const params = {};
+
+	api.post("/user/activate/", params)
+		.then(res => {
+			// successfully signed up
+
+			// TODO: call reducers to set user status
+			// setUserInfo({isActive : true});
+
+			navigation.navigate("Home");
+		})
+		.catch(err => {
+			// Error signing up
+			if (err.code === "ECONNABORTED") {
+				// server timed out
+				alert("Server took too long to respond");
+			} else {
+				// server returned an error
+				switch (err.response.status) {
+					case 400:
+						const serverValidErr = err.response.data;
+						actions.setErrors(serverValidErr);
+						break;
+					default:
+						alert("Oops...Something went wrong");
+						console.log(err.response);
+				}
+			}
+		})
+		.finally(() => {
+			setTimeout(() => {
+				actions.setSubmitting(false);
+			}, 1000);
+		});
+};
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -23,12 +64,7 @@ const ActivateAccount = ({ navigation }) => {
 					initialValues={{ code: "" }}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						// TODO: need to call backend api to activate user
-
-						// Call reset password Api Here
-						setTimeout(() => {
-							actions.setSubmitting(false);
-						}, 1000);
+						activateUser(values, actions, navigation);
 					}}>
 					{formikProps => (
 						<>

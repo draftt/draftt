@@ -17,7 +17,7 @@ export default OpenStack = createStackNavigator(
 	},
 
 	{
-		initialRouteName: "ActivateAccount",
+		initialRouteName: "Tester",
 		headerMode: "none",
 	}
 );

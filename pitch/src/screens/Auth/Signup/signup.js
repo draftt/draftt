@@ -10,7 +10,7 @@ import globalStyles from "styles/styles";
 // Helper functions
 
 // Handle Signup
-const handleSubmit = (values, actions) => {
+const handleSubmit = (values, actions, navigation) => {
 	const params = {
 		fullname: values.name,
 		username: values.username,
@@ -23,6 +23,7 @@ const handleSubmit = (values, actions) => {
 			// Successfully signed up
 			// TODO: Will need to navigate to someplace else from here
 			console.log(response);
+			navigation.navigate("ActivateAccount");
 		})
 		.catch(err => {
 			// Error signing up
@@ -78,7 +79,7 @@ const Signup = ({ navigation }) => {
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) =>
-						handleSubmit(values, actions)
+						handleSubmit(values, actions, navigation)
 					}>
 					{formikProps => (
 						<>
