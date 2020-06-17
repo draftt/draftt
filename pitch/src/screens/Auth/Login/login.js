@@ -45,7 +45,6 @@ const handleLogin = async (
 		} else {
 			res = { ...res, username: formikValues.user };
 		}
-		console.log(res);
 		// Set in redux store
 		setUserInfo(res);
 

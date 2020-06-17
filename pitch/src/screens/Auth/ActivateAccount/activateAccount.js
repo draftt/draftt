@@ -9,18 +9,22 @@ import globalStyles from "styles/styles";
 
 // Helper functions
 
-const activateUser = async (values, actions, navigation) => {
-	// TODO: put these in!
+const activateUser = async (
+	values,
+	actions,
+	navigation,
+	setUserInfo,
+	uid,
+	timestamp
+) => {
 	const params = {};
+	params.uid = uid;
+	params.token = timestamp + "-" + values.code;
 
 	api.post("/user/activate/", params)
 		.then(res => {
-			// successfully signed up
-
-			// TODO: call reducers to set user status
-			// setUserInfo({isActive : true});
-
-			navigation.navigate("Home");
+			setUserInfo({ isActive: true });
+			navigation.navigate("Login");
 		})
 		.catch(err => {
 			// Error signing up
@@ -54,7 +58,7 @@ const validationSchema = Yup.object().shape({
 		.label("Activation Code"),
 });
 
-const ActivateAccount = ({ navigation }) => {
+const ActivateAccount = ({ uid, timestamp, setUserInfo, navigation }) => {
 	return (
 		<View style={globalStyles.rootContainer}>
 			<Logo />
@@ -64,7 +68,14 @@ const ActivateAccount = ({ navigation }) => {
 					initialValues={{ code: "" }}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) => {
-						activateUser(values, actions, navigation);
+						activateUser(
+							values,
+							actions,
+							navigation,
+							setUserInfo,
+							uid,
+							timestamp
+						);
 					}}>
 					{formikProps => (
 						<>

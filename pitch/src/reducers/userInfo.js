@@ -5,6 +5,8 @@ const defaultState = {
 	email: "",
 	username: "",
 	isActive: false,
+	uid: "",
+	timestamp: "",
 };
 
 export default function userInfo(state = defaultState, action) {

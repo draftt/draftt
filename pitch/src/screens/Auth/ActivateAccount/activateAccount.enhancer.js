@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch => {
 };
 const mapStateToProps = state => {
 	return {
-		token: state.userInfo.token,
+		uid: state.userInfo.uid,
+		timestamp: state.userInfo.timestamp,
 	};
 };
 
