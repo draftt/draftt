@@ -10,7 +10,7 @@ import globalStyles from "styles/styles";
 // Helper functions
 
 // Handle Signup
-const handleSubmit = (values, actions, navigation) => {
+const handleSubmit = (values, actions, navigation, setUserInfo) => {
 	const params = {
 		fullname: values.name,
 		username: values.username,
@@ -19,10 +19,10 @@ const handleSubmit = (values, actions, navigation) => {
 	};
 
 	api.post("/user/create/", params)
-		.then(response => {
+		.then(({ data }) => {
 			// Successfully signed up
-			// TODO: Will need to navigate to someplace else from here
-			console.log(response);
+			delete data.fullname;
+			setUserInfo(data);
 			navigation.navigate("ActivateAccount");
 		})
 		.catch(err => {
@@ -63,7 +63,7 @@ const validationSchema = Yup.object().shape({
 });
 
 // Component
-const Signup = ({ navigation }) => {
+const Signup = ({ setUserInfo, navigation }) => {
 	return (
 		<View style={globalStyles.rootContainer}>
 			<Logo />
@@ -79,7 +79,7 @@ const Signup = ({ navigation }) => {
 					}}
 					validationSchema={validationSchema}
 					onSubmit={(values, actions) =>
-						handleSubmit(values, actions, navigation)
+						handleSubmit(values, actions, navigation, setUserInfo)
 					}>
 					{formikProps => (
 						<>
