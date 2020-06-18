@@ -55,10 +55,10 @@ class ActivationView(APIView):
         serializer_class = ActivationSerializer(data=request.data)
         serializer_class.is_valid(raise_exception=True)
         user = serializer_class.user
-        user.is_active = True
-        user.save(update_fields=['is_active'])
+        user.is_verified = True
+        user.save(update_fields=['is_verified'])
         return Response(
-            data="User Activated",
+            data="User Verified",
             status=status.HTTP_200_OK
         )
 

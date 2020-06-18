@@ -79,10 +79,10 @@ class ActivationSerializer(UidAndTokenSerializer):
 
     def validate(self, attrs):
         attrs = super().validate(attrs)
-        if not self.user.is_active:
+        if not self.user.is_verified:
             return attrs
         raise serializers.ValidationError(
-            "User already active", code='authorization')
+            "User already verified", code='authorization')
 
 
 class UpdatePasswordSerializer(UidAndTokenSerializer):
