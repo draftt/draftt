@@ -21,10 +21,9 @@ const activateUser = async (
 	params.uid = uid;
 	params.token = timestamp + "-" + values.code;
 
-	api.post("/user/activate/", params)
+	api.post("/user/verify/", params)
 		.then(res => {
-			setUserInfo({ isActive: true });
-			navigation.navigate("Login");
+			navigation.navigate("Home");
 		})
 		.catch(err => {
 			// Error signing up
@@ -35,7 +34,8 @@ const activateUser = async (
 				// server returned an error
 				switch (err.response.status) {
 					case 400:
-						const serverValidErr = err.response.data;
+						const serverValidErr =
+							err.response.data.non_field_errors;
 						actions.setErrors(serverValidErr);
 						break;
 					default:
