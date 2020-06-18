@@ -4,7 +4,6 @@ const defaultState = {
 	name: "",
 	email: "",
 	username: "",
-	isActive: false,
 	uid: "",
 	timestamp: "",
 };

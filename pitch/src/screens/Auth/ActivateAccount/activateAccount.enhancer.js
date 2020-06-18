@@ -3,11 +3,7 @@ import { compose } from "recompose";
 import { setUserInfo } from "src/actions";
 
 const mapDispatchToProps = dispatch => {
-	return {
-		setUserInfo: data => {
-			dispatch(setUserInfo(isActive));
-		},
-	};
+	return {};
 };
 const mapStateToProps = state => {
 	return {
