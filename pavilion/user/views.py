@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from .utils import email_code
 from django.contrib.auth import get_user_model
+from .permissions import isVerified
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -29,7 +30,7 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manages authenticated user"""
     serializer_class = UserSerializer
     authentication_classes = (OAuth2Authentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, isVerified)
 
     def get_object(self):
         """Retrieve return authenticated user"""
