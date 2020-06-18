@@ -27,7 +27,7 @@ class ResetPwdApiTests(TestCase):
             username='testuser',
             email='test@test.com',
             password='supersecretpassword',
-            is_active=True
+            is_verified=True
         )
         payload = {
             'email': 'test@test.com'

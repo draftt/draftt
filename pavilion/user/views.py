@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.views import APIView
 from rest_framework.response import Response
-from user.serializers import UserSerializer, ActivationSerializer, \
+from user.serializers import UserSerializer, VerificationSerializer, \
     UpdatePasswordSerializer
 from rest_framework.authtoken.models import Token
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
@@ -20,7 +20,7 @@ class CreateUserView(generics.CreateAPIView):
         user = serializer.save()
         headers = self.get_success_headers(serializer.data)
         # Add timestamp and user details to return data
-        return_data = email_code(code_type="activation", user=user)
+        return_data = email_code(code_type="verification", user=user)
         return_data.update(serializer.data)
         return Response(
             return_data, status=status.HTTP_201_CREATED, headers=headers)
@@ -49,11 +49,11 @@ class LogoutUser(APIView):
         return Response(data="User Logged out", status=status.HTTP_200_OK)
 
 
-class ActivationView(APIView):
-    """Manages the activation link"""
+class VerificationView(APIView):
+    """Manages the verification link"""
 
     def post(self, request, *args, **kwargs):
-        serializer_class = ActivationSerializer(data=request.data)
+        serializer_class = VerificationSerializer(data=request.data)
         serializer_class.is_valid(raise_exception=True)
         user = serializer_class.user
         user.is_verified = True

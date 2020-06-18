@@ -77,6 +77,7 @@ class PrivateUserApiTests(TestCase):
             username="testuser",
             email="test@draftt.com",
             password="testingpassword",
+            is_verified=True
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)

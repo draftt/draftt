@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """
         Create a new user with encrypted password and return it
-        with the timestamp for activation
+        with the timestamp for verification
         """
         user = get_user_model().objects.create_user(**validated_data)
 
@@ -71,10 +71,10 @@ class UidAndTokenSerializer(serializers.Serializer):
             )
 
 
-class ActivationSerializer(UidAndTokenSerializer):
-    code_type = "activation"
+class VerificationSerializer(UidAndTokenSerializer):
+    code_type = "verification"
     default_error_messages = {
-        "stale_token": "User already activated",
+        "stale_token": "User already verified",
     }
 
     def validate(self, attrs):

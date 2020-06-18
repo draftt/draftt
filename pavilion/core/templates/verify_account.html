@@ -1,0 +1,30 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Verify your {{ site_name }} account{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}Hi {{ fullname }},{% endblocktrans %}
+{% blocktrans %}You're receiving this email because you need to finish verification process on {{ site_name }}.{% endblocktrans %}
+
+{% trans "Please enter the following code in the application to verify your account:" %}
+{{ code }}
+
+{% trans "Welcome to Draftt!!" %}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+<h1>Hello {{ fullname}},</h1>
+<p>{% blocktrans %}You're receiving this email because you need to finish verification process on {{ site_name }}.{% endblocktrans %}</p>
+
+<p>{% trans "Please enter the following code in the application to verify your account:" %}</p>
+<p>{{ code }}</p>
+
+<p>{% trans "Welcome to draftt!!" %}</p>
+
+<p>{% blocktrans %}The {{ site_name }} team{% endblocktrans %}</p>
+
+{% endblock html_body %}

@@ -151,7 +151,7 @@ STATIC_URL = '/static/'
 """"""
 AUTH_USER_MODEL = 'core.User'
 
-ACTIVATION_URL = 'api/user/activate/{uid}/{token}'
+VERIFICATION_URL = 'api/user/verify/{uid}/{token}'
 DOMAIN = 'localhost:8000'
 SITE_NAME = 'Draftt'
 

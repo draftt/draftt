@@ -8,7 +8,7 @@ from django.conf import settings
 import logging
 
 log = logging.getLogger(__name__)
-ACTIVATION_URL = reverse('user:activate')
+VERIFICATION_URL = reverse('user:verify')
 CREATE_USER_URL = reverse('user:createuser')
 
 
@@ -20,7 +20,7 @@ def extract_code_from_mail(body):
     return possible_codes[0]
 
 
-class ActivationApiTests(TestCase):
+class VerificationApiTests(TestCase):
     """Test the users API (public) that does not require authentication"""
 
     def setUp(self):
@@ -31,67 +31,67 @@ class ActivationApiTests(TestCase):
                         }
         self.res = self.client.post(CREATE_USER_URL, self.payload)
 
-    def test_activation_data_returned_on_creation(self):
-        """ Test if required activation data is returned on account
+    def test_verification_data_returned_on_creation(self):
+        """ Test if required verification data is returned on account
             creation"""
 
         self.assertIn('timestamp', self.res.data)
         self.assertIn('uid', self.res.data)
 
-    def test_new_user_inactive(self):
-        """ Test new user is inactive by default"""
+    def test_new_user_unverified(self):
+        """ Test new user is unverified by default"""
         user = get_user_model().objects.get(
             username=self.payload['username'])
-        self.assertFalse(user.is_active)
+        self.assertFalse(user.is_verified)
 
-    def test_activation_email_send(self):
-        """ Test activation Email sent"""
+    def test_verification_email_send(self):
+        """ Test verificationEmail sent"""
         self.assertTrue(len(mail.outbox) == 1)
-        self.assertIn("Activate", mail.outbox[0].subject)
+        self.assertIn("Verify", mail.outbox[0].subject)
         self.assertEqual(mail.outbox[0].to[0], self.payload['email'])
         self.assertTrue(mail.outbox[0].body)
 
-    def test_activate_user(self):
-        """Tests the activation link to activate a user"""
+    def test_verify_user(self):
+        """Tests the verification link to verify a user"""
         code = extract_code_from_mail(mail.outbox[0].body)
         timestamp = self.res.data['timestamp']
         uid = self.res.data['uid']
         code = timestamp + '-' + code
-        activate_payload = {
+        verify_payload = {
             'uid': uid,
             'token': code
         }
-        act_res = self.client.post(ACTIVATION_URL, activate_payload)
+        act_res = self.client.post(VERIFICATION_URL, verify_payload)
         user = get_user_model().objects.get(
             username=self.payload['username'])
         self.assertEqual(act_res.status_code, status.HTTP_200_OK)
-        self.assertTrue(user.is_active)
+        self.assertTrue(user.is_verified)
 
-    def test_activate_user_fails(self):
+    def test_verify_user_fails(self):
         """
-        Tests the activation link to activate a
+        Tests the verification link to verify a
             user fails with wrong code
         """
         code = extract_code_from_mail(mail.outbox[0].body)
         timestamp = self.res.data['timestamp']
         uid = self.res.data['uid']
         code = timestamp + '-' + "123456"
-        activate_payload = {
+        verify_payload = {
             'uid': uid,
             'token': code
         }
-        act_res = self.client.post(ACTIVATION_URL, activate_payload)
+        act_res = self.client.post(VERIFICATION_URL, verify_payload)
         user = get_user_model().objects.get(
             username=self.payload['username'])
         self.assertEqual(act_res.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertFalse(user.is_active)
+        self.assertFalse(user.is_verified)
 
-    def test_activated_email_send(self):
-        """ Tests if confirmation email is sent after activation"""
+    def test_verify_email_send(self):
+        """ Tests if confirmation email is sent after verification"""
         user = get_user_model().objects.get(
             username=self.payload['username'])
-        user.is_active = True
-        user.save(update_fields=['is_active'])
+        user.is_verified = True
+        user.save(update_fields=['is_verified'])
 
         self.assertTrue(len(mail.outbox) == 2)
-        self.assertIn("activated", mail.outbox[1].body)
+        self.assertIn("verified", mail.outbox[1].body)

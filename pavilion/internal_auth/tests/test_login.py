@@ -20,7 +20,7 @@ class PasswordLoginApiTests(TestCase):
             username='testuser',
             email='test@test.com',
             password='testpassword',
-            is_active=True)
+            is_verified=True)
         self.superuser = get_user_model().objects.create_superuser(
             username="admin",
             email="admin@test.com",
