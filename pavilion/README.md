@@ -1,5 +1,5 @@
 
-# draftt django server
+# draftt-pavilion
 
 [![Build Status][build-status]][build-status-url]
 [![Code Style][code-style-image]][code-style-url]
@@ -28,42 +28,17 @@ This folder contains the backend for the application. It is built using Django, 
 The application structure presented below is **fractal**, where functionality is grouped primarily by feature rather than file type. Please note, however, that this structure is only for the initial stages. It aims to represent generally accepted guidelines and patterns for building scalable applications.
 
 ```
-Server
-├── app  
-│ ├── app  				# Main app configuration files
-│ │ ├── settings.py  			# Project settings
-│ │ ├── urls.py  			# Handles urls/routes for proj
-│ │ └── wsgi.py  			# WSGI Configs
-│ ├── core  				# Application core module
-│ │ ├── management  			# Management files
-│ │ │ ├── commands  			# Contains our custom commands
-│ │ │ │ └── wait_for_db.py  		# Waits for db to be loaded
-│ │ ├── migrations  			#Auto-gen from models
-│ │ │ ├── 0001_initial.py  
-│ │ ├── tests  				# Contains all tests
-│ │ │ ├── test_admin.py  		# Admin page tests
-│ │ │ ├── test_commands.py  		# Custom run commands tests
-│ │ │ └── tests_models.py  		# Models tests
-│ │ ├── templates			# Contains reusable html templates
-│ │ │ └── activate_account.html		# Account Activation Email Template
-│ │ ├── admin.py  			# Django Admin Configs
-│ │ ├── apps.py  
-│ │ ├── email.py  			# Contains code for sending emails
-│ │ ├── models.py  			# Models for database
-│ │ ├── signals.py  			# Basic signals defining auto actions
-│ │ └── utils.py  			# Small Reusable utilities
-│ ├── user				# User handling api endpoint
-│ │ ├── tests
-│ │ │   └── test_user_api.py    	#Tests for users API endpoint
-│ │ ├── apps.py
-│ │ ├── serializers.py          	#Serializers to convert recieved/sent format
-│ │ ├── urls.py                 	#Handles urls of API and reroutes
-│ │ └── views.py                	#API return data handling 
-│ └── manage.py  
-├── Dockerfile  			# Docker configs
+
+pavilion
+├── app  				# Main app configuration files
+├── core  				# Application core module
+├── user				# User handling api endpoint
+├── internal_auth		# Authentication app following oauth2
+├── codegen     		# Generates secure codes for verification
+├── manage.py  
+├── Dockerfile  		# Docker configs
 ├── README.md  
-├── docker-compose.yml  		# Docker-compose configs
-└── requirements.txt			# Reqs for docker to setup
+└── requirements.txt	# Reqs for docker to setup
 ```
 
 ## Testing

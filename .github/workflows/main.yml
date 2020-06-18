@@ -2,10 +2,8 @@ name: Third-Umpire
 
 on:
   pull_request:
-    branches:
-      - master
     paths:
-      - 'pavilion/***'
+      - 'pavilion/**'
 jobs:
   test-runner:
     runs-on: ubuntu-latest
