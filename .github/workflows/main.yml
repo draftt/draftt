@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - 'pavilion/***'
 jobs:
   test-runner:
     runs-on: ubuntu-latest
