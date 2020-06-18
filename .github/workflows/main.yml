@@ -1,4 +1,4 @@
-name: Django Server Tests
+name: Third-Umpire
 
 on:
   pull_request:
@@ -12,6 +12,7 @@ jobs:
       - name: API Tests
         working-directory: .
         run: |
+          mv template.env .env
           docker-compose run --rm  pavilion sh -c "coverage run manage.py test"
           docker-compose run --rm  pavilion sh -c "coverage xml"
       - name: Upload coverage to Codecov  
