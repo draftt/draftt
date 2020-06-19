@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 try:            # pragma: no cover
-    from .securekeys import *
+    from .secretkeys import *
 except ImportError:
     from .testkeys import *
 
