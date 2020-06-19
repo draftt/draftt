@@ -1,15 +1,10 @@
-import { connect } from "react-redux";
-import { compose } from "recompose";
-import { setUserInfo } from "src/actions";
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
-const mapDispatchToProps = dispatch => {
-	return {};
-};
-const mapStateToProps = state => {
-	return {
-		uid: state.userInfo.uid,
-		timestamp: state.userInfo.timestamp,
-	};
-};
+const mapDispatchToProps = () => ({});
+const mapStateToProps = (state) => ({
+  uid: state.userInfo.uid,
+  timestamp: state.userInfo.timestamp,
+});
 
 export default compose(connect(mapStateToProps, mapDispatchToProps));

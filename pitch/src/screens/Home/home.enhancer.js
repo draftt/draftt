@@ -1,11 +1,7 @@
-import { connect } from "react-redux";
-import { compose } from "recompose";
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
-const mapDispatchToProps = dispatch => {
-	return {};
-};
-const mapStateToProps = state => {
-	return {};
-};
+const mapDispatchToProps = () => ({});
+const mapStateToProps = () => ({});
 
 export default compose(connect(mapStateToProps, mapDispatchToProps));

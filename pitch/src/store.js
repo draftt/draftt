@@ -1,18 +1,16 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import combinedReducers from "./reducers";
-import rootSaga from 'src/sagas'
+import rootSaga from './sagas';
+import combinedReducers from './reducers';
 
 export default (initialState = {}) => {
-
-
   // ======================================================
   // Middleware Configuration
   // ======================================================
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [
-    sagaMiddleware
+    sagaMiddleware,
   ];
 
   // ======================================================
@@ -32,24 +30,23 @@ export default (initialState = {}) => {
     combinedReducers,
     initialState, // initial state
     composeWithDevTools(
-     applyMiddleware(...middleware),
-    )
-  )
+      applyMiddleware(...middleware),
+    ),
+  );
 
   sagaMiddleware.run(rootSaga);
-//   store.asyncReducers = {}
+  //   store.asyncReducers = {}
   // ======================================================
   // Hot Module Reloading (HMR) Setup
   // ======================================================
-//   if(module.hot) {
-//     // Enable Webpack hot module replacement for reducers
-//     module.hot.accept('../reducers', () => {
-//       const nextReducer = require('../reducers').default;
+  //   if(module.hot) {
+  //     // Enable Webpack hot module replacement for reducers
+  //     module.hot.accept('../reducers', () => {
+  //       const nextReducer = require('../reducers').default;
 
-//       store.replaceReducer(nextReducer);
-//     });
-//    };
-
+  //       store.replaceReducer(nextReducer);
+  //     });
+  //    };
 
   return store;
-}
+};

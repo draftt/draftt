@@ -1,23 +1,23 @@
-import { createStackNavigator } from "react-navigation-stack";
-import Signup from "./Signup";
-import Login from "./Login";
-import NewPassword from "./NewPassword";
-import ResetPassword from "./ResetPassword";
-import ActivateAccount from "./ActivateAccount";
-import Tester from "screens/Tester";
+import { createStackNavigator } from 'react-navigation-stack';
+import Tester from 'screens/Tester';
+import Signup from './Signup';
+import Login from './Login';
+import NewPassword from './NewPassword';
+import ResetPassword from './ResetPassword';
+import ActivateAccount from './ActivateAccount';
 
-export default OpenStack = createStackNavigator(
-	{
-		Login,
-		Signup,
-		NewPassword,
-		ResetPassword,
-		ActivateAccount,
-		Tester,
-	},
+export default createStackNavigator(
+  {
+    Login,
+    Signup,
+    NewPassword,
+    ResetPassword,
+    ActivateAccount,
+    Tester,
+  },
 
-	{
-		initialRouteName: "Tester",
-		headerMode: "none",
-	}
+  {
+    initialRouteName: 'Tester',
+    headerMode: 'none',
+  },
 );
