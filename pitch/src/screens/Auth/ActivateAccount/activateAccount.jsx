@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import React from 'react';
-import api from 'src/api';
 import {
   View, Text, TouchableOpacity, ActivityIndicator,
 } from 'react-native';

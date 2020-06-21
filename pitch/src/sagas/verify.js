@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, call } from 'redux-saga/effects';
 import pavilion from 'src/api';
 import { VERIFY_USER } from 'src/actions';
 
