@@ -13,46 +13,26 @@ import globalStyles from 'styles/styles';
 
 // Helper functions
 
-const activateUser = async (
-  values,
-  actions,
-  navigation,
-  setUserInfo,
-  uid,
-  timestamp,
-) => {
-  const params = {};
-  params.uid = uid;
-  params.token = `${timestamp}-${values.code}`;
+const activateUser = (formikValues, formikActions, uid, timestamp, navigation, verifyUser) => {
+  const params = { uid, token: `${timestamp}-${formikValues.code}` };
 
-  api.post('/user/verify/', params)
-    .then(() => {
-      navigation.navigate('Home');
-    })
-    .catch((err) => {
-      // Error signing up
-      if (err.code === 'ECONNABORTED') {
-        // server timed out
-        alert('Server took too long to respond');
-      } else {
-        // server returned an error
-        switch (err.response.status) {
-          case 400: {
-            const serverValidErr = err.response.data.non_field_errors;
-            actions.setErrors(serverValidErr);
-            break;
-          }
-          default:
-            alert('Oops...Something went wrong');
-            console.log(err.response);
-        }
-      }
-    })
-    .finally(() => {
-      setTimeout(() => {
-        actions.setSubmitting(false);
-      }, 1000);
-    });
+  // signup success callback
+  const onSuccess = () => {
+    navigation.navigate('Login');
+    formikActions.setSubmitting(false);
+  };
+
+  // signup failure callback
+  const onFailure = (err) => {
+    formikActions.setErrors(err.data);
+    formikActions.setSubmitting(false);
+  };
+
+  try {
+    verifyUser(params, onSuccess, onFailure);
+  } catch (error) {
+    alert('Something went very wrong');
+  }
 };
 
 // Validation Schema
@@ -63,7 +43,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ActivateAccount = ({
-  uid, timestamp, setUserInfo, navigation,
+  uid, timestamp, navigation, verifyUser,
 }) => (
   <View style={globalStyles.rootContainer}>
     <Logo />
@@ -76,10 +56,10 @@ const ActivateAccount = ({
           activateUser(
             values,
             actions,
-            navigation,
-            setUserInfo,
             uid,
             timestamp,
+            navigation,
+            verifyUser,
           );
         }}
       >
