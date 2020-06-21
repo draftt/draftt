@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
 import React from 'react';
 import {
   View, Text, TouchableOpacity, ActivityIndicator,
@@ -9,8 +7,6 @@ import * as Yup from 'yup';
 import FormInput from 'components/forminput';
 import Logo from 'components/logo';
 import globalStyles from 'styles/styles';
-
-// Helper functions
 
 // Handle Signup
 const handleSubmit = (formikValues, formikActions, navigation, signUpUser) => {
@@ -29,8 +25,7 @@ const handleSubmit = (formikValues, formikActions, navigation, signUpUser) => {
 
   // signup failure callback
   const onFailure = (err) => {
-    // TODO: display errors on this screen
-    console.log(err);
+    formikActions.setErrors(err.data);
     formikActions.setSubmitting(false);
   };
 

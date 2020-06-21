@@ -10,7 +10,7 @@ function* signUpHelper(action) {
     yield put({ type: SET_USER_INFO, data });
     callbacks.success(userInfo);
   } catch (error) {
-    callbacks.failure(error);
+    callbacks.failure(error.response);
   }
 }
 
