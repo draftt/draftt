@@ -11,7 +11,12 @@ export const fetchStatus = () => ({
 
 // USER AUTH
 export const SET_USER_INFO = 'SET_USER_INFO';
-export function setUserInfo(userdata, onSuccess) {
-  // TODO: recieve an onError callback and pass both functions as part of a meta property
-  return { type: SET_USER_INFO, userdata, onSuccess };
+export function setUserInfo(userdata) {
+  return { type: SET_USER_INFO, data: userdata };
+}
+
+// SignUp
+export const SIGN_UP_USER = 'SIGN_UP_USER';
+export function signUpUser(userData, onSuccess, onFailure) {
+  return { type: SIGN_UP_USER, data: userData, meta: { success: onSuccess, failure: onFailure } };
 }

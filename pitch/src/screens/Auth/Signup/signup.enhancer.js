@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { setUserInfo } from '../../../actions';
+import { setUserInfo, signUpUser } from '../../../actions';
 
 const mapDispatchToProps = (dispatch) => ({
-  setUserInfo: (data, onSuccess) => {
-    console.log('In signup enhancer, about to dispatch action');
-    // TODO: receive and pass an onError callback
-    dispatch(setUserInfo(data, onSuccess));
+  setUserInfo: (userInfo) => {
+    dispatch(setUserInfo(userInfo));
+  },
+  signUpUser: (userInfo, onSuccess, onFailure) => {
+    dispatch(signUpUser(userInfo, onSuccess, onFailure));
   },
 });
 const mapStateToProps = () => ({});

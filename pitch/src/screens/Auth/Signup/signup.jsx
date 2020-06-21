@@ -8,69 +8,42 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import FormInput from 'components/forminput';
 import Logo from 'components/logo';
-import api from 'src/api';
 import globalStyles from 'styles/styles';
 
 // Helper functions
 
 // Handle Signup
-const handleSubmit = (values, actions, navigation, setUserInfo) => {
+const handleSubmit = (formikValues, formikActions, navigation, signUpUser, setUserInfo) => {
   const params = {
-    fullname: values.name,
-    username: values.username,
-    email: values.email,
-    password: values.password,
+    fullname: formikValues.name,
+    username: formikValues.username,
+    email: formikValues.email,
+    password: formikValues.password,
   };
 
   // TODO:
-  // - fix the onSuccess callback, make it snazzy
-  // - write a onError callback, make it also snazzy
+  // - write a onError callback, make it snazzy --> show errors using formikActions
 
-  const onSuccess = () => {
-    console.log('In onSuccess callback');
+  // signup success callback
+  const onSuccess = (userInfo) => {
+    // TODO: Remove this redux call and instead, use a put in the saga
+    setUserInfo(userInfo);
     navigation.navigate('ActivateAccount');
+    formikActions.setSubmitting(false);
+  };
+
+  // signup failure callback
+  const onFailure = (err) => {
+    // TODO: display errors on this screen
+    console.log(err);
+    formikActions.setSubmitting(false);
   };
 
   try {
-    console.log('About to call redux function from Signup.js');
-    setUserInfo(params, onSuccess);
+    signUpUser(params, onSuccess, onFailure);
   } catch (error) {
-    // show the user some error messages
     alert('Something went very wrong');
   }
-
-  actions.setSubmitting(false);
-
-  // api.post('/user/create/', params)
-  //   .then(({ data }) => {
-  //     // Successfully signed up
-  //     const userData = data;
-  //     setUserInfo(userData);
-  //     navigation.navigate('ActivateAccount');
-  //   })
-  //   .catch((err) => {
-  //     // Error signing up
-  //     if (err.code === 'ECONNABORTED') {
-  //       // server timed out
-  //       alert('Server took too long to respond');
-  //     } else {
-  //       // server returned an error
-  //       switch (err.response.status) {
-  //         case 400: {
-  //           const serverValidErr = err.response.data;
-  //           actions.setErrors(serverValidErr);
-  //           break;
-  //         }
-  //         default:
-  //           alert('Oops...Something went wrong');
-  //           console.log(err.response);
-  //       }
-  //     }
-  //   })
-  //   .finally(() => {
-  //     // in all cases, we want to set submitting to false to disable spinner
-  //     actions.setSubmitting(false);
-  //   });
 };
 
 // Validation Schema
@@ -87,7 +60,7 @@ const validationSchema = Yup.object().shape({
 });
 
 // Component
-const Signup = ({ setUserInfo, navigation }) => (
+const Signup = ({ navigation, signUpUser, setUserInfo }) => (
   <View style={globalStyles.rootContainer}>
     <Logo />
     <View style={globalStyles.formContainer}>
@@ -101,7 +74,11 @@ const Signup = ({ setUserInfo, navigation }) => (
           confirmPassword: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => handleSubmit(values, actions, navigation, setUserInfo)}
+        onSubmit={(values, actions) => handleSubmit(values,
+          actions,
+          navigation,
+          signUpUser,
+          setUserInfo)}
       >
         {(formikProps) => (
           <>
