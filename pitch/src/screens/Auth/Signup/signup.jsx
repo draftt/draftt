@@ -26,7 +26,6 @@ const handleSubmit = (values, actions, navigation, setUserInfo) => {
     .then(({ data }) => {
       // Successfully signed up
       const userData = data;
-      delete userData.fullname;
       setUserInfo(userData);
       navigation.navigate('ActivateAccount');
     })
@@ -117,15 +116,15 @@ const Signup = ({ setUserInfo, navigation }) => (
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
             ) : (
-              <TouchableOpacity
-                style={globalStyles.opaqueButton}
-                onPress={formikProps.handleSubmit}
-              >
-                <Text style={{ color: '#fefffe' }}>
-                  Sign up
+                <TouchableOpacity
+                  style={globalStyles.opaqueButton}
+                  onPress={formikProps.handleSubmit}
+                >
+                  <Text style={{ color: '#fefffe' }}>
+                    Sign up
                 </Text>
-              </TouchableOpacity>
-            )}
+                </TouchableOpacity>
+              )}
           </>
         )}
       </Formik>

@@ -1,7 +1,6 @@
 import { SET_USER_INFO } from '../actions';
 
 const defaultState = {
-  name: '',
   email: '',
   username: '',
   uid: '',
