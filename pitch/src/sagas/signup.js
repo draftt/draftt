@@ -6,8 +6,8 @@ function* signUpHelper(action) {
   const callbacks = action.meta;
   const userInfo = action.data;
   try {
-    yield call(pavilion.post, '/user/create/', userInfo);
-    yield put({ type: SET_USER_INFO, data: userInfo });
+    const { data } = yield call(pavilion.post, '/user/create/', userInfo);
+    yield put({ type: SET_USER_INFO, data });
     callbacks.success(userInfo);
   } catch (error) {
     callbacks.failure(error);
