@@ -13,7 +13,7 @@ import globalStyles from 'styles/styles';
 // Helper functions
 
 // Handle Signup
-const handleSubmit = (formikValues, formikActions, navigation, signUpUser, setUserInfo) => {
+const handleSubmit = (formikValues, formikActions, navigation, signUpUser) => {
   const params = {
     fullname: formikValues.name,
     username: formikValues.username,
@@ -21,13 +21,8 @@ const handleSubmit = (formikValues, formikActions, navigation, signUpUser, setUs
     password: formikValues.password,
   };
 
-  // TODO:
-  // - write a onError callback, make it snazzy --> show errors using formikActions
-
   // signup success callback
-  const onSuccess = (userInfo) => {
-    // TODO: Remove this redux call and instead, use a put in the saga
-    setUserInfo(userInfo);
+  const onSuccess = () => {
     navigation.navigate('ActivateAccount');
     formikActions.setSubmitting(false);
   };
@@ -60,7 +55,7 @@ const validationSchema = Yup.object().shape({
 });
 
 // Component
-const Signup = ({ navigation, signUpUser, setUserInfo }) => (
+const Signup = ({ navigation, signUpUser }) => (
   <View style={globalStyles.rootContainer}>
     <Logo />
     <View style={globalStyles.formContainer}>
@@ -77,8 +72,7 @@ const Signup = ({ navigation, signUpUser, setUserInfo }) => (
         onSubmit={(values, actions) => handleSubmit(values,
           actions,
           navigation,
-          signUpUser,
-          setUserInfo)}
+          signUpUser)}
       >
         {(formikProps) => (
           <>
