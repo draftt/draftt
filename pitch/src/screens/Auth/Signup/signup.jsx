@@ -22,36 +22,55 @@ const handleSubmit = (values, actions, navigation, setUserInfo) => {
     password: values.password,
   };
 
-  api.post('/user/create/', params)
-    .then(({ data }) => {
-      // Successfully signed up
-      const userData = data;
-      setUserInfo(userData);
-      navigation.navigate('ActivateAccount');
-    })
-    .catch((err) => {
-      // Error signing up
-      if (err.code === 'ECONNABORTED') {
-        // server timed out
-        alert('Server took too long to respond');
-      } else {
-        // server returned an error
-        switch (err.response.status) {
-          case 400: {
-            const serverValidErr = err.response.data;
-            actions.setErrors(serverValidErr);
-            break;
-          }
-          default:
-            alert('Oops...Something went wrong');
-            console.log(err.response);
-        }
-      }
-    })
-    .finally(() => {
-      // in all cases, we want to set submitting to false to disable spinner
-      actions.setSubmitting(false);
-    });
+  // TODO:
+  // - fix the onSuccess callback, make it snazzy
+  // - write a onError callback, make it also snazzy
+
+  const onSuccess = () => {
+    console.log('In onSuccess callback');
+    navigation.navigate('ActivateAccount');
+  };
+
+  try {
+    console.log('About to call redux function from Signup.js');
+    setUserInfo(params, onSuccess);
+  } catch (error) {
+    // show the user some error messages
+    alert('Something went very wrong');
+  }
+
+  actions.setSubmitting(false);
+
+  // api.post('/user/create/', params)
+  //   .then(({ data }) => {
+  //     // Successfully signed up
+  //     const userData = data;
+  //     setUserInfo(userData);
+  //     navigation.navigate('ActivateAccount');
+  //   })
+  //   .catch((err) => {
+  //     // Error signing up
+  //     if (err.code === 'ECONNABORTED') {
+  //       // server timed out
+  //       alert('Server took too long to respond');
+  //     } else {
+  //       // server returned an error
+  //       switch (err.response.status) {
+  //         case 400: {
+  //           const serverValidErr = err.response.data;
+  //           actions.setErrors(serverValidErr);
+  //           break;
+  //         }
+  //         default:
+  //           alert('Oops...Something went wrong');
+  //           console.log(err.response);
+  //       }
+  //     }
+  //   })
+  //   .finally(() => {
+  //     // in all cases, we want to set submitting to false to disable spinner
+  //     actions.setSubmitting(false);
+  //   });
 };
 
 // Validation Schema
@@ -116,15 +135,15 @@ const Signup = ({ setUserInfo, navigation }) => (
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
             ) : (
-                <TouchableOpacity
-                  style={globalStyles.opaqueButton}
-                  onPress={formikProps.handleSubmit}
-                >
-                  <Text style={{ color: '#fefffe' }}>
-                    Sign up
+              <TouchableOpacity
+                style={globalStyles.opaqueButton}
+                onPress={formikProps.handleSubmit}
+              >
+                <Text style={{ color: '#fefffe' }}>
+                  Sign up
                 </Text>
-                </TouchableOpacity>
-              )}
+              </TouchableOpacity>
+            )}
           </>
         )}
       </Formik>
