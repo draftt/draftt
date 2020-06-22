@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { setUserInfo } from 'src/actions';
+import { loginUser } from 'src/actions';
 
 const mapDispatchToProps = (dispatch) => ({
-  setUserInfo: (data) => {
-    dispatch(setUserInfo(data));
+  loginUser: (userData, onSuccess, onFailure) => {
+    dispatch(loginUser(userData, onSuccess, onFailure));
   },
 });
-const mapStateToProps = (state) => ({
-  token: state.userInfo.token,
-  email: state.userInfo.email,
-  username: state.userInfo.username,
+const mapStateToProps = () => ({
+
 });
 
 export default compose(connect(mapStateToProps, mapDispatchToProps));

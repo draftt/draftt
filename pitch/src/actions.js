@@ -9,10 +9,16 @@ export const fetchStatus = () => ({
   type: FETCH_STATUS,
 });
 
-// USER AUTH
+// USER
 export const SET_USER_INFO = 'SET_USER_INFO';
 export function setUserInfo(userdata) {
   return { type: SET_USER_INFO, data: userdata };
+}
+
+// Login
+export const LOGIN_USER = 'LOGIN_USER';
+export function loginUser(userData, onSuccess, onFailure) {
+  return { type: LOGIN_USER, data: userData, meta: { success: onSuccess, failure: onFailure } };
 }
 
 // Sign Up
