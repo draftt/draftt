@@ -38,3 +38,9 @@ export const RESET_PWD = 'RESET_PWD';
 export function resetPassword(userData, onSuccess, onFailure) {
   return { type: RESET_PWD, data: userData, meta: { success: onSuccess, failure: onFailure } };
 }
+
+// Set New Password
+export const SET_NEW_PWD = 'SET_NEW_PWD';
+export function setNewPassword(userData, onSuccess, onFailure) {
+  return { type: SET_NEW_PWD, data: userData, meta: { success: onSuccess, failure: onFailure } };
+}
