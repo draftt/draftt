@@ -8,14 +8,22 @@ import FormInput from 'components/forminput';
 import Logo from 'components/logo';
 import globalStyles from 'styles/styles';
 
-const handleResetPwd = (formikValues, formikActions, navigation) => {
-  console.log(formikValues);
-  console.log(formikActions);
-  console.log(navigation);
+const handleResetPwd = (formikValues, formikActions, navigation, resetPwd) => {
+  const onSuccess = () => {
+    formikActions.setSubmitting(false);
+    navigation.navigate('NewPassword');
+  };
 
-  // Call the reset pwd api using a GET with the email the user has entered
-  // write a onSuccess callback
-  // write a onError callback
+  const onFailure = () => {
+    formikActions.setFieldError('email', 'Could not reset password. Please enter your Email Address again');
+    formikActions.setSubmitting(false);
+  };
+
+  try {
+    resetPwd(formikValues, onSuccess, onFailure);
+  } catch (err) {
+    alert('Something went very wrong');
+  }
 };
 
 // Validation Schema
@@ -26,7 +34,7 @@ const validationSchema = Yup.object().shape({
     .email('Please enter a valid email address'),
 });
 
-const ResetPassword = ({ navigation }) => (
+const ResetPassword = ({ navigation, resetPwd }) => (
   <View style={globalStyles.rootContainer}>
     <Logo />
     <View style={globalStyles.formContainer}>
@@ -37,8 +45,7 @@ const ResetPassword = ({ navigation }) => (
         initialValues={{ email: '' }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          // Call reset password Api Here
-          handleResetPwd(values, actions, navigation);
+          handleResetPwd(values, actions, navigation, resetPwd);
         }}
       >
         {(formikProps) => (
@@ -51,16 +58,16 @@ const ResetPassword = ({ navigation }) => (
 
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
-            ) : null}
-
-            <TouchableOpacity
-              style={globalStyles.opaqueButton}
-              onPress={formikProps.handleSubmit}
-            >
-              <Text style={{ color: '#fefffe' }}>
-                Reset Password
-              </Text>
-            </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={globalStyles.opaqueButton}
+                onPress={formikProps.handleSubmit}
+              >
+                <Text style={{ color: '#fefffe' }}>
+                  Reset Password
+                </Text>
+              </TouchableOpacity>
+            )}
           </>
         )}
       </Formik>

@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { resetPassword } from 'src/actions';
 
-const mapDispatchToProps = () => ({
-
+const mapDispatchToProps = (dispatch) => ({
+  resetPwd: (userData, onSuccess, onFailure) => {
+    dispatch(resetPassword(userData, onSuccess, onFailure));
+  },
 });
 
 const mapStateToProps = () => ({

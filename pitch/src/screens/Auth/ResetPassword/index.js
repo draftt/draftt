@@ -1,4 +1,5 @@
+import { hoistStatics } from 'recompose';
 import ResetPassword from './resetpassword';
-// import enhance from './home.enhancer'
+import enhance from './resetPassword.enhancer';
 
-export default ResetPassword;
+export default hoistStatics(enhance)(ResetPassword);
