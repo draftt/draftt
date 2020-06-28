@@ -8,15 +8,25 @@ import FormInput from 'components/forminput';
 import Logo from 'components/logo';
 import globalStyles from 'styles/styles';
 
+const handleResetPwd = (formikValues, formikActions, navigation) => {
+  console.log(formikValues);
+  console.log(formikActions);
+  console.log(navigation);
+
+  // Call the reset pwd api using a GET with the email the user has entered
+  // write a onSuccess callback
+  // write a onError callback
+};
+
 // Validation Schema
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .required()
+    .required('Please enter your Email Address')
     .label('Email Address')
     .email('Please enter a valid email address'),
 });
 
-const ResetPassword = () => (
+const ResetPassword = ({ navigation }) => (
   <View style={globalStyles.rootContainer}>
     <Logo />
     <View style={globalStyles.formContainer}>
@@ -28,9 +38,7 @@ const ResetPassword = () => (
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           // Call reset password Api Here
-          setTimeout(() => {
-            actions.setSubmitting(false);
-          }, 1000);
+          handleResetPwd(values, actions, navigation);
         }}
       >
         {(formikProps) => (
@@ -38,7 +46,7 @@ const ResetPassword = () => (
             <FormInput
               formikProps={formikProps}
               formikKey="email"
-              placeholder="Enter email address"
+              placeholder="Enter Email Address"
             />
 
             {formikProps.isSubmitting ? (
