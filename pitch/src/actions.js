@@ -32,3 +32,9 @@ export const VERIFY_USER = 'VERIFY_USER';
 export function verifyUser(userData, onSuccess, onFailure) {
   return { type: VERIFY_USER, data: userData, meta: { success: onSuccess, failure: onFailure } };
 }
+
+// Reset Password
+export const RESET_PWD = 'RESET_PWD';
+export function resetPassword(userData, onSuccess, onFailure) {
+  return { type: RESET_PWD, data: userData, meta: { success: onSuccess, failure: onFailure } };
+}
