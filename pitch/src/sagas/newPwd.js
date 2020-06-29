@@ -7,17 +7,21 @@ function* NewPwdHelper(action) {
   const userData = action.data;
 
   const params = new FormData(); // .set() does not work, use .append()
-  //   params.append('email', userData.email);
-  // TODO: need that token
+  params.append('uid', userData.uid);
+  params.append('token', userData.token);
+  params.append('password', userData.password);
+
+  console.log(params);
 
   try {
     const response = yield call(pavilion.patch, '/user/reset_pwd/', params);
-    // set in returned stuff in redux store
+    console.log('SUCCESS');
     console.log(response);
-    // yield put({ type: SET_USER_INFO, data: response.data });
-    meta.success();
+    // meta.success();
   } catch (error) {
-    meta.failure();
+    console.log('ERROR CASE IN SAGA');
+    console.log(error);
+    // meta.failure();
   }
 }
 

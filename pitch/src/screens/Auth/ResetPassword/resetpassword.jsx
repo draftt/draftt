@@ -15,8 +15,8 @@ const handleResetPwd = (formikValues, formikActions, navigation, resetPwd) => {
   };
 
   const onFailure = () => {
-    formikActions.setFieldError('email', 'Could not reset password. Please enter your Email Address again');
     formikActions.setSubmitting(false);
+    formikActions.setFieldError('email', 'Could not reset password. Please enter your Email Address again');
   };
 
   try {
