@@ -1,6 +1,7 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import pavilion from 'src/api';
-import { SET_AUTH_TOKEN, LOGIN_USER } from 'src/actions';
+import { setAuthToken, LOGIN_USER } from 'src/actions';
+import { setAuthStatus } from 'src/actions';
 
 const SIMPLE_EMAIL_REGEX = /\S+@\S+\.\S+/;
 
@@ -29,10 +30,10 @@ function* loginUserHelper(action) {
     const response = yield call(pavilion.post, '/auth/token/', params);
     if (isEmailLogin) response.data.email = userData.user;
     else response.data.username = userData.user;
-    response.data = { ...response.data, isAuthenticated: true };
     // set in redux store
-    yield put({ type: SET_AUTH_TOKEN, data: response.data });
+    yield put(setAuthToken(response.data));
     meta.success();
+    yield put(setAuthStatus(true));
   } catch (error) {
     meta.failure();
   }

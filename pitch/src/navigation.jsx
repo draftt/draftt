@@ -98,5 +98,5 @@ function AppContainer({ isAuthenticated }) {
 
 // Gets Authentication status from redux store
 export default connect((state) => ({
-  isAuthenticated: state.userInfo.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
 }))(AppContainer);

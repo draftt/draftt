@@ -16,11 +16,9 @@ import globalStyles from 'styles/styles';
 const handleLogin = async (
   formikValues,
   formikActions,
-  navigation,
   loginUser,
 ) => {
   const onSuccess = () => {
-    navigation.navigate('Home');
     formikActions.setSubmitting(false);
   };
 
@@ -33,6 +31,7 @@ const handleLogin = async (
     loginUser(formikValues, onSuccess, onFailure);
   } catch (error) {
     alert('Something went very wrong');
+    formikActions.setSubmitting(false);
   }
 };
 
@@ -55,7 +54,7 @@ const Login = ({ navigation, loginUser }) => (
         }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          handleLogin(values, actions, navigation, loginUser);
+          handleLogin(values, actions, loginUser);
         }}
       >
         {(formikProps) => (
