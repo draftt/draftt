@@ -7,7 +7,7 @@ const defaultState = {
   timestamp: '',
 };
 
-export default function userInfo(state = defaultState, action) {
+export default function user(state = defaultState, action) {
   const { data } = action;
   switch (action.type) {
     case SET_USER_INFO:

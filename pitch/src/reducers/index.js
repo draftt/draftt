@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import pavilionInfo from './pavilionInfo';
-import userInfo from './userInfo';
+import pavilion from './pavilion';
+import auth from './auth';
+import userInfo from './user';
 
 export default combineReducers({
-  pavilionInfo,
+  auth,
+  pavilion,
   userInfo,
 });

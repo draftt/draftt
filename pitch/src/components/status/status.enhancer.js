@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 const mapStateToProps = (state) => ({
-  status: state.pavilionInfo.status,
+  status: state.pavilion.status,
 });
 
 export default compose(

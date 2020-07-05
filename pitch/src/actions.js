@@ -32,3 +32,5 @@ export const VERIFY_USER = 'VERIFY_USER';
 export function verifyUser(userData, onSuccess, onFailure) {
   return { type: VERIFY_USER, data: userData, meta: { success: onSuccess, failure: onFailure } };
 }
+
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';

@@ -5,7 +5,7 @@ const defaultState = {
   status: 'checking',
 };
 
-export default function pavilionInfo(state = defaultState, action) {
+export default function pavilion(state = defaultState, action) {
   switch (action.type) {
     case SET_STATUS:
       return {
