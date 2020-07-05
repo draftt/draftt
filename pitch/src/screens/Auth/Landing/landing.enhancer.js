@@ -1,22 +1,11 @@
 import { connect } from 'react-redux';
-import { lifecycle, compose } from 'recompose';
-import { fetchStatus } from 'src/actions';
+import { compose } from 'recompose';
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchStatus: () => {
-    dispatch(fetchStatus());
-  },
+const mapDispatchToProps = () => ({
 });
-const mapStateToProps = (state) => ({
-  status: state.pavilionInfo.status,
+const mapStateToProps = () => ({
 });
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  lifecycle({
-    componentDidMount() {
-      // Fetch repos and select lang on mount
-      this.props.fetchStatus();
-    },
-  }),
 );
