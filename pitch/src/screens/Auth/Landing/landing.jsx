@@ -5,11 +5,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   StatusBar,
 } from 'react-native';
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Logo from 'components/logo';
@@ -39,7 +37,7 @@ const Landing = ({ fetchStatus, status, navigation }) => {
           pavilion
         </Text>
       </TouchableOpacity>
-      <Logo />
+      <Logo showText style={{ height: '20%' }} />
       <View style={styles.buttons}>
         <TouchableOpacity
           style={styles.buttonStyle}
@@ -54,7 +52,7 @@ const Landing = ({ fetchStatus, status, navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('Signup')}
         >
           <Text style={{ color: 'white' }}>SIGN UP</Text>
         </TouchableOpacity>
@@ -105,20 +103,6 @@ const styles = StyleSheet.create({
     flex: 0.5,
     borderColor: 'white',
     margin: 10,
-  },
-
-  logoStyle: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-  },
-
-  logoContainerStyle: {
-    marginTop: hp(10),
-    width: wp('50%'),
-    height: hp('30%'),
-    alignSelf: 'center',
   },
 
   status: {
