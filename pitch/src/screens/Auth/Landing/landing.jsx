@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   ActivityIndicator,
   View,
@@ -21,14 +20,6 @@ import Logo from 'components/logo';
 */
 
 const Landing = ({ fetchStatus, status, navigation }) => {
-  const screens = [
-    'Home',
-    'Login',
-    'Signup',
-    'ResetPassword',
-    'NewPassword',
-    'ActivateAccount',
-  ];
   const iconStyle = status === 'Connected' ? styles.successIcon : styles.errorIcon;
   return (
     <View style={styles.container}>
@@ -49,31 +40,26 @@ const Landing = ({ fetchStatus, status, navigation }) => {
         </Text>
       </TouchableOpacity>
       <Logo />
+      <View style={styles.buttons}>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={{ color: 'white' }}>LOG IN</Text>
+        </TouchableOpacity>
+        <View style={styles.divider}>
+          <View style={styles.lineStyle} />
+          <Text style={{ color: 'white' }}> OR </Text>
+          <View style={styles.lineStyle} />
+        </View>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={{ color: 'white' }}>SIGN UP</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Text style={styles.titleStyle}>Tester Screen</Text>
-
-      <FlatList
-        keyExtractor={(screen) => screen}
-        data={screens}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            onPress={() => {
-              navigation.navigate(item);
-            }}
-          >
-            <Text style={{ fontSize: 15, color: 'white' }}>
-              {' '}
-              Go to
-              {' '}
-              {item}
-              {' '}
-              Screen
-              {' '}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
     </View>
   );
 };
@@ -92,12 +78,33 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
+  buttons: {
+    marginTop: hp(25),
+    alignContent: 'center',
+    marginHorizontal: hp(5),
+  },
+
   buttonStyle: {
     backgroundColor: '#fd7719',
-    borderRadius: 10,
-    padding: hp(2),
-    margin: hp(2),
-    color: 'black',
+    paddingVertical: hp(2),
+    marginVertical: hp(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  divider: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginVertical: hp(1),
+    color: 'white',
+  },
+
+  lineStyle: {
+    display: 'flex',
+    borderWidth: 0.4,
+    flex: 0.5,
+    borderColor: 'white',
+    margin: 10,
   },
 
   logoStyle: {
