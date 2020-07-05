@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity,
+  View, Text, StyleSheet, Image,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-screen';
 import logoSrc from 'assets/logo/Logo_NoBG.png';
 
-const Home = ({ navigation }) => (
+const Home = () => (
   <View style={styles.containerStyle}>
     <View style={styles.logoContainerStyle}>
       <Image
@@ -17,16 +17,6 @@ const Home = ({ navigation }) => (
       />
     </View>
     <Text style={styles.titleTextStyle}>Home Screen</Text>
-    <TouchableOpacity
-      style={styles.buttonStyle}
-      onPress={() => {
-        navigation.navigate('Tester');
-      }}
-    >
-      <Text style={{ fontSize: 15, color: 'white' }}>
-        Go to tester
-      </Text>
-    </TouchableOpacity>
   </View>
 );
 
