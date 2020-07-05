@@ -1,4 +1,4 @@
-import { SET_AUTH_TOKEN } from '../actions';
+import { SET_AUTH_TOKEN, SET_AUTH_STATUS } from '../actions';
 
 const defaultState = {
   isAuthenticated: false,
@@ -16,6 +16,11 @@ export default function auth(state = defaultState, action) {
       return {
         ...state,
         ...data,
+      };
+    case SET_AUTH_STATUS:
+      return {
+        ...state,
+        isAuthenticated: data,
       };
     default:
       return state;

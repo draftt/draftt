@@ -34,3 +34,11 @@ export function verifyUser(userData, onSuccess, onFailure) {
 }
 
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
+export function setAuthToken(tokenData) {
+  return { type: SET_AUTH_TOKEN, data: tokenData };
+}
+
+export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
+export function setAuthStatus(status) {
+  return { type: SET_AUTH_STATUS, data: status };
+}
