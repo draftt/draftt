@@ -56,17 +56,14 @@ const styles = StyleSheet.create({
   // LOGO STYLING
   logo: {
     flex: 1,
-    width: '100%',
-    height: '100%',
     resizeMode: 'contain',
   },
 
   logoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '15%',
-    marginTop: 30,
+    width: null,
+    height: null,
   },
 });
 
