@@ -2,9 +2,11 @@ import React from 'react';
 import {
   View, Text, StyleSheet,
 } from 'react-native';
+import Header from 'components/header';
 
 const Settings = () => (
   <View style={styles.containerStyle}>
+    <Header />
     <Text style={styles.titleTextStyle}>Settings Screen</Text>
   </View>
 );

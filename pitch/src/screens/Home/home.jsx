@@ -7,9 +7,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import logoSrc from 'assets/logo/Logo_NoBG.png';
+import Header from 'components/header';
 
 const Home = () => (
   <View style={styles.containerStyle}>
+    <Header />
     <View style={styles.logoContainerStyle}>
       <Image
         source={logoSrc}
