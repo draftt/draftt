@@ -2,9 +2,11 @@ import React from 'react';
 import {
   View, Text, StyleSheet,
 } from 'react-native';
+import Header from 'components/header';
 
 const Team = () => (
   <View style={styles.containerStyle}>
+    <Header />
     <Text style={styles.titleTextStyle}>Team Screen</Text>
   </View>
 );

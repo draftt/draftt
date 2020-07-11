@@ -9,7 +9,7 @@ import globalStyles from '../styles/styles';
 export default ({ showText = false, onlyText = false, style = {} }) => (
   <View style={[globalStyles.logoContainer, style]}>
     <Image
-      source={onlyText ? onlyTextLogo : (showText ? textLogo : textLessLogo ) }
+      source={onlyText ? onlyTextLogo : (showText ? textLogo : textLessLogo)}
       style={globalStyles.logo}
     />
   </View>
