@@ -27,6 +27,7 @@ const handleSubmit = (formikValues, formikActions, navigation, signUpUser) => {
   // signup failure callback
   const onFailure = (err) => {
     formikActions.setErrors(err.data);
+    formikActions.setFieldError('serverError', 'Could not sign up');
     formikActions.setSubmitting(false);
   };
 
@@ -102,14 +103,20 @@ const Signup = ({ navigation, signUpUser }) => (
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
             ) : (
-              <TouchableOpacity
-                style={globalStyles.opaqueButton}
-                onPress={formikProps.handleSubmit}
-              >
-                <Text style={{ color: '#fefffe' }}>
-                  Sign up
+              <>
+                <Text style={{ color: 'red' }}>
+                  {formikProps.errors.serverError}
                 </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={globalStyles.opaqueButton}
+                  onPress={formikProps.handleSubmit}
+                >
+                  <Text style={{ color: '#fefffe' }}>
+                    Sign up
+                  </Text>
+                </TouchableOpacity>
+
+              </>
             )}
           </>
         )}

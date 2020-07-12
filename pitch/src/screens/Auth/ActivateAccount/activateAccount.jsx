@@ -24,6 +24,7 @@ const activateUser = (formikValues, formikActions, uid, timestamp, navigation, v
   // signup failure callback
   const onFailure = (err) => {
     formikActions.setErrors(err.data);
+    formikActions.setFieldError('serverError', 'Could not activate account');
     formikActions.setSubmitting(false);
   };
 
@@ -73,15 +74,19 @@ const ActivateAccount = ({
             {formikProps.isSubmitting ? (
               <ActivityIndicator />
             ) : null}
-
-            <TouchableOpacity
-              style={globalStyles.opaqueButton}
-              onPress={formikProps.handleSubmit}
-            >
-              <Text style={{ color: '#fefffe' }}>
-                Activate Account
+            <>
+              <Text style={{ color: 'red' }}>
+                {formikProps.errors.serverError}
               </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={globalStyles.opaqueButton}
+                onPress={formikProps.handleSubmit}
+              >
+                <Text style={{ color: '#fefffe' }}>
+                  Activate Account
+                </Text>
+              </TouchableOpacity>
+            </>
           </>
         )}
       </Formik>
