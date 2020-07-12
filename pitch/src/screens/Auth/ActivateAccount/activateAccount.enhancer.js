@@ -8,8 +8,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 const mapStateToProps = (state) => ({
-  uid: state.userInfo.uid,
-  timestamp: state.userInfo.timestamp,
+  uid: state.user.uid,
+  timestamp: state.user.timestamp,
 });
 
 export default compose(connect(mapStateToProps, mapDispatchToProps));
