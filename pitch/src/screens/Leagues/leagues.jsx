@@ -9,16 +9,35 @@ import {
 import logoSrc from 'assets/logo/Logo_NoBG.png';
 import Header from 'components/header';
 
-const Home = () => (
+const Leagues = () => (
   <View style={styles.containerStyle}>
     <Header />
-    <View style={styles.logoContainerStyle}>
-      <Image
-        source={logoSrc}
-        style={styles.logoStyle}
-      />
+    <Text style={{
+      padding: 10,
+      color: '#fd7719',
+      fontSize: 25,
+    }}
+    >
+      Leagues Screen
+    </Text>
+
+    <View style={styles.listContainerStyle}>
+      <View style={styles.bottomBorderStyle}>
+        <Text style={styles.titleTextStyle}>Current</Text>
+      </View>
+      <View style={styles.bodyContainerStyle}>
+        <Text style={{ color: 'white' }}>Current</Text>
+      </View>
     </View>
-    <Text style={styles.titleTextStyle}>Leagues Screen</Text>
+
+    <View style={styles.listContainerStyle}>
+      <View style={styles.bottomBorderStyle}>
+        <Text style={styles.titleTextStyle}>Upcoming</Text>
+      </View>
+      <View style={styles.bodyContainerStyle}>
+        <Text style={{ color: 'white' }}>Upcoming</Text>
+      </View>
+    </View>
   </View>
 );
 
@@ -26,12 +45,13 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#fefffe',
+    backgroundColor: '#061f26',
   },
 
   titleTextStyle: {
-    flex: 1,
-    fontSize: hp(3),
+    padding: 5,
+    color: '#fd7719',
+    fontSize: 15,
   },
 
   logoContainerStyle: {
@@ -48,6 +68,25 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'contain',
   },
+
+  bottomBorderStyle: {
+    borderBottomWidth: 5,
+    borderBottomColor: '#334A52',
+  },
+
+  listContainerStyle: {
+    width: '100%',
+    flex: 1,
+  },
+
+  bodyContainerStyle: {
+    width: '100%',
+    borderWidth: 2,
+    borderColor: 'white',
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 1,
+  },
 });
 
-export default Home;
+export default Leagues;

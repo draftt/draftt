@@ -9,10 +9,9 @@ import TeamScreen from 'screens/Team';
 import StatsScreen from 'screens/Stats';
 import SettingsScreen from 'screens/Settings';
 
-import { AntDesign } from '@expo/vector-icons';
-import { SimpleLineIcons } from '@expo/vector-icons';
-import { EvilIcons } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import {
+  AntDesign, SimpleLineIcons, EvilIcons, MaterialCommunityIcons,
+} from '@expo/vector-icons';
 
 // Navigation stack declaration for routes only available when logged in
 function ProtectedStack() {
