@@ -9,6 +9,7 @@
 1. [Docs](#docs)
 1. [Stack](#stack)
 1. [Project Structure](#project-structure)
+1. [Authors](#authors)
 
 ## Introduction
 
@@ -43,6 +44,11 @@ The project structure presented in this repository is divided into high level fo
 ├── Mockups  			# Design mockups
 └── pavilion  			# Django API
 ```
+
+## Authors
+
+ - Adil Mian [@adil1508](https://github.com/adil1508)
+ - Aaraj Habib [@aarajh](https://github.com/aarajh)
 
 
 [lifecycle]: https://img.shields.io/badge/lifecycle-early%20development-orange
